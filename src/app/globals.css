@@ -1,0 +1,38 @@
+/*
+ * Tailwind without its Preflight reset: the design was built on browser defaults
+ * (line-height, margins, inline images), and Preflight would shift every page's layout.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Design tokens from the V&C design system, available as Tailwind utilities (bg-forest, text-ink, …). */
+@theme {
+  --font-sans: var(--font-urbanist), system-ui, sans-serif;
+  --color-forest: #1f3d33;
+  --color-forest-deep: #142a23;
+  --color-forest-hover: #2a4a3e;
+  --color-sage: #dce6e0;
+  --color-navy: #1d2b44;
+  --color-steel: #4a6a8a;
+  --color-brick: #a23b2c;
+  --color-ink: #22252a;
+  --color-slate: #5e636b;
+  --color-cream: #f6f3ee;
+  --color-sand: #d9d1c4;
+  --color-stone: #c9bfb1;
+}
+
+/*
+ * Styles exported from the design. They are deliberately left unlayered (outside Tailwind's
+ * layers) so they keep the precedence they had in the design.
+ */
+@import "../styles/design-base.css";
+@import "../styles/design-pages.css";
+@import "../styles/design-home.css";
+
+/* The cookie banner uses <button>s where the design used <label>s. */
+.ck-b {
+  border: 0;
+  font-family: inherit;
+}

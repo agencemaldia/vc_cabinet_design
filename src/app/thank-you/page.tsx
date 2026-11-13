@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <PageShell pageClass="pg-thank-you">
+    <PageShell page="thank-you">
       <ThankYouContent />
     </PageShell>
   );

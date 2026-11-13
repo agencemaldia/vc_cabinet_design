@@ -3,7 +3,7 @@ import { PageShell } from "@/components/site/page-shell";
 
 export default function Page() {
   return (
-    <PageShell pageClass="pg-home" preloader logoTone="sage">
+    <PageShell page="home" preloader logoTone="sage">
       <HomeContent />
     </PageShell>
   );

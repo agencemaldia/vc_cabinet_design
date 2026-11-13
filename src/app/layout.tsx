@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={urbanist.variable}>
+    <html lang="en" className={urbanist.variable} suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

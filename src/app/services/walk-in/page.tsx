@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <PageShell pageClass="pg-walkin">
+    <PageShell page="walkin">
       <WalkinContent />
     </PageShell>
   );

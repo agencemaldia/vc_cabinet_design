@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (
-    <PageShell pageClass="pg-not-found">
+    <PageShell page="not-found">
       <NotFoundContent />
     </PageShell>
   );

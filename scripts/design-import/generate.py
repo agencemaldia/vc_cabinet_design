@@ -172,14 +172,28 @@ def split_selectors(sel):
 
 
 def scope_selector(sel, scope):
-    s = sel
-    s = re.sub(r"^html\s*", "", s)
-    s = re.sub(r"^:root\s*", "", s)
-    if s.startswith("body"):
-        return f"{scope} {s}"
-    if s == "":
-        return scope
-    return f"{scope} {s}"
+    """Prefix a selector with the page scope. A leading `html`/`:root` is folded into the scope,
+    keeping any pseudo-class or attribute that follows it (`:root:has(.pre.skip)`)."""
+    s = sel.strip()
+    m = re.match(r"^(?:html|:root)(?![\w-])", s)
+    if m:
+        s = s[m.end():]
+        if s and not s[0].isspace():
+            return scope + s
+        s = s.strip()
+    return f"{scope} {s}" if s else scope
+
+
+def page_key(page):
+    return PAGE_CLASS[page][len("pg-"):]
+
+
+def page_scope(pages):
+    """Scope for rules of one or more pages, keyed on the `data-page` attribute PageShell sets on <html>.
+    (Not `:has(.pg-…)`: Next keeps recently visited pages mounted but hidden, so their classes stay in
+    the document.)"""
+    attrs = [f'[data-page="{page_key(p)}"]' for p in pages]
+    return ":root" + (attrs[0] if len(attrs) == 1 else f":is({','.join(attrs)})")
 
 
 def scope_stmt(st, scope):
@@ -199,7 +213,7 @@ def build_css():
     """Split the exported stylesheets into:
     - base: rules shared by every inner page (scoped away from Home),
     - pages: rules specific to one or more inner pages (scoped to their page classes),
-    - home: Home's complete stylesheet, scoped to .pg-home. Home interleaves its own rules with the
+    - home: Home's complete stylesheet, scoped to the Home page. Home interleaves its own rules with the
       shared ones, so it keeps its full stylesheet in its original order.
     Every rule gets the same extra specificity from its scope, so the original cascade order holds.
     """
@@ -230,13 +244,12 @@ def build_css():
             return st
         return scope_stmt(st, scope)
 
-    out_base = [scoped(st, ":root:not(:has(.pg-home))") for st in common_list]
+    out_base = [scoped(st, ':root:not([data-page="home"])') for st in common_list]
     out_pages = []
     for st in order:
         pages = groups[st]
-        cls = ",".join("." + PAGE_CLASS[p] for p in pages)
-        out_pages.append(scoped(st, f":root:has({cls})" if len(pages) == 1 else f":root:has(:is({cls}))"))
-    out_home = [scoped(st, ":root:has(.pg-home)") for st in per["Home"]]
+        out_pages.append(scoped(st, page_scope(pages)))
+    out_home = [scoped(st, page_scope(["Home"])) for st in per["Home"]]
 
     def finish(lst):
         return fix_asset_refs("\n".join(x for x in lst if x)).replace('[style*="', '[data-s*="')
@@ -264,6 +277,8 @@ def emit(node, ind=0):
         inner = "".join(emit(c, ind + 1) for c in node.children)
         if node.tag == "sc-if":
             cond = D.EXPR.fullmatch(a.get("value", "").strip()).group(1).strip()
+            if cond == "f.open":  # FAQ answer: keep mounted so it can animate open/closed
+                return f"<Collapse open={{{cond}}}>{inner}</Collapse>"
             return f"{{{cond} && (<>{inner}</>)}}"
         lst = D.EXPR.fullmatch(a.get("list", "").strip()).group(1).strip()
         as_ = a.get("as", "item")
@@ -402,6 +417,8 @@ def write_page(page, content, names, data):
         imports.append(f'import {{ {", ".join(react_names)} }} from "react";')
     if "<SiteHeader" in content:
         imports.append('import { SiteHeader } from "@/components/site/site-header";')
+    if "<Collapse" in content:
+        imports.append('import { Collapse } from "@/components/site/collapse";')
     if "<ContactSection" in content:
         imports.append('import { ContactSection } from "@/components/site/contact-section";')
     if uses_state:
@@ -440,8 +457,8 @@ def main():
     header = "/* Generated from the V&C design export by scripts/design-import — do not edit by hand. */\n"
     for name, css, note in [
         ("design-base.css", base_css, "Styles shared by the inner pages."),
-        ("design-pages.css", pages_css, "Page-specific styles, scoped by page class."),
-        ("design-home.css", home_css, "Home page styles, scoped to .pg-home."),
+        ("design-pages.css", pages_css, "Page-specific styles, scoped by the data-page attribute."),
+        ("design-home.css", home_css, "Home page styles, scoped to the Home page."),
     ]:
         open(os.path.join(gen, name), "w", encoding="utf8").write(header + f"/* {note} */\n" + css + "\n")
     print("css", len(base_css), len(pages_css), len(home_css))

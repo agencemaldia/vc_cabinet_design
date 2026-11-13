@@ -47,6 +47,10 @@ export function PageTransition() {
   const router = useRouter();
 
   useEffect(() => {
+    // Next keeps visited pages mounted but hidden; when this one is shown again its blinds may still
+    // be closed from the last time we left it. Removing `leave` switches back to the opening animation.
+    ref.current?.classList.remove("leave");
+
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;

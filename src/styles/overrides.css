@@ -1,0 +1,78 @@
+/*
+ * Hand-written adjustments to the generated design styles (src/styles/design-*.css).
+ * These are deliberate changes requested after review, so they live outside the generated files
+ * and survive a re-import. Loaded last from src/app/globals.css.
+ */
+
+/* Content column edge: the design's .wrap padding, plus the sheet inset (twice) on pages whose
+   header floats over a hero image. */
+:root {
+  --content-edge: clamp(18px, calc(14vw - 40px), 220px);
+}
+:root:is(
+  [data-page="home"],
+  [data-page="mission"],
+  [data-page="services"],
+  [data-page="kitchen"],
+  [data-page="bathroom"],
+  [data-page="walkin"]
+) {
+  --content-edge: calc(2 * clamp(8px, 1.2vw, 16px) + clamp(18px, calc(14vw - 40px), 220px));
+}
+
+/* 1. Sticky header: align the card with the content column instead of insetting it. */
+@media (min-width: 761px) {
+  :root[data-page] body header.is-sc {
+    left: var(--content-edge) !important;
+    right: var(--content-edge) !important;
+  }
+}
+
+/* 2. "Let's work together" band: top-align the intro column with the form card. */
+:root[data-page] #contact > .wrap {
+  align-items: flex-start !important;
+}
+
+/* 3. Contact page: line "Send us a message" up with the "Prefer to talk?" card heading
+   (card padding + 1px border). */
+@media (min-width: 761px) {
+  :root[data-page="contact"] main section > .wrap > div:first-child:has(> form) {
+    padding-top: calc(clamp(28px, 3vw, 40px) + 1px);
+  }
+}
+
+/* 4. Service rows ("Every room, made to measure"): slide on hover instead of jumping. */
+:root[data-page] .row-l {
+  transition:
+    padding-left 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 0.3s,
+    border-color 0.3s,
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.3s;
+}
+
+/* 5. FAQ answers: open and close smoothly (see src/components/site/collapse.tsx). */
+.vc-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease;
+}
+.vc-collapse[data-open] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.vc-collapse > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-page] .row-l,
+  .vc-collapse {
+    transition: none;
+  }
+}

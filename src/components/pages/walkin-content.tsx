@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import { SiteHeader } from "@/components/site/site-header";
+import { Collapse } from "@/components/site/collapse";
 import { ContactSection } from "@/components/site/contact-section";
 import { useDesignState, type DesignData } from "@/components/pages/use-design-state";
 
@@ -1373,21 +1374,19 @@ export function WalkinContent() {
                         </span>
                       </button>
                     </h3>
-                    {f.open && (
-                      <>
-                        <p
-                          style={{
-                            margin: "0",
-                            padding: "0 64px 24px 28px",
-                            fontSize: "15px",
-                            lineHeight: "1.65",
-                            color: "#40444B",
-                          }}
-                        >
-                          {f.a}
-                        </p>
-                      </>
-                    )}
+                    <Collapse open={f.open}>
+                      <p
+                        style={{
+                          margin: "0",
+                          padding: "0 64px 24px 28px",
+                          fontSize: "15px",
+                          lineHeight: "1.65",
+                          color: "#40444B",
+                        }}
+                      >
+                        {f.a}
+                      </p>
+                    </Collapse>
                   </div>
                 </Fragment>
               ))}

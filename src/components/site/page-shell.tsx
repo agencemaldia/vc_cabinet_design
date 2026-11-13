@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import { CookieBanner } from "@/components/site/cookie-banner";
 import { MobileCallBar } from "@/components/site/mobile-call-bar";
+import { PageAttribute } from "@/components/site/page-attribute";
 import { PageTransition } from "@/components/site/page-transition";
 import { Preloader } from "@/components/site/preloader";
 import { SiteFooter } from "@/components/site/site-footer";
 
 type PageShellProps = {
-  /** `pg-*` class that scopes the page-specific design styles (see src/styles/design-pages.css). */
-  pageClass: string;
+  /** Page key the design styles are scoped on (`<html data-page>`, see src/styles/design-*.css). */
+  page: string;
   /** Play the Home intro animation. */
   preloader?: boolean;
   /** The Home page uses the sage version of the logo, the other pages the gold one. */
@@ -16,11 +17,12 @@ type PageShellProps = {
 };
 
 /** Frame shared by every page: footer, cookie notice, mobile call bar and page transition. */
-export function PageShell({ pageClass, preloader = false, logoTone = "gold", children }: PageShellProps) {
+export function PageShell({ page, preloader = false, logoTone = "gold", children }: PageShellProps) {
   return (
     <>
+      <PageAttribute page={page} />
       <div
-        className={pageClass}
+        className={`pg-${page}`}
         style={{
           width: "100%",
           minHeight: "100%",

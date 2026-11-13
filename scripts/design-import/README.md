@@ -14,7 +14,8 @@ instead of re-built by hand.
 | `src/styles/design-*.css` | the artboards' stylesheets, split into shared, per-page and Home |
 | `public/images/*` | uploaded images, renamed from their alt text / usage |
 
-Hand-written (not generated): `page-shell.tsx`, `page-transition.tsx`, `preloader.tsx`,
+Hand-written (not generated): `src/styles/overrides.css` (post-review adjustments to the design),
+`page-shell.tsx`, `page-attribute.tsx`, `collapse.tsx`, `page-transition.tsx`, `preloader.tsx`,
 `cookie-banner.tsx`, `sx.ts`, `use-consultation-form.ts`, `use-design-state.ts`, and the route files in `src/app`.
 
 ## How it maps the design
@@ -22,9 +23,12 @@ Hand-written (not generated): `page-shell.tsx`, `page-transition.tsx`, `preloade
 - Inline styles become React `style` objects. The design's CSS also targets elements by their
   inline style text (`[style*="…"]`); React re-serializes styles, so those elements also get a
   `data-s` copy of the original text and the selectors are rewritten to `[data-s*="…"]`.
-- Every rule is scoped by a page class (`.pg-home`, `.pg-kitchen`, …) with the same added
-  specificity, so the original cascade order still decides. Home keeps its whole stylesheet
-  because it interleaves its own rules with the shared ones.
+- Every rule is scoped by the page being shown, `:root[data-page="home"]`, `…="kitchen"`, … (set
+  by `PageAttribute`), with the same added specificity, so the original cascade order still decides.
+  Home keeps its whole stylesheet because it interleaves its own rules with the shared ones.
+  (Not `:has(.pg-…)`: Next keeps recently visited pages mounted but hidden, so their elements stay in
+  the document.)
+- FAQ answers are wrapped in `<Collapse>` so they animate open/closed.
 - `{{…}}` bindings, `<sc-if>` and `<sc-for>` become JSX expressions, conditionals and `map`s
   bound to `useDesignState()`, a port of the artboards' page logic.
 - Links to `X.dc.html` become Next routes; internal links use `next/link`.

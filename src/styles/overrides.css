@@ -15,7 +15,9 @@
   [data-page="services"],
   [data-page="kitchen"],
   [data-page="bathroom"],
-  [data-page="walkin"]
+  [data-page="walkin"],
+  [data-page="renovation-kitchen"],
+  [data-page="renovation-bathroom"]
 ) {
   --content-edge: calc(2 * clamp(8px, 1.2vw, 16px) + clamp(18px, calc(14vw - 40px), 220px));
 }

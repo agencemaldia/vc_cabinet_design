@@ -1,66 +1,65 @@
 # V&C Cabinet Design Concept — information to verify
 
-The website preview uses **sample values** wherever we did not have the real information yet.
-None of the items below are confirmed. Please check each one and send us the correct value
-(or confirm it is right). Nothing will be published until every item is verified.
+The site follows the specification, which forbids inventing projects, testimonials, certifications or
+services. Wherever the real information is not available yet, the site shows a clearly marked
+**placeholder** ("Sample content" badge, text in [brackets]). Each item below must be supplied or
+confirmed by the client before launch.
 
-## Company figures (Home page)
+## 1. Reviews (Home, right under the video)
 
-| Item | Sample value on the site | Correct value |
+Placeholders are shown in `src/content/reviews.ts` (`draft: true`). Please send **real reviews** (for
+example from the Google Business profile, with the clients' permission): first name + last initial, city,
+project type, rating and text — in the language they were written in. Also send the Google rating, the
+review count and the profile link (shown next to the reviews once provided).
+
+## 2. Realized projects (Kitchen and Bathroom pages)
+
+Each page has two project slots (`src/content/projects.ts`, `draft: true`). For each real project:
+
+- a **before** photo and an **after** photo taken from the same spot, same framing (they are overlaid
+  by the before/after comparator);
+- city; client's needs; initial state; work done; materials; methods and solutions; final result.
+
+File names to use: see `docs/envato-media.md`, section 4.
+
+## 3. Photos and video
+
+Stock media (Envato Elements) to replace the temporary visuals: see **`docs/envato-media.md`** — hero
+video, page banners, service cards and blog covers, with search terms and exact file names.
+
+## 4. Contact details and company facts
+
+| Item | Value on the site | Correct value |
 | --- | --- | --- |
-| Years of experience / in business | 15+ | |
-| Projects completed | 500+ | |
-| Client satisfaction (final-inspection surveys) | 98% | |
-| Cities served | 4 — Tampa, Bradenton, Clearwater, St. Petersburg | |
-
-## Reviews
-
-All reviews and names on the site are **samples written for the layout — they are not real reviews**
-and must be replaced before launch. Please send real reviews (for example copied from your Google
-Business profile, with the clients' permission), each with first name + last initial, city and project type.
-
-| Where | Sample |
-| --- | --- |
-| Google rating shown on Home | 5.0 · 47 Google reviews — please send your real rating, review count and Google profile link |
-| Home — reviews section (3 reviews) | Jennifer R. (Tampa, kitchen) · Mark & Susan B. (Clearwater, bathroom) · Angela W. (St. Petersburg, walk-in) |
-| Home — quote in "Every single day" | Jennifer R., Tampa, kitchen remodel |
-| Kitchen page (2 reviews) | Michael & Dana T. · Laura P. |
-| Bathroom page (2 reviews) | Karen S. · David M. |
-| Walk-in page (2 reviews) | Stephanie L. · Robert G. |
-
-## Contact details
-
-| Item | Sample value on the site | Correct value |
-| --- | --- | --- |
-| Showroom / office hours | Mon–Fri 9 AM – 5 PM · Sat by appointment | |
 | Phone | 727-223-3490 | |
 | Email | cabinetdesignconcept@gmail.com | |
-| Address | (as shown in the footer) | |
+| Address | 19046 Bruce B Downs Blvd, Ste B6, Tampa, FL 33647 | |
+| Cities served | Tampa, Bradenton, Clearwater, St. Petersburg | |
+| Facebook | https://www.facebook.com/vccabinetdesign (guessed) | |
+| YouTube | https://www.youtube.com/@vccabinetdesign (guessed) | |
+| LinkedIn | https://www.linkedin.com/company/vc-cabinet-design-concept (guessed) | |
 
-## Social media links
+The social links are not declared to search engines (`sameAs`) until confirmed.
 
-| Network | Sample link on the site | Correct link |
-| --- | --- | --- |
-| Facebook | https://www.facebook.com/vccabinetdesign | |
-| YouTube | https://www.youtube.com/@vccabinetdesign | |
-| LinkedIn | https://www.linkedin.com/company/vc-cabinet-design-concept | |
-| Instagram (not on the site yet) | — | |
+## 5. Quote form — delivery of the requests
 
-## Trusted partners (band under the Home hero)
+The form (`/fr/soumission`, `/en/get-a-quote`, `/es/cotizacion`) sends each request by e-mail through
+[Resend](https://resend.com). Set these environment variables in Vercel (Project → Settings →
+Environment Variables), then redeploy:
 
-The names shown are common cabinetry suppliers used as stand-ins — **they are not confirmed partners**:
-Blum, Häfele, Hettich, Caesarstone, Silestone, Kohler, Sherwin-Williams, Wilsonart.
-Please send the list of your real partners (and their logos if possible).
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | API key of the Resend account |
+| `QUOTE_NOTIFICATION_EMAIL` | Address that receives the requests (the company's inbox) |
+| `QUOTE_FROM_EMAIL` | Sender, e.g. `V&C Cabinet Design <quotes@vccabinetdesign.com>` (domain verified in Resend). Default: Resend's test sender, which only delivers to the Resend account owner. |
+| `NEXT_PUBLIC_SITE_URL` | Final address of the site, e.g. `https://vccabinetdesign.com` (canonical URLs, sitemap) |
 
-## Photos
+Until `RESEND_API_KEY` and `QUOTE_NOTIFICATION_EMAIL` are set, the form shows an error with the phone
+number instead of a false confirmation.
 
-- **Before / After slider (Home):** the "before" photos are the "after" photos shown in grey. Please send
-  real before/after pairs (kitchen, bathroom, walk-in).
-- **Page heroes (Mission, Services, Kitchen, Bathroom, Walk-in):** photos picked from the current image
-  library. Tell us if you prefer other photos of your own projects.
+## 6. Other
 
-## Other
-
-- **Accessibility statement** (`/accessibility`, footer link): a draft is online in the three languages. Please confirm
-  the contact details and the reply time (two business days) it promises, or tell us what to change.
-- Footer "Service area" city links: they don't lead anywhere yet — keep as plain text, or link to the contact page?
+- **Blog articles:** six starter articles (general advice, no invented facts) in the three languages.
+  Please review them, or send your own topics.
+- **Accessibility statement** and **privacy policy:** drafts online in the three languages; please
+  confirm the contact details and the commitments they contain.

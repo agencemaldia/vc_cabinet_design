@@ -32,6 +32,7 @@
 @import "../styles/design-home.css";
 @import "../styles/overrides.css";
 @import "../styles/motion.css";
+@import "../styles/site.css";
 
 /* The cookie banner uses <button>s where the design used <label>s. */
 .ck-b {

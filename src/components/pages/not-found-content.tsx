@@ -73,7 +73,7 @@ export function NotFoundContent() {
                   Back to Home
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/get-a-quote"
                   className="pill "
                   style={{
                     display: "inline-flex",
@@ -93,7 +93,7 @@ export function NotFoundContent() {
                   }}
                   data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: transparent; color: #1D2B44; border: 1px solid #1D2B44; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                 >
-                  Book a Free Designer Consultation
+                  Request a Quote
                 </Link>
               </div>
               <ul
@@ -108,7 +108,7 @@ export function NotFoundContent() {
               >
                 <li>
                   <Link
-                    href="/services/kitchen"
+                    href="/kitchen-renovation"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -129,7 +129,7 @@ export function NotFoundContent() {
                 </li>
                 <li>
                   <Link
-                    href="/services/bathroom"
+                    href="/bathroom-renovation"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -150,7 +150,7 @@ export function NotFoundContent() {
                 </li>
                 <li>
                   <Link
-                    href="/services/walk-in"
+                    href="/blog"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -166,28 +166,7 @@ export function NotFoundContent() {
                     }}
                     data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
                   >
-                    Walk-ins
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/gallery"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      minHeight: "44px",
-                      padding: "0 16px",
-                      borderRadius: "0",
-                      border: "1.5px solid #C9CDD4",
-                      background: "#FFFFFF",
-                      color: "#1D2B44",
-                      fontWeight: "600",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
-                  >
-                    Gallery
+                    Blog
                   </Link>
                 </li>
               </ul>

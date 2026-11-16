@@ -6,7 +6,15 @@ import { createPortal } from "react-dom";
 import { sx } from "@/components/site/sx";
 import { useTranslate } from "@/lib/i18n/context";
 
-export type NavKey = "home" | "mission" | "services" | "gallery" | "blog" | "contact";
+export type NavKey = "home" | "kitchen" | "bathroom" | "blog" | "quote";
+
+/** The five pages of the site (English paths and labels; links and labels are localized by the i18n layer). */
+const NAV: { key: NavKey; href: string; label: string }[] = [
+  { key: "home", href: "/", label: "Home" },
+  { key: "kitchen", href: "/kitchen-renovation", label: "Kitchens" },
+  { key: "bathroom", href: "/bathroom-renovation", label: "Bathrooms" },
+  { key: "blog", href: "/blog", label: "Blog" },
+];
 
 type SiteHeaderProps = {
   /** `overlay` floats over a dark hero image; `solid` sits on white. */
@@ -105,115 +113,16 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
           data-s="display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: 16px; padding: clamp(14px, 1.8vw, 28px) clamp(14px, 2.2vw, 36px)"
         >
           <nav className="nav-d hx-nav" aria-label="Main" {...sx(v.nav)}>
-            <Link href="/" aria-current={current === "home" ? "page" : undefined} {...sx(navLink(current === "home"))}>
-              Home
-            </Link>
-            <Link
-              href="/mission"
-              aria-current={current === "mission" ? "page" : undefined}
-              {...sx(navLink(current === "mission"))}
-            >
-              Mission
-            </Link>
-            <div className="dd">
+            {NAV.map((item) => (
               <Link
-                href="/services"
-                aria-current={current === "services" ? "page" : undefined}
-                aria-haspopup="true"
-                {...sx(navLink(current === "services"))}
+                key={item.key}
+                href={item.href}
+                aria-current={current === item.key ? "page" : undefined}
+                {...sx(navLink(current === item.key))}
               >
-                Services
+                {item.label}
               </Link>
-              <div
-                className="dd-menu"
-                style={{
-                  position: "absolute",
-                  top: "40px",
-                  left: "-4px",
-                  width: "220px",
-                  padding: "4px",
-                  background: "#FFFFFF",
-                  boxShadow: "0 24px 48px -20px rgba(0,0,0,.35)",
-                  flexDirection: "column",
-                  zIndex: "30",
-                }}
-                data-s="position: absolute; top: 40px; left: -4px; width: 220px; padding: 4px; background: #FFFFFF; box-shadow: 0 24px 48px -20px rgba(0,0,0,.35); flex-direction: column; z-index: 30"
-              >
-                <Link
-                  href="/services"
-                  style={{
-                    display: "block",
-                    padding: "12px 16px",
-                    textDecoration: "none",
-                    color: "#1D2B44",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  All our Services
-                </Link>
-                <Link
-                  href="/services/kitchen"
-                  style={{
-                    display: "block",
-                    padding: "12px 16px",
-                    textDecoration: "none",
-                    color: "#1D2B44",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Kitchen
-                </Link>
-                <Link
-                  href="/services/bathroom"
-                  style={{
-                    display: "block",
-                    padding: "12px 16px",
-                    textDecoration: "none",
-                    color: "#1D2B44",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Bathroom
-                </Link>
-                <Link
-                  href="/services/walk-in"
-                  style={{
-                    display: "block",
-                    padding: "12px 16px",
-                    textDecoration: "none",
-                    color: "#1D2B44",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Walk-in
-                </Link>
-              </div>
-            </div>
-            <Link
-              href="/gallery"
-              aria-current={current === "gallery" ? "page" : undefined}
-              {...sx(navLink(current === "gallery"))}
-            >
-              Gallery
-            </Link>
-            <Link
-              href="/blog"
-              aria-current={current === "blog" ? "page" : undefined}
-              {...sx(navLink(current === "blog"))}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/contact"
-              aria-current={current === "contact" ? "page" : undefined}
-              {...sx(navLink(current === "contact"))}
-            >
-              Contact Us
-            </Link>
+            ))}
           </nav>
           <span className="burger" aria-hidden="true" />
           <div
@@ -291,8 +200,8 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
                 727-223-3490
               </a>
             </div>
-            <Link href="/contact" className="hdr-cta" {...sx(v.cta)}>
-              Free Consultation <span aria-hidden="true">↗</span>
+            <Link href="/get-a-quote" className="hdr-cta" {...sx(v.cta)}>
+              Free Quote <span aria-hidden="true">↗</span>
             </Link>
             <a href="tel:+17272233490" className="burger" aria-label="Call 727-223-3490" {...sx(v.call)}>
               <svg
@@ -382,180 +291,28 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
                     </svg>
                   </button>
                 </div>
-                <nav
-                  aria-label="Main"
-                  className="wrap"
-                  style={{ display: "flex", flexDirection: "column" }}
-                  data-s="display: flex; flex-direction: column"
-                >
-                  <Link
-                    href="/"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "64px",
-                      borderBottom: "1px solid #E3E5E9",
-                      color: "#1D2B44",
-                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                      fontSize: "34px",
-                      fontWeight: "500",
-                      letterSpacing: "-.03em",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/mission"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "64px",
-                      borderBottom: "1px solid #E3E5E9",
-                      color: "#1D2B44",
-                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                      fontSize: "34px",
-                      fontWeight: "500",
-                      letterSpacing: "-.03em",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-                  >
-                    Mission
-                  </Link>
-                  <Link
-                    href="/services"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "64px",
-                      borderBottom: "1px solid #E3E5E9",
-                      color: "#1D2B44",
-                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                      fontSize: "34px",
-                      fontWeight: "500",
-                      letterSpacing: "-.03em",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-                  >
-                    Services
-                  </Link>
-                  <Link
-                    href="/services"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "44px",
-                      paddingLeft: "4px",
-                      color: "#40444B",
-                      fontSize: "16px",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-                  >
-                    — All our Services
-                  </Link>
-                  <Link
-                    href="/services/kitchen"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "44px",
-                      paddingLeft: "4px",
-                      color: "#40444B",
-                      fontSize: "16px",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-                  >
-                    — Kitchen
-                  </Link>
-                  <Link
-                    href="/services/bathroom"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "44px",
-                      paddingLeft: "4px",
-                      color: "#40444B",
-                      fontSize: "16px",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-                  >
-                    — Bathroom
-                  </Link>
-                  <Link
-                    href="/services/walk-in"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "44px",
-                      paddingLeft: "4px",
-                      color: "#40444B",
-                      fontSize: "16px",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-                  >
-                    — Walk-in
-                  </Link>
-                  <Link
-                    href="/gallery"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "64px",
-                      borderBottom: "1px solid #E3E5E9",
-                      color: "#1D2B44",
-                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                      fontSize: "34px",
-                      fontWeight: "500",
-                      letterSpacing: "-.03em",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-                  >
-                    Gallery
-                  </Link>
-                  <Link
-                    href="/blog"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "64px",
-                      borderBottom: "1px solid #E3E5E9",
-                      color: "#1D2B44",
-                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                      fontSize: "34px",
-                      fontWeight: "500",
-                      letterSpacing: "-.03em",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-                  >
-                    Blog
-                  </Link>
-                  <Link
-                    href="/contact"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minHeight: "64px",
-                      borderBottom: "1px solid #E3E5E9",
-                      color: "#1D2B44",
-                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                      fontSize: "34px",
-                      fontWeight: "500",
-                      letterSpacing: "-.03em",
-                      textDecoration: "none",
-                    }}
-                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-                  >
-                    Contact Us
-                  </Link>
+                <nav aria-label="Main" className="wrap" style={{ display: "flex", flexDirection: "column" }}>
+                  {NAV.map((item) => (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      aria-current={current === item.key ? "page" : undefined}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        minHeight: "64px",
+                        borderBottom: "1px solid #E3E5E9",
+                        color: current === item.key ? "#125A50" : "#1D2B44",
+                        fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                        fontSize: "34px",
+                        fontWeight: "500",
+                        letterSpacing: "-.03em",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
                 </nav>
                 <div
                   className="wrap"
@@ -570,7 +327,7 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
                   data-s="margin-top: auto; padding-top: 32px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 10px"
                 >
                   <Link
-                    href="/contact"
+                    href="/get-a-quote"
                     className="pill pill-d"
                     style={{
                       display: "inline-flex",
@@ -590,7 +347,7 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
                     }}
                     data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #125A50; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                   >
-                    Book a Free Designer Consultation
+                    Request a Quote
                   </Link>
                   <a
                     href="tel:+17272233490"

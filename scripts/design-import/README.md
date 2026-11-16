@@ -1,5 +1,10 @@
 # Design import
 
+> **Retired for the main pages.** Since the rebuild to the Talgasy Web specification, the home, kitchen,
+> bathroom, blog and quote pages are hand-written (`src/components/pages/home-page.tsx`, `service-page.tsx`,
+> `blog-pages.tsx`, `quote-page.tsx`, texts in `src/content`). Only the privacy, accessibility and 404 pages and
+> the shared design stylesheets still come from this import: do not re-run it over the rebuilt pages.
+
 The site's pages were generated from the **V&C Cabinet Design Concept — Design System** artifact
 (each page's "Desktop 1440" artboard, exported as *HTML (.zip)* from the artboard's Play view).
 These scripts turn those exports into React components so a design update can be re-imported

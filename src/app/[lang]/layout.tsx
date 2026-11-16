@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Urbanist } from "next/font/google";
+import { JsonLd, businessLd, websiteLd } from "@/components/sections/json-ld";
 import { isLocale, localeHtmlLang, locales } from "@/lib/i18n/config";
+import { site } from "@/lib/site";
 import { setRequestLocale } from "@/lib/i18n/request-locale";
 import "../globals.css";
 
@@ -12,9 +14,9 @@ const urbanist = Urbanist({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vccabinetdesign.com"),
+  metadataBase: new URL(site.url),
   title: {
-    default: "V&C Cabinet Design Concept — Custom cabinetry in Tampa Bay",
+    default: "V&C Cabinet Design Concept — Kitchen & Bathroom Renovation in Tampa Bay",
     template: "%s | V&C Cabinet Design Concept",
   },
   icons: { icon: "/images/symbol-gold.png" },
@@ -32,7 +34,11 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   setRequestLocale(lang);
   return (
     <html lang={localeHtmlLang[lang]} className={urbanist.variable} suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        {children}
+        <JsonLd data={businessLd(lang)} />
+        <JsonLd data={websiteLd(lang)} />
+      </body>
     </html>
   );
 }

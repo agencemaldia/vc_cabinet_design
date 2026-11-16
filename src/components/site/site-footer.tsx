@@ -69,11 +69,12 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
               style={{ margin: "0", fontSize: "16px", lineHeight: "1.6", color: "rgba(255,255,255,.82)" }}
               data-s="margin: 0; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.82)"
             >
-              We ideate, design and build the interior projects homeowners have long dreamed of — across Tampa Bay.
+              Custom kitchen and bathroom renovation in Tampa Bay — from the free in-home consultation to the final
+              inspection.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
               <Link
-                href="/contact"
+                href="/get-a-quote"
                 className="pill pill-w"
                 style={{
                   display: "inline-flex",
@@ -93,7 +94,7 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
                 }}
                 data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
               >
-                Book a Free Designer Consultation
+                Request a Quote
               </Link>
             </div>
             <div style={{ display: "flex", gap: "10px" }}>
@@ -226,129 +227,106 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
           </div>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 32px", padding: "56px 0" }}>
-          <div
-            style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "10px" }}
-            data-s="flex: 1 1 150px; display: flex; flex-direction: column; gap: 10px"
-          >
+          <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "10px" }}>
             <h3
               style={{ margin: "0 0 6px", fontSize: "12px", fontWeight: "700", letterSpacing: "0", color: "#8FA89A" }}
-              data-s="margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: 0; color: #8FA89A"
             >
               Explore
             </h3>
             <Link
               href="/"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
               Home
             </Link>
             <Link
-              href="/mission"
+              href="/kitchen-renovation"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              Mission
+              Kitchens
             </Link>
             <Link
-              href="/gallery"
+              href="/bathroom-renovation"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              Gallery
+              Bathrooms
             </Link>
             <Link
               href="/blog"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
               Blog
             </Link>
             <Link
-              href="/contact"
+              href="/get-a-quote"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              Contact Us
+              Request a Quote
             </Link>
           </div>
-          <div
-            style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "10px" }}
-            data-s="flex: 1 1 150px; display: flex; flex-direction: column; gap: 10px"
-          >
+          <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "10px" }}>
             <h3
               style={{ margin: "0 0 6px", fontSize: "12px", fontWeight: "700", letterSpacing: "0", color: "#8FA89A" }}
-              data-s="margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: 0; color: #8FA89A"
             >
-              Services
+              Useful links
             </h3>
             <Link
-              href="/services"
+              href="/kitchen-renovation"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              All our Services
+              Kitchen renovation
             </Link>
             <Link
-              href="/services/kitchen"
+              href="/bathroom-renovation"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              Kitchen
+              Bathroom renovation
             </Link>
             <Link
-              href="/services/bathroom"
+              href="/blog"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              Bathroom
+              Renovation tips
             </Link>
             <Link
-              href="/services/walk-in"
+              href="/privacy-policy"
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
-              Walk-in
+              Privacy Policy
+            </Link>
+            <Link
+              href="/accessibility"
+              style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
+            >
+              Accessibility
             </Link>
           </div>
-          <div
-            style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "10px" }}
-            data-s="flex: 1 1 150px; display: flex; flex-direction: column; gap: 10px"
-          >
+          <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "10px" }}>
             <h3
               style={{ margin: "0 0 6px", fontSize: "12px", fontWeight: "700", letterSpacing: "0", color: "#8FA89A" }}
-              data-s="margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: 0; color: #8FA89A"
             >
               Service area
             </h3>
-            <a
-              href="#"
+            <span
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
               Tampa
-            </a>
-            <a
-              href="#"
+            </span>
+            <span
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
               Bradenton
-            </a>
-            <a
-              href="#"
+            </span>
+            <span
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
               Clearwater
-            </a>
-            <a
-              href="#"
+            </span>
+            <span
               style={{ color: "#FFFFFF", fontSize: "15px", textDecoration: "none", opacity: ".88", minHeight: "26px" }}
-              data-s="color: #FFFFFF; font-size: 15px; text-decoration: none; opacity: .88; min-height: 26px"
             >
               St. Petersburg
-            </a>
+            </span>
           </div>
           <div
             style={{

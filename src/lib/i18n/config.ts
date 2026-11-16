@@ -1,3 +1,5 @@
+import { englishPath, translatePath } from "./routes";
+
 /**
  * Locale config — client-safe (importable from a Client Component). Dictionary loading lives in
  * `dictionaries.ts`, server-only. Same conventions as the `leads` project.
@@ -24,18 +26,21 @@ export const localeNames: Record<Locale, string> = { fr: "Français", en: "Engli
 /** Value of the `lang` / `hreflang` attributes. */
 export const localeHtmlLang: Record<Locale, string> = { fr: "fr-CA", en: "en-US", es: "es-US" };
 
-/** Internal path in a locale: `/contact` → `/fr/contact`. Files, anchors and other sites are left alone. */
+/** Internal path in a locale: `/kitchen-renovation` → `/fr/renovation-de-cuisine` (translated addresses, see
+ *  routes.ts). Files, anchors and other sites are left alone. */
 export function localizePath(path: string, locale: Locale): string {
   if (!path.startsWith("/") || path.startsWith("//")) return path;
-  if (/^\/(images|_next|api)\//.test(path) || /\.[a-z0-9]{2,5}($|[?#])/i.test(path)) return path;
+  if (/^\/(images|videos|_next|api)\//.test(path) || /\.[a-z0-9]{2,5}($|[?#])/i.test(path)) return path;
   const first = path.split(/[/?#]/)[1] ?? "";
   if (isLocale(first)) return path;
-  return path === "/" ? `/${locale}` : `/${locale}${path}`;
+  const own = translatePath(path, locale);
+  return own === "/" ? `/${locale}` : `/${locale}${own}`;
 }
 
-/** The same page in another locale (language switcher, hreflang): `/fr/contact` → `/es/contact`. */
+/** The same page in another locale (language switcher, hreflang): `/fr/soumission` → `/es/cotizacion`. */
 export function switchLocalePath(path: string, to: Locale): string {
   const first = path.split("/")[1] ?? "";
-  const bare = isLocale(first) ? path.slice(first.length + 1) || "/" : path;
-  return localizePath(bare, to);
+  if (!isLocale(first)) return localizePath(path, to);
+  const bare = path.slice(first.length + 1) || "/";
+  return localizePath(englishPath(bare, first), to);
 }

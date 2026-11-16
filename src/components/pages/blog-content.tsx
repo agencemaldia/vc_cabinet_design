@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
+import { useTranslate } from "@/lib/i18n/context";
 
 /** Generated from the "Blog" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function BlogContent() {
-  return (
+  const tr = useTranslate();
+  return tr(
     <>
       <SiteHeader variant="solid" current="blog" />
       <main>
@@ -62,18 +66,18 @@ export function BlogContent() {
                 background: "#FFFFFF",
                 borderRadius: "0",
                 overflow: "hidden",
-                border: "1px solid #E6DFD5",
+                border: "1px solid #E3E5E9",
                 textDecoration: "none",
                 color: "#22252A",
               }}
-              data-s="display: flex; flex-wrap: wrap; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+              data-s="display: flex; flex-wrap: wrap; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
             >
               <div
                 className="ph"
                 role="img"
                 aria-label="Small kitchen with smart storage"
-                style={{ flex: "1.3 1 420px", minHeight: "clamp(260px, 32vw, 460px)", backgroundColor: "#B8A88F" }}
-                data-s="flex: 1.3 1 420px; min-height: clamp(260px, 32vw, 460px); background-color: #B8A88F"
+                style={{ flex: "1.3 1 420px", minHeight: "clamp(260px, 32vw, 460px)", backgroundColor: "#D5D8DE" }}
+                data-s="flex: 1.3 1 420px; min-height: clamp(260px, 32vw, 460px); background-color: #D5D8DE"
               />
               <div
                 style={{
@@ -92,11 +96,11 @@ export function BlogContent() {
                       padding: "4px 10px",
                       borderRadius: "0",
                       background: "#EEF3F0",
-                      color: "#1F3D33",
+                      color: "#125A50",
                       fontWeight: "700",
                       fontSize: "12px",
                     }}
-                    data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                    data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                   >
                     Kitchen
                   </span>
@@ -125,7 +129,7 @@ export function BlogContent() {
                     gap: "8px",
                     fontSize: "16px",
                     fontWeight: "700",
-                    color: "#1F3D33",
+                    color: "#125A50",
                   }}
                 >
                   Read the article{" "}
@@ -148,8 +152,8 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #1F3D33",
-                  background: "#1F3D33",
+                  border: "1.5px solid #125A50",
+                  background: "#125A50",
                   color: "#FFFFFF",
                   fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "15px",
@@ -157,7 +161,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #1F3D33; background: #1F3D33; color: #FFFFFF; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #125A50; background: #125A50; color: #FFFFFF; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 All
               </button>
@@ -168,7 +172,7 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   background: "#FFFFFF",
                   color: "#22252A",
                   fontFamily: "var(--font-urbanist), sans-serif",
@@ -177,7 +181,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 Cabinet Design
               </button>
@@ -188,7 +192,7 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   background: "#FFFFFF",
                   color: "#22252A",
                   fontFamily: "var(--font-urbanist), sans-serif",
@@ -197,7 +201,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 Kitchen
               </button>
@@ -208,7 +212,7 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   background: "#FFFFFF",
                   color: "#22252A",
                   fontFamily: "var(--font-urbanist), sans-serif",
@@ -217,7 +221,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 Bathroom
               </button>
@@ -228,7 +232,7 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   background: "#FFFFFF",
                   color: "#22252A",
                   fontFamily: "var(--font-urbanist), sans-serif",
@@ -237,7 +241,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 Closets
               </button>
@@ -248,7 +252,7 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   background: "#FFFFFF",
                   color: "#22252A",
                   fontFamily: "var(--font-urbanist), sans-serif",
@@ -257,7 +261,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 DIY Projects
               </button>
@@ -268,7 +272,7 @@ export function BlogContent() {
                   minHeight: "44px",
                   padding: "0 18px",
                   borderRadius: "0",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   background: "#FFFFFF",
                   color: "#22252A",
                   fontFamily: "var(--font-urbanist), sans-serif",
@@ -277,7 +281,7 @@ export function BlogContent() {
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
-                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
+                data-s="min-height: 44px; padding: 0 18px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #22252A; font-family: var(--font-urbanist), sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap"
               >
                 Renovation tips
               </button>
@@ -293,11 +297,11 @@ export function BlogContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -330,11 +334,11 @@ export function BlogContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Renovation tips
                     </span>
@@ -365,7 +369,7 @@ export function BlogContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -382,11 +386,11 @@ export function BlogContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -419,11 +423,11 @@ export function BlogContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Cabinet Design
                     </span>
@@ -453,7 +457,7 @@ export function BlogContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -470,11 +474,11 @@ export function BlogContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -508,11 +512,11 @@ export function BlogContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Closets
                     </span>
@@ -542,7 +546,7 @@ export function BlogContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -559,11 +563,11 @@ export function BlogContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -596,11 +600,11 @@ export function BlogContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Bathroom
                     </span>
@@ -630,7 +634,7 @@ export function BlogContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -647,17 +651,17 @@ export function BlogContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
                   role="img"
                   aria-label="Article cover: Transforming Kitchens: Modern Kitchen Renovation in Clearwater, Florida"
-                  style={{ height: "220px", backgroundColor: "#A89C8B" }}
+                  style={{ height: "220px", backgroundColor: "#8E95A1" }}
                 />
                 <div
                   style={{
@@ -684,11 +688,11 @@ export function BlogContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Kitchen
                     </span>
@@ -718,7 +722,7 @@ export function BlogContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -746,7 +750,7 @@ export function BlogContent() {
                     fontWeight: "400",
                     fontSize: "28px",
                     lineHeight: "1.2",
-                    color: "#F6F3EE",
+                    color: "#EFF0F2",
                   }}
                 >
                   Planning a project? Talk to a designer.
@@ -766,14 +770,14 @@ export function BlogContent() {
                     padding: "0 28px",
                     borderRadius: "0",
                     background: "#FFFFFF",
-                    color: "#1F3D33",
+                    color: "#125A50",
                     border: "0",
                     fontSize: "15px",
                     fontWeight: "600",
                     textDecoration: "none",
                     textAlign: "center",
                   }}
-                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #1F3D33; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                 >
                   Book a Free Consultation
                 </Link>
@@ -797,10 +801,10 @@ export function BlogContent() {
                   gap: "6px",
                   fontWeight: "700",
                   textDecoration: "none",
-                  background: "#1F3D33",
+                  background: "#125A50",
                   color: "#FFFFFF",
                 }}
-                data-s="min-width: 44px; height: 44px; padding: 0 12px; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; text-decoration: none; background: #1F3D33; color: #FFFFFF;"
+                data-s="min-width: 44px; height: 44px; padding: 0 12px; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; text-decoration: none; background: #125A50; color: #FFFFFF;"
               >
                 1
               </a>
@@ -817,10 +821,10 @@ export function BlogContent() {
                   gap: "6px",
                   fontWeight: "700",
                   textDecoration: "none",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   color: "#1D2B44",
                 }}
-                data-s="min-width: 44px; height: 44px; padding: 0 12px; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; text-decoration: none; border: 1.5px solid #C9BFB1; color: #1D2B44;"
+                data-s="min-width: 44px; height: 44px; padding: 0 12px; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; text-decoration: none; border: 1.5px solid #C9CDD4; color: #1D2B44;"
               >
                 2
               </a>
@@ -837,10 +841,10 @@ export function BlogContent() {
                   gap: "6px",
                   fontWeight: "700",
                   textDecoration: "none",
-                  border: "1.5px solid #C9BFB1",
+                  border: "1.5px solid #C9CDD4",
                   color: "#1D2B44",
                 }}
-                data-s="min-width: 44px; height: 44px; padding: 0 12px; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; text-decoration: none; border: 1.5px solid #C9BFB1; color: #1D2B44;"
+                data-s="min-width: 44px; height: 44px; padding: 0 12px; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; text-decoration: none; border: 1.5px solid #C9CDD4; color: #1D2B44;"
               >
                 Next{" "}
               </a>
@@ -851,6 +855,6 @@ export function BlogContent() {
           </div>
         </section>
       </main>
-    </>
+    </>,
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
+import { useTranslate } from "@/lib/i18n/context";
 
 const KEY = "vc-cookie-consent";
 const listeners = new Set<() => void>();
@@ -31,11 +32,12 @@ function setConsent(value: "all" | "essential") {
  * script is loaded yet, so "Accept all" only records consent for when one is added.
  */
 export function CookieBanner() {
+  const tr = useTranslate();
   // Server snapshot says "answered" so the banner never flashes before hydration.
   const consent = useSyncExternalStore(subscribe, getConsent, () => "ssr");
   if (consent) return null;
 
-  return (
+  return tr(
     <div className="ck" role="dialog" aria-live="polite" aria-label="Cookie preferences">
       <div className="ck-top">
         <img src="/images/symbol-gold.png" alt="" className="ck-mark" />
@@ -53,6 +55,6 @@ export function CookieBanner() {
           Essential only
         </button>
       </div>
-    </div>
+    </div>,
   );
 }

@@ -1,11 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { LangMenu } from "@/components/site/lang-menu";
+import { useTranslate } from "@/lib/i18n/context";
 type SiteFooterProps = {
   /** The Home page uses the sage version of the logo, the other pages the gold one. */
   logoTone?: "gold" | "sage";
 };
 
 export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
-  return (
+  const tr = useTranslate();
+  return tr(
     <footer
       className="foot grain"
       style={{
@@ -79,21 +84,23 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
                   padding: "0 28px",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  color: "#1F3D33",
+                  color: "#125A50",
                   border: "0",
                   fontSize: "15px",
                   fontWeight: "600",
                   textDecoration: "none",
                   textAlign: "center",
                 }}
-                data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #1F3D33; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
               >
                 Book a Free Designer Consultation
               </Link>
             </div>
             <div style={{ display: "flex", gap: "10px" }}>
               <a
-                href="#"
+                href="https://www.facebook.com/vccabinetdesign"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 style={{
                   width: "48px",
@@ -122,7 +129,9 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@vccabinetdesign"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="YouTube"
                 style={{
                   width: "48px",
@@ -152,7 +161,9 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/vc-cabinet-design-concept"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 style={{
                   width: "48px",
@@ -392,41 +403,7 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
           data-s="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.16); font-size: 13px; color: rgba(255,255,255,.72)"
         >
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px" }}>
-            <button
-              type="button"
-              aria-label="Language: English"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                minHeight: "44px",
-                padding: "0 16px",
-                borderRadius: "0",
-                border: "1px solid rgba(255,255,255,.3)",
-                background: "transparent",
-                color: "#FFFFFF",
-                fontFamily: "var(--font-urbanist), sans-serif",
-                fontSize: "13px",
-                cursor: "pointer",
-              }}
-              data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #FFFFFF; font-family: var(--font-urbanist), sans-serif; font-size: 13px; cursor: pointer"
-            >
-              {" "}
-              English{" "}
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </button>
+            <LangMenu />
             <span
               style={{
                 display: "inline-flex",
@@ -449,9 +426,9 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
             <Link href="/privacy-policy" style={{ color: "rgba(255,255,255,.9)" }} data-s="color: rgba(255,255,255,.9)">
               Privacy Policy
             </Link>
-            <a href="#" style={{ color: "rgba(255,255,255,.9)" }} data-s="color: rgba(255,255,255,.9)">
+            <Link href="/accessibility" style={{ color: "rgba(255,255,255,.9)" }} data-s="color: rgba(255,255,255,.9)">
               Accessibility
-            </a>
+            </Link>
           </span>
         </div>
       </div>
@@ -485,6 +462,6 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
           </span>
         </div>
       </div>
-    </footer>
+    </footer>,
   );
 }

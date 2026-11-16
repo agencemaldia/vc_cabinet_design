@@ -1,8 +1,12 @@
+"use client";
+
 import { SiteHeader } from "@/components/site/site-header";
+import { useTranslate } from "@/lib/i18n/context";
 
 /** Generated from the "Privacy" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function PrivacyContent() {
-  return (
+  const tr = useTranslate();
+  return tr(
     <>
       <SiteHeader variant="solid" />
       <main>
@@ -43,9 +47,9 @@ export function PrivacyContent() {
                 padding: "24px",
                 borderRadius: "0",
                 background: "#FFFFFF",
-                border: "1px solid #E6DFD5",
+                border: "1px solid #E3E5E9",
               }}
-              data-s="flex: 1 1 240px; max-width: 320px; padding: 24px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5"
+              data-s="flex: 1 1 240px; max-width: 320px; padding: 24px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9"
             >
               <p
                 style={{
@@ -84,7 +88,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>01</span>Information we collect
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>01</span>Information we collect
                   </a>
                 </li>
                 <li>
@@ -102,7 +106,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>02</span>How we use your information
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>02</span>How we use your information
                   </a>
                 </li>
                 <li>
@@ -120,7 +124,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>03</span>Cookies and analytics
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>03</span>Cookies and analytics
                   </a>
                 </li>
                 <li>
@@ -138,7 +142,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>04</span>Sharing your information
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>04</span>Sharing your information
                   </a>
                 </li>
                 <li>
@@ -156,7 +160,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>05</span>Data retention
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>05</span>Data retention
                   </a>
                 </li>
                 <li>
@@ -174,7 +178,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>06</span>Your rights and choices
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>06</span>Your rights and choices
                   </a>
                 </li>
                 <li>
@@ -192,7 +196,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>07</span>Children’s privacy
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>07</span>Children’s privacy
                   </a>
                 </li>
                 <li>
@@ -210,7 +214,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>08</span>Changes to this policy
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>08</span>Changes to this policy
                   </a>
                 </li>
                 <li>
@@ -228,7 +232,7 @@ export function PrivacyContent() {
                     }}
                     data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; text-decoration: none"
                   >
-                    <span style={{ color: "#A23B2C", fontWeight: "700" }}>09</span>Contact us
+                    <span style={{ color: "#125A50", fontWeight: "700" }}>09</span>Contact us
                   </a>
                 </li>
               </ol>
@@ -238,7 +242,7 @@ export function PrivacyContent() {
                 This policy explains what information V&C Cabinet Design Concept LLC collects when you use this website
                 or contact us, and how we use and protect it.
               </p>
-              <section id="pp0" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp0" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -248,7 +252,7 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>1.</span> Information we collect
+                  <span style={{ color: "#125A50" }}>1.</span> Information we collect
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   We collect the details you share with us through our forms, by phone or by email — such as your name,
@@ -257,7 +261,7 @@ export function PrivacyContent() {
                   the site.
                 </p>
               </section>
-              <section id="pp1" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp1" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -267,7 +271,7 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>2.</span> How we use your information
+                  <span style={{ color: "#125A50" }}>2.</span> How we use your information
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   We use your information to respond to your request, schedule your free designer consultation, prepare
@@ -275,7 +279,7 @@ export function PrivacyContent() {
                   personal information.
                 </p>
               </section>
-              <section id="pp2" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp2" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -285,7 +289,7 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>3.</span> Cookies and analytics
+                  <span style={{ color: "#125A50" }}>3.</span> Cookies and analytics
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   We use essential cookies to make the site work and, with your consent, analytics cookies to understand
@@ -293,7 +297,7 @@ export function PrivacyContent() {
                   or your browser settings.
                 </p>
               </section>
-              <section id="pp3" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp3" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -303,7 +307,7 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>4.</span> Sharing your information
+                  <span style={{ color: "#125A50" }}>4.</span> Sharing your information
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   We share your information only with trusted partners who help us deliver your project — such as
@@ -311,7 +315,7 @@ export function PrivacyContent() {
                   when required by law.
                 </p>
               </section>
-              <section id="pp4" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp4" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -321,14 +325,14 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>5.</span> Data retention
+                  <span style={{ color: "#125A50" }}>5.</span> Data retention
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   We keep your information only as long as needed to provide our services and meet legal, accounting and
                   warranty obligations. After that, we delete or anonymize it securely.
                 </p>
               </section>
-              <section id="pp5" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp5" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -338,14 +342,14 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>6.</span> Your rights and choices
+                  <span style={{ color: "#125A50" }}>6.</span> Your rights and choices
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   You can ask to access, correct or delete your personal information, or stop receiving marketing
                   messages, at any time by contacting us. We will respond within a reasonable time.
                 </p>
               </section>
-              <section id="pp6" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp6" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -355,14 +359,14 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>7.</span> Children’s privacy
+                  <span style={{ color: "#125A50" }}>7.</span> Children’s privacy
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   Our website and services are not directed to children under 13, and we do not knowingly collect their
                   personal information.
                 </p>
               </section>
-              <section id="pp7" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp7" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -372,14 +376,14 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>8.</span> Changes to this policy
+                  <span style={{ color: "#125A50" }}>8.</span> Changes to this policy
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   We may update this policy from time to time. The latest version is always posted on this page with its
                   effective date.
                 </p>
               </section>
-              <section id="pp8" style={{ padding: "32px 0", borderTop: "1px solid #E6DFD5" }}>
+              <section id="pp8" style={{ padding: "32px 0", borderTop: "1px solid #E3E5E9" }}>
                 <h2
                   style={{
                     margin: "0 0 14px",
@@ -389,7 +393,7 @@ export function PrivacyContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  <span style={{ color: "#A23B2C" }}>9.</span> Contact us
+                  <span style={{ color: "#125A50" }}>9.</span> Contact us
                 </h2>
                 <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "#22252A" }}>
                   Questions about this policy? Contact V&C Cabinet Design Concept LLC at cabinetdesignconcept@gmail.com,
@@ -400,6 +404,6 @@ export function PrivacyContent() {
           </div>
         </section>
       </main>
-    </>
+    </>,
   );
 }

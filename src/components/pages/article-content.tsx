@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
+import { useTranslate } from "@/lib/i18n/context";
 
 /** Generated from the "Article" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function ArticleContent() {
-  return (
+  const tr = useTranslate();
+  return tr(
     <>
       <SiteHeader variant="solid" current="blog" />
       <main>
@@ -46,12 +50,12 @@ export function ArticleContent() {
                     padding: "6px 12px",
                     borderRadius: "0",
                     background: "#EEF3F0",
-                    color: "#1F3D33",
+                    color: "#125A50",
                     fontWeight: "700",
                     fontSize: "13px",
                     textDecoration: "none",
                   }}
-                  data-s="padding: 6px 12px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 13px; text-decoration: none"
+                  data-s="padding: 6px 12px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 13px; text-decoration: none"
                 >
                   Cabinet Design
                 </Link>
@@ -61,12 +65,12 @@ export function ArticleContent() {
                     padding: "6px 12px",
                     borderRadius: "0",
                     background: "#EEF3F0",
-                    color: "#1F3D33",
+                    color: "#125A50",
                     fontWeight: "700",
                     fontSize: "13px",
                     textDecoration: "none",
                   }}
-                  data-s="padding: 6px 12px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 13px; text-decoration: none"
+                  data-s="padding: 6px 12px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 13px; text-decoration: none"
                 >
                   DIY Projects
                 </Link>
@@ -102,14 +106,14 @@ export function ArticleContent() {
                       height: "40px",
                       borderRadius: "0",
                       background: "#EEF3F0",
-                      color: "#1F3D33",
+                      color: "#125A50",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       fontFamily: "var(--font-urbanist), system-ui, sans-serif",
                       fontWeight: "600",
                     }}
-                    data-s="width: 40px; height: 40px; border-radius: 0; background: #EEF3F0; color: #1F3D33; display: flex; align-items: center; justify-content: center; font-family: var(--font-urbanist), system-ui, sans-serif; font-weight: 600"
+                    data-s="width: 40px; height: 40px; border-radius: 0; background: #EEF3F0; color: #125A50; display: flex; align-items: center; justify-content: center; font-family: var(--font-urbanist), system-ui, sans-serif; font-weight: 600"
                   >
                     I
                   </span>
@@ -127,8 +131,8 @@ export function ArticleContent() {
               className="ph"
               role="img"
               aria-label="Compact kitchen with pull-out storage and under-cabinet lighting"
-              style={{ height: "clamp(260px, 42vw, 600px)", backgroundColor: "#B8A88F", borderRadius: "0" }}
-              data-s="height: clamp(260px, 42vw, 600px); background-color: #B8A88F; border-radius: 0;"
+              style={{ height: "clamp(260px, 42vw, 600px)", backgroundColor: "#D5D8DE", borderRadius: "0" }}
+              data-s="height: clamp(260px, 42vw, 600px); background-color: #D5D8DE; border-radius: 0;"
             />
           </div>
           <div
@@ -149,8 +153,8 @@ export function ArticleContent() {
             >
               <nav
                 aria-label="Table of contents"
-                style={{ padding: "24px", borderRadius: "0", background: "#FFFFFF", border: "1px solid #E6DFD5" }}
-                data-s="padding: 24px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5"
+                style={{ padding: "24px", borderRadius: "0", background: "#FFFFFF", border: "1px solid #E3E5E9" }}
+                data-s="padding: 24px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9"
               >
                 <p
                   style={{
@@ -184,13 +188,13 @@ export function ArticleContent() {
                         minHeight: "36px",
                         alignItems: "center",
                         fontSize: "15px",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         textDecoration: "none",
                       }}
-                      data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #1F3D33; font-weight: 700; text-decoration: none"
+                      data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #125A50; font-weight: 700; text-decoration: none"
                     >
-                      <span style={{ color: "#A23B2C", fontWeight: "700" }}>01</span>Smart Storage Solutions
+                      <span style={{ color: "#125A50", fontWeight: "700" }}>01</span>Smart Storage Solutions
                     </a>
                   </li>
                   <li>
@@ -209,7 +213,7 @@ export function ArticleContent() {
                       }}
                       data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; font-weight: 500; text-decoration: none"
                     >
-                      <span style={{ color: "#A23B2C", fontWeight: "700" }}>02</span>Compact Appliances
+                      <span style={{ color: "#125A50", fontWeight: "700" }}>02</span>Compact Appliances
                     </a>
                   </li>
                   <li>
@@ -228,7 +232,7 @@ export function ArticleContent() {
                       }}
                       data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; font-weight: 500; text-decoration: none"
                     >
-                      <span style={{ color: "#A23B2C", fontWeight: "700" }}>03</span>Clever Organization and
+                      <span style={{ color: "#125A50", fontWeight: "700" }}>03</span>Clever Organization and
                       Decluttering
                     </a>
                   </li>
@@ -248,7 +252,7 @@ export function ArticleContent() {
                       }}
                       data-s="display: flex; gap: 10px; min-height: 36px; align-items: center; font-size: 15px; color: #40444B; font-weight: 500; text-decoration: none"
                     >
-                      <span style={{ color: "#A23B2C", fontWeight: "700" }}>04</span>Lighting and Color Palette
+                      <span style={{ color: "#125A50", fontWeight: "700" }}>04</span>Lighting and Color Palette
                     </a>
                   </li>
                 </ol>
@@ -268,13 +272,13 @@ export function ArticleContent() {
                       width: "44px",
                       height: "44px",
                       borderRadius: "0",
-                      border: "1px solid #C9BFB1",
+                      border: "1px solid #C9CDD4",
                       color: "#1D2B44",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid #C9BFB1; color: #1D2B44; display: flex; align-items: center; justify-content: center"
+                    data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid #C9CDD4; color: #1D2B44; display: flex; align-items: center; justify-content: center"
                   >
                     <svg
                       width="18"
@@ -297,13 +301,13 @@ export function ArticleContent() {
                       width: "44px",
                       height: "44px",
                       borderRadius: "0",
-                      border: "1px solid #C9BFB1",
+                      border: "1px solid #C9CDD4",
                       color: "#1D2B44",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid #C9BFB1; color: #1D2B44; display: flex; align-items: center; justify-content: center"
+                    data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid #C9CDD4; color: #1D2B44; display: flex; align-items: center; justify-content: center"
                   >
                     <svg
                       width="18"
@@ -327,13 +331,13 @@ export function ArticleContent() {
                       width: "44px",
                       height: "44px",
                       borderRadius: "0",
-                      border: "1px solid #C9BFB1",
+                      border: "1px solid #C9CDD4",
                       color: "#1D2B44",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid #C9BFB1; color: #1D2B44; display: flex; align-items: center; justify-content: center"
+                    data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid #C9CDD4; color: #1D2B44; display: flex; align-items: center; justify-content: center"
                   >
                     <svg
                       width="18"
@@ -369,7 +373,7 @@ export function ArticleContent() {
                   color: "#1D2B44",
                 }}
               >
-                <span style={{ color: "#A23B2C" }}>1.</span> Smart Storage Solutions
+                <span style={{ color: "#125A50" }}>1.</span> Smart Storage Solutions
               </h2>
               <ul
                 style={{
@@ -383,35 +387,35 @@ export function ArticleContent() {
                 data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px"
               >
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Pull-out shelves and drawers:</strong> Reach everything at the
                     back of deep cabinets.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Vertical storage:</strong> Wall shelves and rails free up
                     counters and cabinets.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Hanging pot racks:</strong> Clear the cabinets and add
                     character.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Under-sink organizers:</strong> Turn the most awkward cabinet
                     into useful storage.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Corner cabinets:</strong> Lazy Susans and pull-out trays make
                     corners usable.
@@ -429,7 +433,7 @@ export function ArticleContent() {
                   color: "#1D2B44",
                 }}
               >
-                <span style={{ color: "#A23B2C" }}>2.</span> Compact Appliances
+                <span style={{ color: "#125A50" }}>2.</span> Compact Appliances
               </h2>
               <ul
                 style={{
@@ -443,27 +447,27 @@ export function ArticleContent() {
                 data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px"
               >
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Slim refrigerators:</strong> Tall, narrow models save precious
                     width.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Compact dishwashers:</strong> Slimline or drawer units for
                     smaller loads.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Microwave–oven combos:</strong> Two functions, one footprint.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Slide-in ranges:</strong> A streamlined fit between cabinets.
                   </span>
@@ -475,20 +479,20 @@ export function ArticleContent() {
                   margin: "56px 0 0",
                   padding: "32px",
                   borderRadius: "0",
-                  background: "#1F3D33",
+                  background: "#125A50",
                   display: "flex",
                   flexWrap: "wrap",
                   gap: "20px",
                   alignItems: "center",
                   justifyContent: "space-between",
                 }}
-                data-s="margin: 56px 0 0; padding: 32px; border-radius: 0; background: #1F3D33; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between"
+                data-s="margin: 56px 0 0; padding: 32px; border-radius: 0; background: #125A50; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between"
               >
                 <div
                   style={{ flex: "1 1 280px", display: "flex", flexDirection: "column", gap: "8px" }}
                   data-s="flex: 1 1 280px; display: flex; flex-direction: column; gap: 8px"
                 >
-                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "#E3B5A9" }}>
+                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "#BCCDC3" }}>
                     FREE CONSULTATION
                   </span>
                   <p
@@ -497,7 +501,7 @@ export function ArticleContent() {
                       fontFamily: "var(--font-urbanist), system-ui, sans-serif",
                       fontSize: "26px",
                       lineHeight: "1.25",
-                      color: "#F6F3EE",
+                      color: "#EFF0F2",
                     }}
                   >
                     Planning a small kitchen? Book a free designer consultation.
@@ -515,14 +519,14 @@ export function ArticleContent() {
                     padding: "0 28px",
                     borderRadius: "0",
                     background: "#FFFFFF",
-                    color: "#1F3D33",
+                    color: "#125A50",
                     border: "0",
                     fontSize: "15px",
                     fontWeight: "600",
                     textDecoration: "none",
                     textAlign: "center",
                   }}
-                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #1F3D33; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                 >
                   Book now
                 </Link>
@@ -538,7 +542,7 @@ export function ArticleContent() {
                   color: "#1D2B44",
                 }}
               >
-                <span style={{ color: "#A23B2C" }}>3.</span> Clever Organization and Decluttering
+                <span style={{ color: "#125A50" }}>3.</span> Clever Organization and Decluttering
               </h2>
               <ul
                 style={{
@@ -552,28 +556,28 @@ export function ArticleContent() {
                 data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px"
               >
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Dual-purpose furniture:</strong> Benches and islands with
                     built-in storage.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Clear countertops:</strong> Store small appliances out of
                     sight.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Magnetic knife strips:</strong> Free a drawer and keep knives
                     at hand.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Compact dining:</strong> Fold-down or wall-mounted tables.
                   </span>
@@ -590,7 +594,7 @@ export function ArticleContent() {
                   color: "#1D2B44",
                 }}
               >
-                <span style={{ color: "#A23B2C" }}>4.</span> Lighting and Color Palette
+                <span style={{ color: "#125A50" }}>4.</span> Lighting and Color Palette
               </h2>
               <ul
                 style={{
@@ -604,21 +608,21 @@ export function ArticleContent() {
                 data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px"
               >
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Under-cabinet lighting:</strong> Brighter counters and a sense
                     of depth.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Light colors:</strong> Pale cabinets and walls reflect light
                     and feel airy.
                   </span>
                 </li>
                 <li style={{ display: "flex", gap: "14px", fontSize: "18px", lineHeight: "1.7" }}>
-                  <span style={{ color: "#1F3D33", flexShrink: "0", paddingTop: "4px" }} />
+                  <span style={{ color: "#125A50", flexShrink: "0", paddingTop: "4px" }} />
                   <span>
                     <strong style={{ color: "#1D2B44" }}>Mirror backsplash:</strong> Visually doubles the space.
                   </span>
@@ -629,10 +633,10 @@ export function ArticleContent() {
                   marginTop: "56px",
                   padding: "32px",
                   borderRadius: "0",
-                  background: "#F6F3EE",
-                  borderTop: "3px solid #1F3D33",
+                  background: "#EFF0F2",
+                  borderTop: "3px solid #125A50",
                 }}
-                data-s="margin-top: 56px; padding: 32px; border-radius: 0; background: #F6F3EE; border-top: 3px solid #1F3D33"
+                data-s="margin-top: 56px; padding: 32px; border-radius: 0; background: #EFF0F2; border-top: 3px solid #125A50"
               >
                 <h2
                   style={{
@@ -659,7 +663,7 @@ export function ArticleContent() {
                   gap: "16px",
                   marginTop: "48px",
                   paddingTop: "32px",
-                  borderTop: "1px solid #C9BFB1",
+                  borderTop: "1px solid #C9CDD4",
                 }}
               >
                 <Link
@@ -671,11 +675,11 @@ export function ArticleContent() {
                     gap: "6px",
                     padding: "20px",
                     borderRadius: "0",
-                    border: "1px solid #E6DFD5",
+                    border: "1px solid #E3E5E9",
                     background: "#FFFFFF",
                     textDecoration: "none",
                   }}
-                  data-s="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 0; border: 1px solid #E6DFD5; background: #FFFFFF; text-decoration: none"
+                  data-s="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 0; border: 1px solid #E3E5E9; background: #FFFFFF; text-decoration: none"
                 >
                   <span
                     style={{
@@ -722,13 +726,13 @@ export function ArticleContent() {
                     gap: "6px",
                     padding: "20px",
                     borderRadius: "0",
-                    border: "1px solid #E6DFD5",
+                    border: "1px solid #E3E5E9",
                     background: "#FFFFFF",
                     textDecoration: "none",
                     textAlign: "right",
                     alignItems: "flex-end",
                   }}
-                  data-s="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 0; border: 1px solid #E6DFD5; background: #FFFFFF; text-decoration: none; text-align: right; align-items: flex-end"
+                  data-s="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 0; border: 1px solid #E3E5E9; background: #FFFFFF; text-decoration: none; text-align: right; align-items: flex-end"
                 >
                   <span
                     style={{
@@ -770,7 +774,7 @@ export function ArticleContent() {
             </div>
           </div>
         </article>
-        <section className="sec" style={{ background: "#F6F3EE" }} data-s="background: #F6F3EE">
+        <section className="sec" style={{ background: "#EFF0F2" }} data-s="background: #EFF0F2">
           <div className="wrap">
             <div
               style={{ display: "flex", flexDirection: "column", gap: "18px", marginBottom: "clamp(32px, 4vw, 56px)" }}
@@ -801,11 +805,11 @@ export function ArticleContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -838,11 +842,11 @@ export function ArticleContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Renovation tips
                     </span>
@@ -873,7 +877,7 @@ export function ArticleContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -890,11 +894,11 @@ export function ArticleContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -927,11 +931,11 @@ export function ArticleContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Cabinet Design
                     </span>
@@ -961,7 +965,7 @@ export function ArticleContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -978,11 +982,11 @@ export function ArticleContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -1016,11 +1020,11 @@ export function ArticleContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Closets
                     </span>
@@ -1050,7 +1054,7 @@ export function ArticleContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -1067,11 +1071,11 @@ export function ArticleContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
@@ -1104,11 +1108,11 @@ export function ArticleContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Bathroom
                     </span>
@@ -1138,7 +1142,7 @@ export function ArticleContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -1155,17 +1159,17 @@ export function ArticleContent() {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 }}
-                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E6DFD5; text-decoration: none; color: #22252A"
+                data-s="flex: 1 1 320px; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 0; overflow: hidden; border: 1px solid #E3E5E9; text-decoration: none; color: #22252A"
               >
                 <div
                   className="ph"
                   role="img"
                   aria-label="Article cover: Transforming Kitchens: Modern Kitchen Renovation in Clearwater, Florida"
-                  style={{ height: "220px", backgroundColor: "#A89C8B" }}
+                  style={{ height: "220px", backgroundColor: "#8E95A1" }}
                 />
                 <div
                   style={{
@@ -1192,11 +1196,11 @@ export function ArticleContent() {
                         padding: "4px 10px",
                         borderRadius: "0",
                         background: "#EEF3F0",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         fontWeight: "700",
                         fontSize: "12px",
                       }}
-                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #1F3D33; font-weight: 700; font-size: 12px"
+                      data-s="padding: 4px 10px; border-radius: 0; background: #EEF3F0; color: #125A50; font-weight: 700; font-size: 12px"
                     >
                       Kitchen
                     </span>
@@ -1226,7 +1230,7 @@ export function ArticleContent() {
                       gap: "8px",
                       fontSize: "15px",
                       fontWeight: "700",
-                      color: "#1F3D33",
+                      color: "#125A50",
                     }}
                   >
                     Read more{" "}
@@ -1265,7 +1269,7 @@ export function ArticleContent() {
                     alignItems: "center",
                     gap: "8px",
                     fontWeight: "700",
-                    color: "#1F3D33",
+                    color: "#125A50",
                   }}
                 >
                   Go to the blog{" "}
@@ -1275,6 +1279,6 @@ export function ArticleContent() {
           </div>
         </section>
       </main>
-    </>
+    </>,
   );
 }

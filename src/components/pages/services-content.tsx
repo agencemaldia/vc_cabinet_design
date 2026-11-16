@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import { SiteHeader } from "@/components/site/site-header";
+import { PinnedStatements } from "@/components/site/pinned-statements";
 import { Collapse } from "@/components/site/collapse";
 import { ContactSection } from "@/components/site/contact-section";
+import { ServicesShowcase } from "@/components/site/services-showcase";
+import { StyleCards } from "@/components/site/style-cards";
 import { useDesignState, type DesignData } from "@/components/pages/use-design-state";
+import { useTranslate } from "@/lib/i18n/context";
 
 const DATA: DesignData = {
   faqs: [
@@ -34,8 +38,9 @@ const DATA: DesignData = {
 
 /** Generated from the "Services" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function ServicesContent() {
+  const tr = useTranslate();
   const { faqs } = useDesignState(DATA);
-  return (
+  return tr(
     <>
       <main>
         <div style={{ padding: "clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px) 0", background: "#FFFFFF" }}>
@@ -149,14 +154,14 @@ export function ServicesContent() {
                       padding: "0 28px",
                       borderRadius: "0",
                       background: "#FFFFFF",
-                      color: "#1F3D33",
+                      color: "#125A50",
                       border: "0",
                       fontSize: "15px",
                       fontWeight: "600",
                       textDecoration: "none",
                       textAlign: "center",
                     }}
-                    data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #1F3D33; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                    data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                   >
                     Book a Free Designer Consultation
                   </Link>
@@ -165,405 +170,33 @@ export function ServicesContent() {
             </section>
           </div>
         </div>
-        <section className="sec">
-          <div className="wrap">
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "18px",
-                alignItems: "center",
-                textAlign: "center",
-                marginBottom: "clamp(32px, 4vw, 56px)",
-              }}
-              data-s="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center; margin-bottom: clamp(32px, 4vw, 56px)"
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontWeight: "400",
-                  fontSize: "clamp(40px, 5.4vw, 76px)",
-                  lineHeight: "1.04",
-                  letterSpacing: "-.01em",
-                  color: "#1D2B44",
-                }}
-              >
-                One designer, from first visit to final detail.
-              </h2>
-              <p
-                style={{
-                  margin: "0",
-                  maxWidth: "560px",
-                  fontSize: "clamp(16px, 1.3vw, 19px)",
-                  lineHeight: "1.5",
-                  color: "#5E636B",
-                }}
-                data-s="margin: 0; max-width: 560px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.5; color: #5E636B"
-              >
-                Your designer is there from the moment we take your needs until the project is complete — through 3D
-                design, manufacturing and installation.
-              </p>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "24px" }}>
-              <div
-                style={{
-                  flex: "1 1 280px",
-                  display: "flex",
-                  gap: "18px",
-                  alignItems: "flex-start",
-                  padding: "28px",
-                  borderTop: "2px solid #1F3D33",
-                  background: "#FFFFFF",
-                }}
-              >
-                <span style={{ color: "#4A6A8A" }} />
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-                  data-s="display: flex; flex-direction: column; gap: 8px"
-                >
-                  <h3 style={{ margin: "0", fontSize: "19px", fontWeight: "700", color: "#1D2B44" }}>3D design</h3>
-                  <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.6", color: "#5E636B" }}>
-                    See your room before it’s built — and change it in real time.
-                  </p>
-                </div>
-              </div>
-              <div
-                style={{
-                  flex: "1 1 280px",
-                  display: "flex",
-                  gap: "18px",
-                  alignItems: "flex-start",
-                  padding: "28px",
-                  borderTop: "2px solid #1F3D33",
-                  background: "#FFFFFF",
-                }}
-              >
-                <span style={{ color: "#4A6A8A" }} />
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-                  data-s="display: flex; flex-direction: column; gap: 8px"
-                >
-                  <h3 style={{ margin: "0", fontSize: "19px", fontWeight: "700", color: "#1D2B44" }}>Manufacturing</h3>
-                  <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.6", color: "#5E636B" }}>
-                    European, Canadian and American cabinetry, medium-to-high-end.
-                  </p>
-                </div>
-              </div>
-              <div
-                style={{
-                  flex: "1 1 280px",
-                  display: "flex",
-                  gap: "18px",
-                  alignItems: "flex-start",
-                  padding: "28px",
-                  borderTop: "2px solid #1F3D33",
-                  background: "#FFFFFF",
-                }}
-              >
-                <span style={{ color: "#4A6A8A" }} />
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-                  data-s="display: flex; flex-direction: column; gap: 8px"
-                >
-                  <h3 style={{ margin: "0", fontSize: "19px", fontWeight: "700", color: "#1D2B44" }}>Installation</h3>
-                  <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.6", color: "#5E636B" }}>
-                    Delivered, fitted and inspected by our own team.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="sec" style={{ background: "#FFFFFF" }}>
-          <div
-            className="wrap"
-            style={{ display: "flex", flexWrap: "wrap", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" }}
-            data-s="display: flex; flex-wrap: wrap;  gap: clamp(40px, 6vw, 96px); align-items: center"
-          >
-            <div
-              className="ph"
-              role="img"
-              aria-label="100% custom made — project photo"
-              style={{
-                height: "clamp(340px, 38vw, 560px)",
-                backgroundColor: "#B8A88F",
-                flex: "1 1 420px",
-                borderRadius: "0",
-              }}
-              data-s="height: clamp(340px, 38vw, 560px); background-color: #B8A88F; flex: 1 1 420px; border-radius: 0;"
-            />
-            <div
-              style={{ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "20px" }}
-              data-s="flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px"
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontWeight: "400",
-                  fontSize: "clamp(34px, 4.4vw, 58px)",
-                  lineHeight: "1.04",
-                  letterSpacing: "-.01em",
-                  color: "#1D2B44",
-                }}
-                data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-weight: 400; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.04; letter-spacing: -.01em; color: #1D2B44"
-              >
-                100% custom made
-              </h2>
-              <p
-                style={{ margin: "0", maxWidth: "560px", fontSize: "16px", lineHeight: "1.6", color: "#22252A" }}
-                data-s="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.6; color: #22252A"
-              >
-                We’re custom kitchen and bathroom specialists. Every cabinet is designed for your space and your habits
-                — never pulled from a catalog.
-              </p>
-              <ul
-                style={{
-                  margin: "0",
-                  padding: "0",
-                  listStyle: "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-                data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px"
-              >
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Built to your exact measurements
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Your choice of styles, finishes and hardware
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Attention to every joint and detail
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section className="sec" style={{}}>
-          <div
-            className="wrap"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "row-reverse",
-              gap: "clamp(40px, 6vw, 96px)",
-              alignItems: "center",
-            }}
-            data-s="display: flex; flex-wrap: wrap; flex-direction: row-reverse; gap: clamp(40px, 6vw, 96px); align-items: center"
-          >
-            <div
-              className="ph"
-              role="img"
-              aria-label="Versatile Renovation Experts — project photo"
-              style={{
-                height: "clamp(340px, 38vw, 560px)",
-                backgroundColor: "#8DA4BC",
-                flex: "1 1 420px",
-                borderRadius: "0",
-              }}
-              data-s="height: clamp(340px, 38vw, 560px); background-color: #8DA4BC; flex: 1 1 420px; border-radius: 0;"
-            />
-            <div
-              style={{ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "20px" }}
-              data-s="flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px"
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontWeight: "400",
-                  fontSize: "clamp(34px, 4.4vw, 58px)",
-                  lineHeight: "1.04",
-                  letterSpacing: "-.01em",
-                  color: "#1D2B44",
-                }}
-                data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-weight: 400; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.04; letter-spacing: -.01em; color: #1D2B44"
-              >
-                Versatile Renovation Experts
-              </h2>
-              <p
-                style={{ margin: "0", maxWidth: "560px", fontSize: "16px", lineHeight: "1.6", color: "#22252A" }}
-                data-s="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.6; color: #22252A"
-              >
-                Our expertise goes further: living rooms, bedrooms, home offices and every room that deserves smart,
-                beautiful storage.
-              </p>
-              <ul
-                style={{
-                  margin: "0",
-                  padding: "0",
-                  listStyle: "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-                data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px"
-              >
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Built-ins and media walls
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Home offices and libraries
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Mudrooms and laundry rooms
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section className="sec" style={{ background: "#FFFFFF" }}>
-          <div
-            className="wrap"
-            style={{ display: "flex", flexWrap: "wrap", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" }}
-            data-s="display: flex; flex-wrap: wrap;  gap: clamp(40px, 6vw, 96px); align-items: center"
-          >
-            <div
-              className="ph"
-              role="img"
-              aria-label="Whole-Home Transformation — project photo"
-              style={{
-                height: "clamp(340px, 38vw, 560px)",
-                backgroundColor: "#6B8A7A",
-                flex: "1 1 420px",
-                borderRadius: "0",
-              }}
-              data-s="height: clamp(340px, 38vw, 560px); background-color: #6B8A7A; flex: 1 1 420px; border-radius: 0;"
-            />
-            <div
-              style={{ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "20px" }}
-              data-s="flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px"
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontWeight: "400",
-                  fontSize: "clamp(34px, 4.4vw, 58px)",
-                  lineHeight: "1.04",
-                  letterSpacing: "-.01em",
-                  color: "#1D2B44",
-                }}
-                data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-weight: 400; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.04; letter-spacing: -.01em; color: #1D2B44"
-              >
-                Whole-Home Transformation
-              </h2>
-              <p
-                style={{ margin: "0", maxWidth: "560px", fontSize: "16px", lineHeight: "1.6", color: "#22252A" }}
-                data-s="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.6; color: #22252A"
-              >
-                Planning several rooms? We renovate your entire home at once, with one streamlined process from design
-                to final inspection.
-              </p>
-              <ul
-                style={{
-                  margin: "0",
-                  padding: "0",
-                  listStyle: "none",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-                data-s="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px"
-              >
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  One designer and one schedule
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Consistent style from room to room
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    fontSize: "16px",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  <span style={{ color: "#1F3D33", flexShrink: "0" }} />
-                  Fewer disruptions to your daily life
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section className="sec" style={{ background: "#F6F3EE" }} data-s="background: #F6F3EE">
+        <PinnedStatements
+          title={
+            <>
+              One designer, <em>from first visit to final detail.</em>
+            </>
+          }
+          lead="Your designer is there from the moment we take your needs until the project is complete — through 3D design, manufacturing and installation."
+          items={[
+            {
+              label: "3D design",
+              title: "See it before it’s built.",
+              text: "Your designer models your room in 3D and adjusts it with you in real time — layout, materials, lighting.",
+            },
+            {
+              label: "Manufacturing",
+              title: "Cabinetry built to last.",
+              text: "European, Canadian and American cabinetry, medium-to-high-end, made to your exact measurements.",
+            },
+            {
+              label: "Installation",
+              title: "Fitted by our own team.",
+              text: "Delivered, fitted and inspected by V&C — no subcontractors, no surprises.",
+            },
+          ]}
+        />
+        <ServicesShowcase />
+        <section className="sec" style={{ background: "#EFF0F2" }} data-s="background: #EFF0F2">
           <div className="wrap">
             <div
               style={{ display: "flex", flexDirection: "column", gap: "18px", marginBottom: "clamp(32px, 4vw, 56px)" }}
@@ -602,7 +235,7 @@ export function ServicesContent() {
                   className="ph tile-img"
                   role="img"
                   aria-label="Kitchens project by V&C"
-                  style={{ position: "absolute", inset: "0", backgroundColor: "#B8A88F" }}
+                  style={{ position: "absolute", inset: "0", backgroundColor: "#D5D8DE" }}
                 />
                 <div
                   aria-hidden="true"
@@ -822,161 +455,7 @@ export function ServicesContent() {
             </div>
           </div>
         </section>
-        <section className="sec grain" style={{ backgroundColor: "#1D2B44" }}>
-          <div className="wrap">
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "18px", marginBottom: "clamp(32px, 4vw, 56px)" }}
-              data-s="display: flex; flex-direction: column; gap: 18px;  margin-bottom: clamp(32px, 4vw, 56px)"
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontWeight: "400",
-                  fontSize: "clamp(40px, 5.4vw, 76px)",
-                  lineHeight: "1.04",
-                  letterSpacing: "-.01em",
-                  color: "#FFFFFF",
-                }}
-                data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.04; letter-spacing: -.01em; color: #FFFFFF"
-              >
-                Choose your style. We’ll build it.
-              </h2>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-              <div
-                style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: "14px" }}
-                data-s="flex: 1 1 200px; display: flex; flex-direction: column; gap: 14px"
-              >
-                <div
-                  className="ph"
-                  role="img"
-                  aria-label="European cabinetry sample"
-                  style={{ height: "180px", borderRadius: "0", backgroundColor: "#E6DFD5" }}
-                  data-s="height: 180px; border-radius: 0; background-color: #E6DFD5"
-                />
-                <h3
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontWeight: "450",
-                    fontSize: "24px",
-                    color: "#F6F3EE",
-                  }}
-                >
-                  European
-                </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.55", color: "rgba(246,243,238,.8)" }}>
-                  Sleek, handle-less, matte lacquers
-                </p>
-              </div>
-              <div
-                style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: "14px" }}
-                data-s="flex: 1 1 200px; display: flex; flex-direction: column; gap: 14px"
-              >
-                <div
-                  className="ph"
-                  role="img"
-                  aria-label="Canadian cabinetry sample"
-                  style={{ height: "180px", borderRadius: "0", backgroundColor: "#A89C8B" }}
-                  data-s="height: 180px; border-radius: 0; background-color: #A89C8B"
-                />
-                <h3
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontWeight: "450",
-                    fontSize: "24px",
-                    color: "#F6F3EE",
-                  }}
-                >
-                  Canadian
-                </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.55", color: "rgba(246,243,238,.8)" }}>
-                  Solid wood, durable, warm finishes
-                </p>
-              </div>
-              <div
-                style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: "14px" }}
-                data-s="flex: 1 1 200px; display: flex; flex-direction: column; gap: 14px"
-              >
-                <div
-                  className="ph"
-                  role="img"
-                  aria-label="American cabinetry sample"
-                  style={{ height: "180px", borderRadius: "0", backgroundColor: "#BCCDC3" }}
-                  data-s="height: 180px; border-radius: 0; background-color: #BCCDC3"
-                />
-                <h3
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontWeight: "450",
-                    fontSize: "24px",
-                    color: "#F6F3EE",
-                  }}
-                >
-                  American
-                </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.55", color: "rgba(246,243,238,.8)" }}>
-                  Shaker and classic profiles
-                </p>
-              </div>
-              <div
-                style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: "14px" }}
-                data-s="flex: 1 1 200px; display: flex; flex-direction: column; gap: 14px"
-              >
-                <div
-                  className="ph"
-                  role="img"
-                  aria-label="Finishes cabinetry sample"
-                  style={{ height: "180px", borderRadius: "0", backgroundColor: "#8DA4BC" }}
-                  data-s="height: 180px; border-radius: 0; background-color: #8DA4BC"
-                />
-                <h3
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontWeight: "450",
-                    fontSize: "24px",
-                    color: "#F6F3EE",
-                  }}
-                >
-                  Finishes
-                </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.55", color: "rgba(246,243,238,.8)" }}>
-                  Lacquer, veneer, painted, melamine
-                </p>
-              </div>
-              <div
-                style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: "14px" }}
-                data-s="flex: 1 1 200px; display: flex; flex-direction: column; gap: 14px"
-              >
-                <div
-                  className="ph"
-                  role="img"
-                  aria-label="Hardware cabinetry sample"
-                  style={{ height: "180px", borderRadius: "0", backgroundColor: "#B08D57" }}
-                  data-s="height: 180px; border-radius: 0; background-color: #B08D57"
-                />
-                <h3
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontWeight: "450",
-                    fontSize: "24px",
-                    color: "#F6F3EE",
-                  }}
-                >
-                  Hardware
-                </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.55", color: "rgba(246,243,238,.8)" }}>
-                  Soft-close, pull-outs, brass & black pulls
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <StyleCards />
         <section className="sec" style={{ background: "#FFFFFF" }}>
           <div
             className="wrap"
@@ -1015,8 +494,8 @@ export function ServicesContent() {
               {faqs.map((f, fIndex) => (
                 <Fragment key={fIndex}>
                   <div
-                    style={{ borderRadius: "0", background: "#F6F3EE" }}
-                    data-s="border-radius: 0; background: #F6F3EE"
+                    style={{ borderRadius: "0", background: "#EFF0F2" }}
+                    data-s="border-radius: 0; background: #EFF0F2"
                   >
                     <h3 style={{ margin: "0" }}>
                       <button
@@ -1084,6 +563,6 @@ export function ServicesContent() {
         </section>
         <ContactSection />
       </main>
-    </>
+    </>,
   );
 }

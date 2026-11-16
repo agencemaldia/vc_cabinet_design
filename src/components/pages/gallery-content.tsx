@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { ContactSection } from "@/components/site/contact-section";
 import { useDesignState, type DesignData } from "@/components/pages/use-design-state";
+import { useTranslate } from "@/lib/i18n/context";
 
 const DATA: DesignData = {
   items: [
@@ -12,7 +13,7 @@ const DATA: DesignData = {
       cap: "Kitchen — white shaker",
       city: "Tampa, FL",
       h: 360,
-      tone: "#B8A88F",
+      tone: "#D5D8DE",
       alt: "Kitchen project — walnut veneer, Wesley Chapel",
       cls: "p-K27",
     },
@@ -30,7 +31,7 @@ const DATA: DesignData = {
       cap: "Kitchen — natural oak",
       city: "Bradenton, FL",
       h: 420,
-      tone: "#E6DFD5",
+      tone: "#E3E5E9",
       alt: "Kitchen project — high-gloss white, Brandon",
       cls: "p-K3",
     },
@@ -84,7 +85,7 @@ const DATA: DesignData = {
       cap: "Kitchen — natural oak",
       city: "Tampa, FL",
       h: 290,
-      tone: "#A89C8B",
+      tone: "#8E95A1",
       alt: "Kitchen project — high-gloss white, Wesley Chapel",
       cls: "p-K21",
     },
@@ -102,7 +103,7 @@ const DATA: DesignData = {
       cap: "Bathroom — matte lacquer",
       city: "Bradenton, FL",
       h: 330,
-      tone: "#C9BFB1",
+      tone: "#C9CDD4",
       alt: "Bathroom project — painted oak, Brandon",
       cls: "p-B17",
     },
@@ -120,7 +121,7 @@ const DATA: DesignData = {
       cap: "Kitchen — white shaker",
       city: "Tampa, FL",
       h: 310,
-      tone: "#B8A88F",
+      tone: "#D5D8DE",
       alt: "Kitchen project — walnut veneer, Wesley Chapel",
       cls: "p-K19",
     },
@@ -138,7 +139,7 @@ const DATA: DesignData = {
       cap: "Kitchen — natural oak",
       city: "Bradenton, FL",
       h: 240,
-      tone: "#E6DFD5",
+      tone: "#E3E5E9",
       alt: "Kitchen project — high-gloss white, Brandon",
       cls: "p-K12",
     },
@@ -192,7 +193,7 @@ const DATA: DesignData = {
       cap: "Kitchen — natural oak",
       city: "Tampa, FL",
       h: 380,
-      tone: "#A89C8B",
+      tone: "#8E95A1",
       alt: "Kitchen project — high-gloss white, Wesley Chapel",
       cls: "p-K16",
     },
@@ -210,7 +211,7 @@ const DATA: DesignData = {
       cap: "Bathroom — matte lacquer",
       city: "Bradenton, FL",
       h: 340,
-      tone: "#C9BFB1",
+      tone: "#C9CDD4",
       alt: "Bathroom project — painted oak, Brandon",
       cls: "p-B2",
     },
@@ -228,7 +229,7 @@ const DATA: DesignData = {
       cap: "Kitchen — white shaker",
       city: "Tampa, FL",
       h: 260,
-      tone: "#B8A88F",
+      tone: "#D5D8DE",
       alt: "Kitchen project — walnut veneer, Wesley Chapel",
       cls: "p-K10",
     },
@@ -246,7 +247,7 @@ const DATA: DesignData = {
       cap: "Kitchen — natural oak",
       city: "Bradenton, FL",
       h: 270,
-      tone: "#E6DFD5",
+      tone: "#E3E5E9",
       alt: "Kitchen project — high-gloss white, Brandon",
       cls: "p-K25",
     },
@@ -292,16 +293,17 @@ const DATA: DesignData = {
 
 /** Generated from the "Gallery" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function GalleryContent() {
+  const tr = useTranslate();
   const { chips, closeLb, ctaHref, lb, lbIndex, lbOpen, lbTotal, next, prev, shown } = useDesignState(DATA);
-  return (
+  return tr(
     <>
       <SiteHeader variant="solid" current="gallery" />
       <main>
         <section
           data-hero="light"
           className="sec"
-          style={{ background: "#F6F3EE", paddingBottom: "clamp(40px, 5vw, 72px)" }}
-          data-s="background: #F6F3EE; padding-bottom: clamp(40px, 5vw, 72px)"
+          style={{ background: "#EFF0F2", paddingBottom: "clamp(40px, 5vw, 72px)" }}
+          data-s="background: #EFF0F2; padding-bottom: clamp(40px, 5vw, 72px)"
         >
           <div
             className="wrap"
@@ -321,7 +323,7 @@ export function GalleryContent() {
             >
               Check out our
               <br />
-              <em style={{ color: "#1F3D33" }}>latest projects.</em>
+              <em style={{ color: "#125A50" }}>latest projects.</em>
             </h1>
             <p
               style={{
@@ -454,14 +456,14 @@ export function GalleryContent() {
                           height: "48px",
                           borderRadius: "0",
                           border: "0",
-                          background: "#F6F3EE",
+                          background: "#EFF0F2",
                           color: "#1D2B44",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           cursor: "pointer",
                         }}
-                        data-s="position: absolute; left: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #F6F3EE; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                        data-s="position: absolute; left: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #EFF0F2; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
                       >
                         <svg
                           width="22"
@@ -490,14 +492,14 @@ export function GalleryContent() {
                           height: "48px",
                           borderRadius: "0",
                           border: "0",
-                          background: "#F6F3EE",
+                          background: "#EFF0F2",
                           color: "#1D2B44",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           cursor: "pointer",
                         }}
-                        data-s="position: absolute; right: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #F6F3EE; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                        data-s="position: absolute; right: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #EFF0F2; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
                       >
                         <svg
                           width="22"
@@ -520,9 +522,9 @@ export function GalleryContent() {
                         display: "flex",
                         flexDirection: "column",
                         gap: "16px",
-                        color: "#F6F3EE",
+                        color: "#EFF0F2",
                       }}
-                      data-s="flex: 1 1 280px; display: flex; flex-direction: column; gap: 16px; color: #F6F3EE"
+                      data-s="flex: 1 1 280px; display: flex; flex-direction: column; gap: 16px; color: #EFF0F2"
                     >
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <span style={{ fontSize: "13px", color: "#BCCDC3" }} data-s="font-size: 13px; color: #BCCDC3">
@@ -538,13 +540,13 @@ export function GalleryContent() {
                             borderRadius: "0",
                             border: "1px solid rgba(246,243,238,.4)",
                             background: "transparent",
-                            color: "#F6F3EE",
+                            color: "#EFF0F2",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             cursor: "pointer",
                           }}
-                          data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid rgba(246,243,238,.4); background: transparent; color: #F6F3EE; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                          data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid rgba(246,243,238,.4); background: transparent; color: #EFF0F2; display: flex; align-items: center; justify-content: center; cursor: pointer"
                         >
                           <svg
                             width="20"
@@ -566,12 +568,12 @@ export function GalleryContent() {
                           alignSelf: "flex-start",
                           padding: "4px 12px",
                           borderRadius: "0",
-                          background: "#2A4A3E",
+                          background: "#1A6A5E",
                           color: "#BCCDC3",
                           fontSize: "12px",
                           fontWeight: "700",
                         }}
-                        data-s="align-self: flex-start; padding: 4px 12px; border-radius: 0; background: #2A4A3E; color: #BCCDC3; font-size: 12px; font-weight: 700"
+                        data-s="align-self: flex-start; padding: 4px 12px; border-radius: 0; background: #1A6A5E; color: #BCCDC3; font-size: 12px; font-weight: 700"
                       >
                         {lb.room}
                       </span>
@@ -629,12 +631,12 @@ export function GalleryContent() {
                           justifyContent: "center",
                           minHeight: "52px",
                           borderRadius: "0",
-                          background: "#F6F3EE",
-                          color: "#1F3D33",
+                          background: "#EFF0F2",
+                          color: "#125A50",
                           fontWeight: "700",
                           textDecoration: "none",
                         }}
-                        data-s="margin-top: 16px; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 0; background: #F6F3EE; color: #1F3D33; font-weight: 700; text-decoration: none"
+                        data-s="margin-top: 16px; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 0; background: #EFF0F2; color: #125A50; font-weight: 700; text-decoration: none"
                       >
                         Book a Free Designer Consultation
                       </a>
@@ -654,6 +656,6 @@ export function GalleryContent() {
           appointment="Or make an appointment — call or visit our Tampa showroom."
         />
       </main>
-    </>
+    </>,
   );
 }

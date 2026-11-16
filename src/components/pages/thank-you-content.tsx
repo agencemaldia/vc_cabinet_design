@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
+import { useTranslate } from "@/lib/i18n/context";
 
 /** Generated from the "ThankYou" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function ThankYouContent() {
-  return (
+  const tr = useTranslate();
+  return tr(
     <>
       <SiteHeader variant="solid" />
       <main>
@@ -26,7 +30,7 @@ export function ThankYouContent() {
             >
               Thank you.
               <br />
-              <em style={{ color: "#1F3D33" }}>We’ll be in touch.</em>
+              <em style={{ color: "#125A50" }}>We’ll be in touch.</em>
             </h1>
             <p
               style={{
@@ -56,12 +60,12 @@ export function ThankYouContent() {
                   padding: "28px",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
                 }}
-                data-s="flex: 1 1 260px; padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; display: flex; flex-direction: column; gap: 12px"
+                data-s="flex: 1 1 260px; padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; display: flex; flex-direction: column; gap: 12px"
               >
                 <span style={{ display: "flex", alignItems: "center", gap: "12px", color: "#4A6A8A" }}>
                   <svg
@@ -98,12 +102,12 @@ export function ThankYouContent() {
                   padding: "28px",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
                 }}
-                data-s="flex: 1 1 260px; padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; display: flex; flex-direction: column; gap: 12px"
+                data-s="flex: 1 1 260px; padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; display: flex; flex-direction: column; gap: 12px"
               >
                 <span style={{ display: "flex", alignItems: "center", gap: "12px", color: "#4A6A8A" }}>
                   <span
@@ -129,12 +133,12 @@ export function ThankYouContent() {
                   padding: "28px",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
                 }}
-                data-s="flex: 1 1 260px; padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; display: flex; flex-direction: column; gap: 12px"
+                data-s="flex: 1 1 260px; padding: 28px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; display: flex; flex-direction: column; gap: 12px"
               >
                 <span style={{ display: "flex", alignItems: "center", gap: "12px", color: "#4A6A8A" }}>
                   <span
@@ -167,7 +171,7 @@ export function ThankYouContent() {
                   minHeight: "52px",
                   padding: "0 28px",
                   borderRadius: "0",
-                  background: "#1F3D33",
+                  background: "#125A50",
                   color: "#FFFFFF",
                   border: "0",
                   fontSize: "15px",
@@ -175,7 +179,7 @@ export function ThankYouContent() {
                   textDecoration: "none",
                   textAlign: "center",
                 }}
-                data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #1F3D33; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #125A50; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
               >
                 Browse our projects
               </Link>
@@ -213,6 +217,6 @@ export function ThankYouContent() {
           </div>
         </section>
       </main>
-    </>
+    </>,
   );
 }

@@ -3,21 +3,23 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
 import { useDesignState, type DesignData } from "@/components/pages/use-design-state";
+import { useTranslate } from "@/lib/i18n/context";
 
 const DATA: DesignData = {};
 
 /** Generated from the "Contact" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function ContactContent() {
+  const tr = useTranslate();
   const { submitForm } = useDesignState(DATA);
-  return (
+  return tr(
     <>
       <SiteHeader variant="solid" current="contact" />
       <main>
         <section
           data-hero="light"
           className="sec"
-          style={{ background: "#F6F3EE", paddingBottom: "clamp(40px, 5vw, 72px)" }}
-          data-s="background: #F6F3EE; padding-bottom: clamp(40px, 5vw, 72px)"
+          style={{ background: "#EFF0F2", paddingBottom: "clamp(40px, 5vw, 72px)" }}
+          data-s="background: #EFF0F2; padding-bottom: clamp(40px, 5vw, 72px)"
         >
           <div
             className="wrap"
@@ -37,7 +39,7 @@ export function ContactContent() {
             >
               Let’s talk about your
               <br />
-              <em style={{ color: "#1F3D33" }}>interior projects.</em>
+              <em style={{ color: "#125A50" }}>interior projects.</em>
             </h1>
             <p
               style={{
@@ -62,12 +64,12 @@ export function ContactContent() {
                     padding: "10px 16px",
                     borderRadius: "0",
                     background: "#FFFFFF",
-                    border: "1px solid #E6DFD5",
+                    border: "1px solid #E3E5E9",
                     fontSize: "14px",
                     fontWeight: "600",
                     color: "#1D2B44",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; font-size: 14px; font-weight: 600; color: #1D2B44"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; font-size: 14px; font-weight: 600; color: #1D2B44"
                 >
                   Free in-home measurement
                 </span>
@@ -79,12 +81,12 @@ export function ContactContent() {
                     padding: "10px 16px",
                     borderRadius: "0",
                     background: "#FFFFFF",
-                    border: "1px solid #E6DFD5",
+                    border: "1px solid #E3E5E9",
                     fontSize: "14px",
                     fontWeight: "600",
                     color: "#1D2B44",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; font-size: 14px; font-weight: 600; color: #1D2B44"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; font-size: 14px; font-weight: 600; color: #1D2B44"
                 >
                   3D design included
                 </span>
@@ -96,12 +98,12 @@ export function ContactContent() {
                     padding: "10px 16px",
                     borderRadius: "0",
                     background: "#FFFFFF",
-                    border: "1px solid #E6DFD5",
+                    border: "1px solid #E3E5E9",
                     fontSize: "14px",
                     fontWeight: "600",
                     color: "#1D2B44",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; font-size: 14px; font-weight: 600; color: #1D2B44"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; font-size: 14px; font-weight: 600; color: #1D2B44"
                 >
                   Reply within 24 business hours
                 </span>
@@ -155,13 +157,13 @@ export function ContactContent() {
                         padding: "0 22px",
                         border: "0",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         fontFamily: "var(--font-urbanist), sans-serif",
                         fontSize: "16px",
                         color: "#22252A",
                         width: "100%",
                       }}
-                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                     />
                     <span className="err" role="alert">
                       Please enter your full name.
@@ -187,13 +189,13 @@ export function ContactContent() {
                         padding: "0 22px",
                         border: "0",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         fontFamily: "var(--font-urbanist), sans-serif",
                         fontSize: "16px",
                         color: "#22252A",
                         width: "100%",
                       }}
-                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                     />
                     <span className="err" role="alert">
                       Enter a valid phone number (10 digits).
@@ -221,13 +223,13 @@ export function ContactContent() {
                         padding: "0 22px",
                         border: "0",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         fontFamily: "var(--font-urbanist), sans-serif",
                         fontSize: "16px",
                         color: "#22252A",
                         width: "100%",
                       }}
-                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                     />
                     <span className="err" role="alert">
                       Enter a valid email address (name@domain.com).
@@ -255,13 +257,13 @@ export function ContactContent() {
                         padding: "0 22px",
                         border: "0",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         fontFamily: "var(--font-urbanist), sans-serif",
                         fontSize: "16px",
                         color: "#22252A",
                         width: "100%",
                       }}
-                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                      data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                     />
                     <span className="err" role="alert">
                       Enter a 5-digit ZIP code.
@@ -289,13 +291,13 @@ export function ContactContent() {
                         minHeight: "44px",
                         padding: "0 18px",
                         borderRadius: "0",
-                        background: "#1F3D33",
+                        background: "#125A50",
                         color: "#FFFFFF",
                         fontSize: "14px",
                         fontWeight: "500",
                         cursor: "pointer",
                       }}
-                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #1F3D33; color: #FFFFFF; font-size: 14px; font-weight: 500; cursor: pointer"
+                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #125A50; color: #FFFFFF; font-size: 14px; font-weight: 500; cursor: pointer"
                     >
                       <input
                         type="radio"
@@ -314,13 +316,13 @@ export function ContactContent() {
                         minHeight: "44px",
                         padding: "0 18px",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         color: "#22252A",
                         fontSize: "14px",
                         fontWeight: "500",
                         cursor: "pointer",
                       }}
-                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #F6F3EE; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
+                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #EFF0F2; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
                     >
                       <input
                         type="radio"
@@ -338,13 +340,13 @@ export function ContactContent() {
                         minHeight: "44px",
                         padding: "0 18px",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         color: "#22252A",
                         fontSize: "14px",
                         fontWeight: "500",
                         cursor: "pointer",
                       }}
-                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #F6F3EE; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
+                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #EFF0F2; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
                     >
                       <input
                         type="radio"
@@ -362,13 +364,13 @@ export function ContactContent() {
                         minHeight: "44px",
                         padding: "0 18px",
                         borderRadius: "0",
-                        background: "#F6F3EE",
+                        background: "#EFF0F2",
                         color: "#22252A",
                         fontSize: "14px",
                         fontWeight: "500",
                         cursor: "pointer",
                       }}
-                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #F6F3EE; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
+                      data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #EFF0F2; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
                     >
                       <input
                         type="radio"
@@ -395,12 +397,12 @@ export function ContactContent() {
                       padding: "16px 22px",
                       border: "0",
                       borderRadius: "0",
-                      background: "#F6F3EE",
+                      background: "#EFF0F2",
                       fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "16px",
                       resize: "vertical",
                     }}
-                    data-s="min-height: 104px; padding: 16px 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; resize: vertical"
+                    data-s="min-height: 104px; padding: 16px 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; resize: vertical"
                   />
                 </div>
                 <label
@@ -411,13 +413,13 @@ export function ContactContent() {
                     gap: "10px",
                     minHeight: "52px",
                     borderRadius: "0",
-                    border: "1.5px dashed #A89C8B",
+                    border: "1.5px dashed #8E95A1",
                     fontSize: "14px",
                     fontWeight: "600",
                     color: "#1D2B44",
                     cursor: "pointer",
                   }}
-                  data-s="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 0; border: 1.5px dashed #A89C8B; font-size: 14px; font-weight: 600; color: #1D2B44; cursor: pointer"
+                  data-s="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 0; border: 1.5px dashed #8E95A1; font-size: 14px; font-weight: 600; color: #1D2B44; cursor: pointer"
                 >
                   <svg
                     width="18"
@@ -449,7 +451,7 @@ export function ContactContent() {
                     type="checkbox"
                     name="consent"
                     required
-                    style={{ width: "20px", height: "20px", margin: "0", flexShrink: "0", accentColor: "#1F3D33" }}
+                    style={{ width: "20px", height: "20px", margin: "0", flexShrink: "0", accentColor: "#125A50" }}
                   />
                   I agree to be contacted by V&C about my project. See our{" "}
                   <Link href="/privacy-policy">Privacy Policy</Link>.
@@ -468,13 +470,13 @@ export function ContactContent() {
                     gap: "8px",
                     minHeight: "56px",
                     borderRadius: "0",
-                    background: "#1F3D33",
+                    background: "#125A50",
                     color: "#FFFFFF",
                     fontSize: "16px",
                     fontWeight: "600",
                     textDecoration: "none",
                   }}
-                  data-s="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; border-radius: 0; background: #1F3D33; color: #FFFFFF; font-size: 16px; font-weight: 600; text-decoration: none"
+                  data-s="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; border-radius: 0; background: #125A50; color: #FFFFFF; font-size: 16px; font-weight: 600; text-decoration: none"
                 >
                   Request My Free Consultation{" "}
                 </Link>
@@ -492,12 +494,12 @@ export function ContactContent() {
                   padding: "clamp(28px, 3vw, 40px)",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  border: "1px solid #E6DFD5",
+                  border: "1px solid #E3E5E9",
                   display: "flex",
                   flexDirection: "column",
                   gap: "24px",
                 }}
-                data-s="padding: clamp(28px, 3vw, 40px); border-radius: 0; background: #FFFFFF; border: 1px solid #E6DFD5; display: flex; flex-direction: column; gap: 24px"
+                data-s="padding: clamp(28px, 3vw, 40px); border-radius: 0; background: #FFFFFF; border: 1px solid #E3E5E9; display: flex; flex-direction: column; gap: 24px"
               >
                 <h2
                   style={{
@@ -510,7 +512,7 @@ export function ContactContent() {
                 >
                   Prefer to talk?
                 </h2>
-                <dl style={{ margin: "0", borderTop: "1px solid #E6DFD5" }}>
+                <dl style={{ margin: "0", borderTop: "1px solid #E3E5E9" }}>
                   <div
                     style={{
                       display: "flex",
@@ -518,7 +520,7 @@ export function ContactContent() {
                       justifyContent: "space-between",
                       gap: "4px 24px",
                       padding: "16px 0",
-                      borderBottom: "1px solid #E6DFD5",
+                      borderBottom: "1px solid #E3E5E9",
                     }}
                   >
                     <dt style={{ fontSize: "15px", color: "#5E636B" }}>Phone</dt>
@@ -537,7 +539,7 @@ export function ContactContent() {
                       justifyContent: "space-between",
                       gap: "4px 24px",
                       padding: "16px 0",
-                      borderBottom: "1px solid #E6DFD5",
+                      borderBottom: "1px solid #E3E5E9",
                     }}
                   >
                     <dt style={{ fontSize: "15px", color: "#5E636B" }}>Email</dt>
@@ -559,7 +561,7 @@ export function ContactContent() {
                       justifyContent: "space-between",
                       gap: "4px 24px",
                       padding: "16px 0",
-                      borderBottom: "1px solid #E6DFD5",
+                      borderBottom: "1px solid #E3E5E9",
                     }}
                   >
                     <dt style={{ fontSize: "15px", color: "#5E636B" }}>Showroom</dt>
@@ -576,14 +578,14 @@ export function ContactContent() {
                       justifyContent: "space-between",
                       gap: "4px 24px",
                       padding: "16px 0",
-                      borderBottom: "1px solid #E6DFD5",
+                      borderBottom: "1px solid #E3E5E9",
                     }}
                   >
                     <dt style={{ fontSize: "15px", color: "#5E636B" }}>Hours</dt>
                     <dd
                       style={{ margin: "0", fontSize: "16px", fontWeight: "500", color: "#1D2B44", textAlign: "right" }}
                     >
-                      [To be provided by client]
+                      Mon–Fri 9 AM – 5 PM · Sat by appointment
                     </dd>
                   </div>
                 </dl>
@@ -597,12 +599,12 @@ export function ContactContent() {
                     gap: "10px",
                     minHeight: "56px",
                     borderRadius: "0",
-                    background: "#1F3D33",
+                    background: "#125A50",
                     color: "#FFFFFF",
                     fontWeight: "700",
                     textDecoration: "none",
                   }}
-                  data-s="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border-radius: 0; background: #1F3D33; color: #FFFFFF; font-weight: 700; text-decoration: none"
+                  data-s="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border-radius: 0; background: #125A50; color: #FFFFFF; font-weight: 700; text-decoration: none"
                 >
                   <svg
                     width="18"
@@ -625,7 +627,7 @@ export function ContactContent() {
                 data-s="display: flex; flex-direction: column; gap: 12px"
               >
                 <h2
-                  style={{ margin: "0", fontSize: "13px", fontWeight: "700", letterSpacing: ".16em", color: "#A23B2C" }}
+                  style={{ margin: "0", fontSize: "13px", fontWeight: "700", letterSpacing: ".16em", color: "#125A50" }}
                 >
                   SERVICE AREA
                 </h2>
@@ -676,12 +678,12 @@ export function ContactContent() {
                       display: "flex",
                       alignItems: "center",
                       gap: "6px",
-                      color: "#F6F3EE",
+                      color: "#EFF0F2",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
                   >
-                    <span style={{ color: "#E3B5A9" }} />
+                    <span style={{ color: "#BCCDC3" }} />
                     Clearwater
                   </div>
                   <div
@@ -692,12 +694,12 @@ export function ContactContent() {
                       display: "flex",
                       alignItems: "center",
                       gap: "6px",
-                      color: "#F6F3EE",
+                      color: "#EFF0F2",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
                   >
-                    <span style={{ color: "#E3B5A9" }} />
+                    <span style={{ color: "#BCCDC3" }} />
                     Tampa
                   </div>
                   <div
@@ -708,12 +710,12 @@ export function ContactContent() {
                       display: "flex",
                       alignItems: "center",
                       gap: "6px",
-                      color: "#F6F3EE",
+                      color: "#EFF0F2",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
                   >
-                    <span style={{ color: "#E3B5A9" }} />
+                    <span style={{ color: "#BCCDC3" }} />
                     St. Petersburg
                   </div>
                   <div
@@ -724,12 +726,12 @@ export function ContactContent() {
                       display: "flex",
                       alignItems: "center",
                       gap: "6px",
-                      color: "#F6F3EE",
+                      color: "#EFF0F2",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
                   >
-                    <span style={{ color: "#E3B5A9" }} />
+                    <span style={{ color: "#BCCDC3" }} />
                     Bradenton
                   </div>
                   <span
@@ -740,10 +742,10 @@ export function ContactContent() {
                       padding: "4px 10px",
                       borderRadius: "0",
                       background: "rgba(0,0,0,.35)",
-                      color: "#F6F3EE",
+                      color: "#EFF0F2",
                       fontSize: "12px",
                     }}
-                    data-s="position: absolute; right: 12px; bottom: 12px; padding: 4px 10px; border-radius: 0; background: rgba(0,0,0,.35); color: #F6F3EE; font-size: 12px"
+                    data-s="position: absolute; right: 12px; bottom: 12px; padding: 4px 10px; border-radius: 0; background: rgba(0,0,0,.35); color: #EFF0F2; font-size: 12px"
                   >
                     Map embed (Google Maps) · showroom = red dot
                   </span>
@@ -756,6 +758,6 @@ export function ContactContent() {
           </div>
         </section>
       </main>
-    </>
+    </>,
   );
 }

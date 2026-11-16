@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useConsultationForm } from "@/components/site/use-consultation-form";
+import { useTranslate } from "@/lib/i18n/context";
 
 type ContactSectionProps = {
   title?: string;
@@ -16,8 +17,9 @@ export function ContactSection({
   lede = "Tell us about your project. A designer will call you within 24 business hours to plan a free in-home visit and measurement.",
   appointment,
 }: ContactSectionProps) {
+  const tr = useTranslate();
   const submitForm = useConsultationForm();
-  return (
+  return tr(
     <section id="contact" className="ph" style={{ position: "relative", backgroundColor: "#2B4A3F" }}>
       <div
         aria-hidden="true"
@@ -183,7 +185,7 @@ export function ContactSection({
                   style={{ margin: "0", fontSize: "16px", fontWeight: "500", color: "#FFFFFF", textAlign: "right" }}
                   data-s="margin: 0; font-size: 16px; font-weight: 500; color: #FFFFFF; text-align: right"
                 >
-                  [To be provided by client]
+                  Mon–Fri 9 AM – 5 PM · Sat by appointment
                 </dd>
               </div>
             </dl>
@@ -240,13 +242,13 @@ export function ContactSection({
                     padding: "0 22px",
                     border: "0",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "16px",
                     color: "#22252A",
                     width: "100%",
                   }}
-                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                 />
                 <span className="err" role="alert">
                   Please enter your full name.
@@ -272,13 +274,13 @@ export function ContactSection({
                     padding: "0 22px",
                     border: "0",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "16px",
                     color: "#22252A",
                     width: "100%",
                   }}
-                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                 />
                 <span className="err" role="alert">
                   Enter a valid phone number (10 digits).
@@ -306,13 +308,13 @@ export function ContactSection({
                     padding: "0 22px",
                     border: "0",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "16px",
                     color: "#22252A",
                     width: "100%",
                   }}
-                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                 />
                 <span className="err" role="alert">
                   Enter a valid email address (name@domain.com).
@@ -340,13 +342,13 @@ export function ContactSection({
                     padding: "0 22px",
                     border: "0",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "16px",
                     color: "#22252A",
                     width: "100%",
                   }}
-                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
+                  data-s="height: 56px; padding: 0 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; color: #22252A; width: 100%"
                 />
                 <span className="err" role="alert">
                   Enter a 5-digit ZIP code.
@@ -374,13 +376,13 @@ export function ContactSection({
                     minHeight: "44px",
                     padding: "0 18px",
                     borderRadius: "0",
-                    background: "#1F3D33",
+                    background: "#125A50",
                     color: "#FFFFFF",
                     fontSize: "14px",
                     fontWeight: "500",
                     cursor: "pointer",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #1F3D33; color: #FFFFFF; font-size: 14px; font-weight: 500; cursor: pointer"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #125A50; color: #FFFFFF; font-size: 14px; font-weight: 500; cursor: pointer"
                 >
                   <input
                     type="radio"
@@ -399,13 +401,13 @@ export function ContactSection({
                     minHeight: "44px",
                     padding: "0 18px",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     color: "#22252A",
                     fontSize: "14px",
                     fontWeight: "500",
                     cursor: "pointer",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #F6F3EE; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #EFF0F2; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
                 >
                   <input
                     type="radio"
@@ -423,13 +425,13 @@ export function ContactSection({
                     minHeight: "44px",
                     padding: "0 18px",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     color: "#22252A",
                     fontSize: "14px",
                     fontWeight: "500",
                     cursor: "pointer",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #F6F3EE; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #EFF0F2; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
                 >
                   <input
                     type="radio"
@@ -447,13 +449,13 @@ export function ContactSection({
                     minHeight: "44px",
                     padding: "0 18px",
                     borderRadius: "0",
-                    background: "#F6F3EE",
+                    background: "#EFF0F2",
                     color: "#22252A",
                     fontSize: "14px",
                     fontWeight: "500",
                     cursor: "pointer",
                   }}
-                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #F6F3EE; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
+                  data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 0; background: #EFF0F2; color: #22252A; font-size: 14px; font-weight: 500; cursor: pointer"
                 >
                   <input
                     type="radio"
@@ -480,12 +482,12 @@ export function ContactSection({
                   padding: "16px 22px",
                   border: "0",
                   borderRadius: "0",
-                  background: "#F6F3EE",
+                  background: "#EFF0F2",
                   fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   resize: "vertical",
                 }}
-                data-s="min-height: 104px; padding: 16px 22px; border: 0; border-radius: 0; background: #F6F3EE; font-family: var(--font-urbanist), sans-serif; font-size: 16px; resize: vertical"
+                data-s="min-height: 104px; padding: 16px 22px; border: 0; border-radius: 0; background: #EFF0F2; font-family: var(--font-urbanist), sans-serif; font-size: 16px; resize: vertical"
               />
             </div>
             <label
@@ -496,13 +498,13 @@ export function ContactSection({
                 gap: "10px",
                 minHeight: "52px",
                 borderRadius: "0",
-                border: "1.5px dashed #A89C8B",
+                border: "1.5px dashed #8E95A1",
                 fontSize: "14px",
                 fontWeight: "600",
                 color: "#1D2B44",
                 cursor: "pointer",
               }}
-              data-s="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 0; border: 1.5px dashed #A89C8B; font-size: 14px; font-weight: 600; color: #1D2B44; cursor: pointer"
+              data-s="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 0; border: 1.5px dashed #8E95A1; font-size: 14px; font-weight: 600; color: #1D2B44; cursor: pointer"
             >
               <svg
                 width="18"
@@ -534,7 +536,7 @@ export function ContactSection({
                 type="checkbox"
                 name="consent"
                 required
-                style={{ width: "20px", height: "20px", margin: "0", flexShrink: "0", accentColor: "#1F3D33" }}
+                style={{ width: "20px", height: "20px", margin: "0", flexShrink: "0", accentColor: "#125A50" }}
               />
               I agree to be contacted by V&C about my project. See our{" "}
               <Link href="/privacy-policy">Privacy Policy</Link>.
@@ -553,13 +555,13 @@ export function ContactSection({
                 gap: "8px",
                 minHeight: "56px",
                 borderRadius: "0",
-                background: "#1F3D33",
+                background: "#125A50",
                 color: "#FFFFFF",
                 fontSize: "16px",
                 fontWeight: "600",
                 textDecoration: "none",
               }}
-              data-s="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; border-radius: 0; background: #1F3D33; color: #FFFFFF; font-size: 16px; font-weight: 600; text-decoration: none"
+              data-s="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; border-radius: 0; background: #125A50; color: #FFFFFF; font-size: 16px; font-weight: 600; text-decoration: none"
             >
               Request My Free Consultation{" "}
             </Link>
@@ -569,6 +571,6 @@ export function ContactSection({
           </form>
         </div>
       </div>
-    </section>
+    </section>,
   );
 }

@@ -93,7 +93,7 @@ for a, b in zip(on, sn):
     href = A(a).get("href", "")
     if a.tag == "a" and sa and "min-height: 36px" in sa and href in NAV_KEYS:
         key = NAV_KEYS[href]
-        if "background: #142A23" in sa:
+        if "background: #125A50" in sa:
             nav_active = sa
         else:
             nav_inactive = sa
@@ -122,6 +122,9 @@ assert nav_active and nav_inactive
 hdr_cls = over
 drop_attr(hdr_cls, "class")
 hdr_cls.attrs.insert(0, ("__expr__className", 'scrolled ? "is-sc" : undefined'))
+# Once the visitor has scrolled, the header must not replay its intro fade when it un-sticks
+# (see src/styles/overrides.css).
+hdr_cls.attrs.insert(1, ("__expr__data-settled", "settled || undefined"))
 
 menu = node("Services", "menu")
 for n in walk(menu):
@@ -131,10 +134,22 @@ for n in walk(menu):
     if n.tag == "button" and A(n).get("onclick"):
         set_attr(n, "onclick", "{{closeMenu}}")
 
+# The mobile menu is rendered in a portal on <body>: inside the header it was trapped in the hero's
+# stacking context, so later page content (e.g. the footer) painted over it. Tapping a link closes it.
+_menu = jsx(menu)
+assert _menu.startswith("{menuOpen && (") and _menu.endswith(")}"), _menu[:40]
+menu_portal = (
+    "{menuOpen && createPortal(<div onClickCapture={(e) => { if ((e.target as Element).closest(\"a\")) closeMenu(); }}>"
+    + _menu[len("{menuOpen && ("):-len(")}")]
+    + "</div>, document.body)}"
+)
+
 header_tsx = f'''"use client";
 
 import {{ useEffect, useState }} from "react";
+import {{ createPortal }} from "react-dom";
 import {{ sx }} from "@/components/site/sx";
+import {{ useTranslate }} from "@/lib/i18n/context";
 
 export type NavKey = "home" | "mission" | "services" | "gallery" | "blog" | "contact";
 
@@ -168,24 +183,41 @@ const NAV_LINK_ACTIVE = {json.dumps(nav_active, ensure_ascii=False)};
 const navLink = (active: boolean) => (active ? NAV_LINK_ACTIVE : NAV_LINK);
 
 export function SiteHeader({{ variant = "solid", current, logoTone = "gold" }}: SiteHeaderProps) {{
+  const tr = useTranslate();
   const v = VARIANTS[variant];
   const logo = LOGOS[logoTone];
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [settled, setSettled] = useState(false);
   const openMenu = () => setMenuOpen(true);
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {{
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {{
+      const past = window.scrollY > 40;
+      setScrolled(past);
+      if (past) setSettled(true);
+    }};
     onScroll();
     window.addEventListener("scroll", onScroll, {{ passive: true }});
     return () => window.removeEventListener("scroll", onScroll);
   }}, []);
 
-  return (
+  // While the mobile menu is open, the page behind it must not scroll.
+  useEffect(() => {{
+    if (!menuOpen) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    return () => {{
+      root.style.overflow = previous;
+    }};
+  }}, [menuOpen]);
+
+  return tr(
     <>
       {jsx(over)}
-      {jsx(menu)}
+      {menu_portal}
     </>
   );
 }}
@@ -199,26 +231,32 @@ for n in walk(footer):
         drop_attr(n, "src")
         n.attrs.insert(0, ("__expr__src",
                            'logoTone === "sage" ? "/images/logo-sage-on-dark.png" : "/images/logo-gold-on-dark.png"'))
-write("src/components/site/site-footer.tsx", f'''type SiteFooterProps = {{
+# the footer's "Accessibility" link (href="#" in the design) points at the accessibility statement page
+for n in walk(footer):
+    if n.tag == "a" and "".join(c for c in n.children if isinstance(c, str)).strip() == "Accessibility":
+        n.attrs = [(k, "/accessibility" if k == "href" else v) for k, v in n.attrs]
+# the design's static "English" button becomes the working language menu (src/components/site/lang-menu.tsx)
+lang_btn = next(n for n in walk(footer) if n.tag == "button" and A(n).get("aria-label", "").startswith("Language"))
+lang_btn.parent.children[lang_btn.parent.children.index(lang_btn)] = G.Raw("<LangMenu />", lang_btn.parent)
+write("src/components/site/site-footer.tsx", f'''"use client";
+
+import {{ LangMenu }} from "@/components/site/lang-menu";
+import {{ useTranslate }} from "@/lib/i18n/context";
+
+type SiteFooterProps = {{
   /** The Home page uses the sage version of the logo, the other pages the gold one. */
   logoTone?: "gold" | "sage";
 }};
 
 export function SiteFooter({{ logoTone = "gold" }}: SiteFooterProps) {{
-  return (
+  const tr = useTranslate();
+  return tr(
     {jsx(footer)}
   );
 }}
 ''')
 
-# ------------------------------------------------------------------ mobile call bar
-write("src/components/site/mobile-call-bar.tsx", f'''/** Fixed call / consultation bar shown on small screens (`.sticky-m`). */
-export function MobileCallBar() {{
-  return (
-    {jsx(node("Services", "sticky"))}
-  );
-}}
-''')
+# (The design's fixed mobile call bar is not used: the burger menu already holds those buttons.)
 
 # ------------------------------------------------------------------ contact section
 contact = node("Services", "contact")
@@ -239,6 +277,7 @@ par.children.insert(par.children.index(lede) + 1, G.Raw(appt_jsx, par))
 write("src/components/site/contact-section.tsx", f'''"use client";
 
 import {{ useConsultationForm }} from "@/components/site/use-consultation-form";
+import {{ useTranslate }} from "@/lib/i18n/context";
 
 type ContactSectionProps = {{
   title?: string;
@@ -254,7 +293,8 @@ export function ContactSection({{
   appointment,
 }}: ContactSectionProps) {{
   const submitForm = useConsultationForm();
-  return (
+  const tr = useTranslate();
+  return tr(
     {jsx(contact)}
   );
 }}

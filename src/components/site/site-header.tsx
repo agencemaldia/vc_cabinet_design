@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { sx } from "@/components/site/sx";
+import { useTranslate } from "@/lib/i18n/context";
 
 export type NavKey = "home" | "mission" | "services" | "gallery" | "blog" | "contact";
 
@@ -24,17 +26,17 @@ const VARIANTS = {
     info: "flex-direction: column; gap: 2px; font-size: 13px; line-height: 1.35; color: #FFFFFF",
     infoMuted: "color: rgba(255,255,255,.7)",
     infoPhone: "color: #FFFFFF; text-decoration: none; font-weight: 600",
-    cta: "display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; background: #FFFFFF; color: #142A23; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap",
-    call: "width: 44px; height: 44px; align-items: center; justify-content: center; background: #FFFFFF; color: #142A23",
+    cta: "display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; background: #FFFFFF; color: #125A50; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap",
+    call: "width: 44px; height: 44px; align-items: center; justify-content: center; background: #FFFFFF; color: #125A50",
   },
   solid: {
     header: "position: relative; background: #FFFFFF; z-index: 20",
-    nav: "justify-self: start; display: flex; gap: 2px; align-items: center; padding: 4px; background: #F6F3EE",
+    nav: "justify-self: start; display: flex; gap: 2px; align-items: center; padding: 4px; background: #EFF0F2",
     info: "flex-direction: column; gap: 2px; font-size: 13px; line-height: 1.35; color: #1D2B44",
     infoMuted: "color: #5E636B",
     infoPhone: "color: #1D2B44; text-decoration: none; font-weight: 600",
-    cta: "display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; background: #142A23; color: #FFFFFF; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap",
-    call: "width: 44px; height: 44px; align-items: center; justify-content: center; background: #142A23; color: #FFFFFF",
+    cta: "display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; background: #125A50; color: #FFFFFF; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap",
+    call: "width: 44px; height: 44px; align-items: center; justify-content: center; background: #125A50; color: #FFFFFF",
   },
 };
 
@@ -54,27 +56,44 @@ const LOGOS = {
 const NAV_LINK =
   "display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 14px; font-size: 13px; text-decoration: none; color: #5E636B; font-weight: 500;";
 const NAV_LINK_ACTIVE =
-  "display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 14px; font-size: 13px; text-decoration: none; background: #142A23; color: #FFFFFF; font-weight: 600;";
+  "display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 14px; font-size: 13px; text-decoration: none; background: #125A50; color: #FFFFFF; font-weight: 600;";
 const navLink = (active: boolean) => (active ? NAV_LINK_ACTIVE : NAV_LINK);
 
 export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: SiteHeaderProps) {
+  const tr = useTranslate();
   const v = VARIANTS[variant];
   const logo = LOGOS[logoTone];
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [settled, setSettled] = useState(false);
   const openMenu = () => setMenuOpen(true);
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      const past = window.scrollY > 40;
+      setScrolled(past);
+      if (past) setSettled(true);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return (
+  // While the mobile menu is open, the page behind it must not scroll.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    return () => {
+      root.style.overflow = previous;
+    };
+  }, [menuOpen]);
+
+  return tr(
     <>
-      <header className={scrolled ? "is-sc" : undefined} {...sx(v.header)}>
+      <header className={scrolled ? "is-sc" : undefined} data-settled={settled || undefined} {...sx(v.header)}>
         <div
           style={{
             display: "grid",
@@ -202,10 +221,10 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
               justifySelf: "center",
               display: "flex",
               alignItems: "stretch",
-              background: "#142A23",
+              background: "#125A50",
               color: "#FFFFFF",
             }}
-            data-s="justify-self: center; display: flex; align-items: stretch; background: #142A23; color: #FFFFFF"
+            data-s="justify-self: center; display: flex; align-items: stretch; background: #125A50; color: #FFFFFF"
           >
             <Link
               href="/"
@@ -293,314 +312,322 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
           </div>
         </div>
       </header>
-      {menuOpen && (
-        <>
+      {menuOpen &&
+        createPortal(
           <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu"
-            style={{
-              position: "fixed",
-              inset: "0",
-              zIndex: "50",
-              background: "#FFFFFF",
-              display: "flex",
-              flexDirection: "column",
-              overflowY: "auto",
+            onClickCapture={(e) => {
+              if ((e.target as Element).closest("a")) closeMenu();
             }}
-            data-s="position: fixed; inset: 0; z-index: 50; background: #FFFFFF; display: flex; flex-direction: column; overflow-y: auto"
           >
-            <div
-              className="wrap"
-              style={{
-                height: "84px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexShrink: "0",
-              }}
-            >
-              <img
-                src={logo.menu}
-                alt="V&C Cabinet Design"
-                style={{ display: "block", height: "48px", width: "auto" }}
-              />
-              <button
-                type="button"
-                aria-label="Close menu"
+            <>
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="Menu"
                 style={{
-                  width: "44px",
-                  height: "44px",
-                  border: "0",
-                  background: "#F6F3EE",
-                  color: "#1D2B44",
+                  position: "fixed",
+                  inset: "0",
+                  zIndex: "50",
+                  background: "#FFFFFF",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
+                  flexDirection: "column",
+                  overflowY: "auto",
                 }}
-                data-s="width: 44px; height: 44px; border: 0; background: #F6F3EE; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
-                onClick={closeMenu}
+                data-s="position: fixed; inset: 0; z-index: 50; background: #FFFFFF; display: flex; flex-direction: column; overflow-y: auto"
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+                <div
+                  className="wrap"
+                  style={{
+                    height: "84px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexShrink: "0",
+                  }}
                 >
-                  <path d="M5 5l14 14M19 5L5 19" />
-                </svg>
-              </button>
-            </div>
-            <nav
-              aria-label="Main"
-              className="wrap"
-              style={{ display: "flex", flexDirection: "column" }}
-              data-s="display: flex; flex-direction: column"
-            >
-              <Link
-                href="/"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "64px",
-                  borderBottom: "1px solid #E6DFD5",
-                  color: "#1D2B44",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontSize: "34px",
-                  fontWeight: "500",
-                  letterSpacing: "-.03em",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E6DFD5; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-              >
-                Home
-              </Link>
-              <Link
-                href="/mission"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "64px",
-                  borderBottom: "1px solid #E6DFD5",
-                  color: "#1D2B44",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontSize: "34px",
-                  fontWeight: "500",
-                  letterSpacing: "-.03em",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E6DFD5; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-              >
-                Mission
-              </Link>
-              <Link
-                href="/services"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "64px",
-                  borderBottom: "1px solid #E6DFD5",
-                  color: "#1D2B44",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontSize: "34px",
-                  fontWeight: "500",
-                  letterSpacing: "-.03em",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E6DFD5; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-              >
-                Services
-              </Link>
-              <Link
-                href="/services"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "44px",
-                  paddingLeft: "4px",
-                  color: "#40444B",
-                  fontSize: "16px",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-              >
-                — All our Services
-              </Link>
-              <Link
-                href="/services/kitchen"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "44px",
-                  paddingLeft: "4px",
-                  color: "#40444B",
-                  fontSize: "16px",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-              >
-                — Kitchen
-              </Link>
-              <Link
-                href="/services/bathroom"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "44px",
-                  paddingLeft: "4px",
-                  color: "#40444B",
-                  fontSize: "16px",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-              >
-                — Bathroom
-              </Link>
-              <Link
-                href="/services/walk-in"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "44px",
-                  paddingLeft: "4px",
-                  color: "#40444B",
-                  fontSize: "16px",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
-              >
-                — Walk-in
-              </Link>
-              <Link
-                href="/gallery"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "64px",
-                  borderBottom: "1px solid #E6DFD5",
-                  color: "#1D2B44",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontSize: "34px",
-                  fontWeight: "500",
-                  letterSpacing: "-.03em",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E6DFD5; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-              >
-                Gallery
-              </Link>
-              <Link
-                href="/blog"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "64px",
-                  borderBottom: "1px solid #E6DFD5",
-                  color: "#1D2B44",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontSize: "34px",
-                  fontWeight: "500",
-                  letterSpacing: "-.03em",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E6DFD5; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-              >
-                Blog
-              </Link>
-              <Link
-                href="/contact"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: "64px",
-                  borderBottom: "1px solid #E6DFD5",
-                  color: "#1D2B44",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontSize: "34px",
-                  fontWeight: "500",
-                  letterSpacing: "-.03em",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E6DFD5; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
-              >
-                Contact Us
-              </Link>
-            </nav>
-            <div
-              className="wrap"
-              style={{
-                marginTop: "auto",
-                paddingTop: "32px",
-                paddingBottom: "32px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-              }}
-              data-s="margin-top: auto; padding-top: 32px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 10px"
-            >
-              <Link
-                href="/contact"
-                className="pill pill-d"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  minHeight: "52px",
-                  padding: "0 28px",
-                  borderRadius: "0",
-                  background: "#1F3D33",
-                  color: "#FFFFFF",
-                  border: "0",
-                  fontSize: "15px",
-                  fontWeight: "600",
-                  textDecoration: "none",
-                  textAlign: "center",
-                }}
-                data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #1F3D33; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
-              >
-                Book a Free Designer Consultation
-              </Link>
-              <a
-                href="tel:+17272233490"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  minHeight: "52px",
-                  background: "#F6F3EE",
-                  color: "#1D2B44",
-                  fontWeight: "600",
-                  textDecoration: "none",
-                }}
-                data-s="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; background: #F6F3EE; color: #1D2B44; font-weight: 600; text-decoration: none"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+                  <img
+                    src={logo.menu}
+                    alt="V&C Cabinet Design"
+                    style={{ display: "block", height: "48px", width: "auto" }}
+                  />
+                  <button
+                    type="button"
+                    aria-label="Close menu"
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      border: "0",
+                      background: "#EFF0F2",
+                      color: "#1D2B44",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                    }}
+                    data-s="width: 44px; height: 44px; border: 0; background: #EFF0F2; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                    onClick={closeMenu}
+                  >
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 5l14 14M19 5L5 19" />
+                    </svg>
+                  </button>
+                </div>
+                <nav
+                  aria-label="Main"
+                  className="wrap"
+                  style={{ display: "flex", flexDirection: "column" }}
+                  data-s="display: flex; flex-direction: column"
                 >
-                  <path d="M5 3h3.5l1.5 4.5-2.2 1.4a11 11 0 0 0 7.3 7.3l1.4-2.2L21 15.5V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z" />
-                </svg>
-                727-223-3490
-              </a>
-            </div>
-          </div>
-        </>
-      )}
-    </>
+                  <Link
+                    href="/"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "64px",
+                      borderBottom: "1px solid #E3E5E9",
+                      color: "#1D2B44",
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "34px",
+                      fontWeight: "500",
+                      letterSpacing: "-.03em",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/mission"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "64px",
+                      borderBottom: "1px solid #E3E5E9",
+                      color: "#1D2B44",
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "34px",
+                      fontWeight: "500",
+                      letterSpacing: "-.03em",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
+                  >
+                    Mission
+                  </Link>
+                  <Link
+                    href="/services"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "64px",
+                      borderBottom: "1px solid #E3E5E9",
+                      color: "#1D2B44",
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "34px",
+                      fontWeight: "500",
+                      letterSpacing: "-.03em",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
+                  >
+                    Services
+                  </Link>
+                  <Link
+                    href="/services"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "44px",
+                      paddingLeft: "4px",
+                      color: "#40444B",
+                      fontSize: "16px",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
+                  >
+                    — All our Services
+                  </Link>
+                  <Link
+                    href="/services/kitchen"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "44px",
+                      paddingLeft: "4px",
+                      color: "#40444B",
+                      fontSize: "16px",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
+                  >
+                    — Kitchen
+                  </Link>
+                  <Link
+                    href="/services/bathroom"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "44px",
+                      paddingLeft: "4px",
+                      color: "#40444B",
+                      fontSize: "16px",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
+                  >
+                    — Bathroom
+                  </Link>
+                  <Link
+                    href="/services/walk-in"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "44px",
+                      paddingLeft: "4px",
+                      color: "#40444B",
+                      fontSize: "16px",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 44px; padding-left: 4px; color: #40444B; font-size: 16px; text-decoration: none"
+                  >
+                    — Walk-in
+                  </Link>
+                  <Link
+                    href="/gallery"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "64px",
+                      borderBottom: "1px solid #E3E5E9",
+                      color: "#1D2B44",
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "34px",
+                      fontWeight: "500",
+                      letterSpacing: "-.03em",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
+                  >
+                    Gallery
+                  </Link>
+                  <Link
+                    href="/blog"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "64px",
+                      borderBottom: "1px solid #E3E5E9",
+                      color: "#1D2B44",
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "34px",
+                      fontWeight: "500",
+                      letterSpacing: "-.03em",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
+                  >
+                    Blog
+                  </Link>
+                  <Link
+                    href="/contact"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: "64px",
+                      borderBottom: "1px solid #E3E5E9",
+                      color: "#1D2B44",
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "34px",
+                      fontWeight: "500",
+                      letterSpacing: "-.03em",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; min-height: 64px; border-bottom: 1px solid #E3E5E9; color: #1D2B44; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: 34px; font-weight: 500; letter-spacing: -.03em; text-decoration: none"
+                  >
+                    Contact Us
+                  </Link>
+                </nav>
+                <div
+                  className="wrap"
+                  style={{
+                    marginTop: "auto",
+                    paddingTop: "32px",
+                    paddingBottom: "32px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                  data-s="margin-top: auto; padding-top: 32px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 10px"
+                >
+                  <Link
+                    href="/contact"
+                    className="pill pill-d"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                      minHeight: "52px",
+                      padding: "0 28px",
+                      borderRadius: "0",
+                      background: "#125A50",
+                      color: "#FFFFFF",
+                      border: "0",
+                      fontSize: "15px",
+                      fontWeight: "600",
+                      textDecoration: "none",
+                      textAlign: "center",
+                    }}
+                    data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #125A50; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                  >
+                    Book a Free Designer Consultation
+                  </Link>
+                  <a
+                    href="tel:+17272233490"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                      minHeight: "52px",
+                      background: "#EFF0F2",
+                      color: "#1D2B44",
+                      fontWeight: "600",
+                      textDecoration: "none",
+                    }}
+                    data-s="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; background: #EFF0F2; color: #1D2B44; font-weight: 600; text-decoration: none"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 3h3.5l1.5 4.5-2.2 1.4a11 11 0 0 0 7.3 7.3l1.4-2.2L21 15.5V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z" />
+                    </svg>
+                    727-223-3490
+                  </a>
+                </div>
+              </div>
+            </>
+          </div>,
+          document.body,
+        )}
+    </>,
   );
 }

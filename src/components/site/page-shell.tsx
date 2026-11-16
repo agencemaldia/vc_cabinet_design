@@ -1,25 +1,29 @@
 import type { ReactNode } from "react";
 import { CookieBanner } from "@/components/site/cookie-banner";
-import { MobileCallBar } from "@/components/site/mobile-call-bar";
 import { PageAttribute } from "@/components/site/page-attribute";
 import { PageTransition } from "@/components/site/page-transition";
-import { Preloader } from "@/components/site/preloader";
+import { ScrollEffects } from "@/components/site/scroll-effects";
 import { SiteFooter } from "@/components/site/site-footer";
+import { defaultLocale, type Locale } from "@/lib/i18n/config";
+import { I18nScope } from "@/lib/i18n/context";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 type PageShellProps = {
   /** Page key the design styles are scoped on (`<html data-page>`, see src/styles/design-*.css). */
   page: string;
-  /** Play the Home intro animation. */
-  preloader?: boolean;
   /** The Home page uses the sage version of the logo, the other pages the gold one. */
   logoTone?: "gold" | "sage";
+  /** Language of the page; its dictionary translates everything inside (see src/lib/i18n). */
+  locale?: Locale;
   children: ReactNode;
 };
 
-/** Frame shared by every page: footer, cookie notice, mobile call bar and page transition. */
-export function PageShell({ page, preloader = false, logoTone = "gold", children }: PageShellProps) {
+/** Frame shared by every page: footer, cookie notice, page transition and scroll effects. (No fixed call bar on
+ *  phones: the burger menu already holds the consultation and call buttons.) */
+export async function PageShell({ page, logoTone = "gold", locale = defaultLocale, children }: PageShellProps) {
+  const dict = await getDictionary(locale);
   return (
-    <>
+    <I18nScope locale={locale} dict={dict}>
       <PageAttribute page={page} />
       <div
         className={`pg-${page}`}
@@ -34,10 +38,9 @@ export function PageShell({ page, preloader = false, logoTone = "gold", children
         {children}
         <SiteFooter logoTone={logoTone} />
         <CookieBanner />
-        <MobileCallBar />
       </div>
-      {preloader && <Preloader />}
       <PageTransition />
-    </>
+      <ScrollEffects page={page} />
+    </I18nScope>
   );
 }

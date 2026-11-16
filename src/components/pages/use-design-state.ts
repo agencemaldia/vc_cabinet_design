@@ -47,9 +47,9 @@ export function useDesignState(data: DesignData) {
       label,
       count: label === "All" ? all.length : all.filter((x) => x.room === label).length,
       pressed: on ? ("true" as const) : ("false" as const),
-      bg: on ? "#1F3D33" : "#FFFFFF",
+      bg: on ? "#1A6A5E" : "#FFFFFF",
       fg: on ? "#FFFFFF" : "#22252A",
-      bd: on ? "1.5px solid #1F3D33" : "1.5px solid #C9BFB1",
+      bd: on ? "1.5px solid #1A6A5E" : "1.5px solid #C9CDD4",
       pick: () => {
         setFilter(label);
         setLbIdx(-1);
@@ -67,7 +67,7 @@ export function useDesignState(data: DesignData) {
       a,
       open,
       sign: open ? "−" : "+",
-      ring: open ? "#A23B2C" : "#1D2B44",
+      ring: open ? "#125A50" : "#1D2B44",
       toggle: () => setFaq(open ? -1 : i),
     };
   });

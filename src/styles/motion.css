@@ -1,0 +1,691 @@
+/* Scroll animations (hand-written, loaded after overrides.css). Driven by
+   src/components/site/scroll-effects.tsx and src/components/site/services-showcase.tsx. */
+
+/* ---------------------------------------------------------------- reveal
+   Blocks fade up into place the first time they scroll into view, a few at a time. */
+.vc-rv {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    translate 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.vc-rv.is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---------------------------------------------------------------- Home hero
+   Eases back into a rounded card as it scrolls away (--hero-p: 0 → 1). */
+.vc-hero-shrink {
+  transform-origin: 50% 0;
+  scale: calc(1 - var(--hero-p, 0) * 0.07);
+  border-radius: calc(var(--hero-p, 0) * 28px) !important;
+  overflow: hidden;
+  will-change: scale;
+}
+
+/* ---------------------------------------------------------------- Services showcase
+   A pinned stage: --g grows the opening card to the full frame, --sp is the progress through the
+   current service. */
+.vc-show {
+  --g: 0;
+  --sp: 0;
+  position: relative;
+  height: calc((var(--n) + 1) * 100svh);
+  background: #ffffff;
+}
+.vc-show__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+.vc-show__intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(110px, 17vh, 170px) 24px 0;
+  text-align: center;
+  background: radial-gradient(60% 50% at 50% 42%, #e8efec 0%, rgba(255, 255, 255, 0) 70%);
+  opacity: calc(1 - var(--g) * 1.6);
+  translate: 0 calc(var(--g) * -48px);
+}
+.vc-show__eyebrow {
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5e636b;
+}
+:root[data-page] .vc-show__intro h2 {
+  margin: 0;
+  max-width: 900px;
+  font-size: clamp(26px, 2.6vw, 40px) !important;
+  font-weight: 500;
+  line-height: 1.06 !important;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: #1d2b44;
+}
+.vc-show__intro h2 em {
+  font-style: normal;
+  color: #125a50;
+}
+:root[data-page] .vc-show__intro p:last-child {
+  margin: 20px 0 0;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5e636b;
+}
+/* The frame starts as a small card near the bottom and opens to the whole stage. */
+.vc-show__frame {
+  position: absolute;
+  inset: 8px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #142a23;
+  clip-path: inset(
+    calc((1 - var(--g)) * 64%) calc((1 - var(--g)) * (50% - 200px)) calc((1 - var(--g)) * 7%) round
+      calc(20px - var(--g) * 6px)
+  );
+}
+.vc-show__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  color: #ffffff;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.7s ease,
+    visibility 0s linear 0.7s;
+}
+.vc-show__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.7s ease,
+    visibility 0s;
+}
+.vc-show__img {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  scale: calc(1.12 - var(--g) * 0.04 - var(--sp) * 0.06);
+}
+.vc-show__img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 30, 26, 0.25) 0%,
+    rgba(10, 30, 26, 0.55) 45%,
+    rgba(10, 30, 26, 0.88) 100%
+  );
+}
+.vc-show__content {
+  position: relative;
+  width: 100%;
+  padding-bottom: 120px;
+  opacity: calc(var(--g) * 2 - 1);
+}
+.vc-show__content > * {
+  max-width: 620px;
+  translate: 0 24px;
+  opacity: 0;
+  transition:
+    translate 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.8s ease;
+}
+.vc-show__slide.is-active .vc-show__content > * {
+  translate: 0 0;
+  opacity: 1;
+}
+.vc-show__slide.is-active .vc-show__content > :nth-child(2) {
+  transition-delay: 0.08s;
+}
+.vc-show__slide.is-active .vc-show__content > :nth-child(3) {
+  transition-delay: 0.16s;
+}
+.vc-show__slide.is-active .vc-show__content > :nth-child(n + 4) {
+  transition-delay: 0.24s;
+}
+.vc-show__count {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #bccdc3;
+}
+:root[data-page] .vc-show__content h3 {
+  margin: 0;
+  font-size: clamp(26px, 2.6vw, 40px) !important;
+  font-weight: 500;
+  line-height: 1.06 !important;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+:root[data-page] .vc-show__content p {
+  margin: 18px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+.vc-show__content ul {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* the key points read as one line of text (no button look); the dot stays at the end of a line */
+.vc-show__content li {
+  display: inline;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+.vc-show__content li:not(:last-child)::after {
+  content: "·";
+  margin: 0 0.6em;
+  color: #bccdc3;
+}
+.vc-show__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.vc-show__actions .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+/* Outlined button on the photo: same look as the heroes' "See the gallery". */
+:root[data-page][data-page][data-page][data-page][data-page][data-page] .vc-show .pill:not(.pill-w) {
+  --vc-fill: #ffffff;
+  --vc-fill-fg: #125a50;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  color: #ffffff !important;
+}
+:root[data-page][data-page][data-page][data-page][data-page][data-page][data-page][data-page][data-page][data-page]
+  .vc-show
+  .pill:not(.pill-w):is(:hover, :focus-visible) {
+  border-color: #ffffff !important;
+}
+/* Progress bar and tabs along the bottom of the frame. */
+.vc-show__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #ffffff;
+  opacity: calc(var(--g) * 2 - 1);
+}
+.vc-show__num {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.vc-show__track {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.vc-show__track span {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 50%;
+  scale: var(--sp) 1;
+  background: #ffffff;
+}
+.vc-show__tabs {
+  display: flex;
+  gap: 6px;
+}
+.vc-show__tabs button {
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+.vc-show__tabs button:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.vc-show__tabs button[aria-selected="true"] {
+  background: #ffffff;
+  color: #125a50;
+}
+/* Phones and reduced motion: no pinning — the services stack as rounded photo panels. */
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  .vc-show {
+    --g: 1;
+    height: auto;
+    padding: 8px 8px 0;
+  }
+  .vc-show__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+  .vc-show__intro {
+    position: static;
+    padding: 64px 16px 40px;
+    opacity: 1;
+    translate: none;
+  }
+  .vc-show__frame {
+    position: static;
+    clip-path: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: transparent;
+  }
+  .vc-show__slide {
+    position: relative;
+    min-height: 82svh;
+    border-radius: 20px;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+  }
+  .vc-show__content {
+    padding-top: 120px;
+    padding-bottom: 40px;
+    opacity: 1;
+  }
+  .vc-show__content > * {
+    translate: none;
+    opacity: 1;
+  }
+  .vc-show__img {
+    scale: 1;
+  }
+  .vc-show__bar {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- toolkit
+   Section titles rise from behind a mask. */
+.vc-rise {
+  clip-path: inset(0 0 100% 0);
+  translate: 0 0.5em;
+  transition:
+    clip-path 1s cubic-bezier(0.16, 1, 0.3, 1),
+    translate 1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.vc-rise.is-in {
+  clip-path: inset(-12% -4% -12% -4%);
+  translate: 0 0;
+}
+/* Heroes recede: content lifts and fades, the photo drifts (--hp: 0 → 1 over the hero's height). */
+.vc-hero > .wrap,
+.vc-hero > div > .wrap {
+  translate: 0 calc(var(--hp, 0) * -90px);
+  opacity: calc(1 - var(--hp, 0) * 1.25);
+}
+.vc-hero[data-hero="dark"] {
+  background-position: center calc(50% + var(--hp, 0) * 140px) !important;
+}
+/* Footer: the footer stays in place; its content rises and fades in as it appears (--fe: 0 → 1). */
+.vc-foot > * {
+  translate: 0 calc((1 - var(--fe, 1)) * 56px);
+  opacity: calc(0.25 + var(--fe, 1) * 0.75);
+}
+/* ---------------------------------------------------------------- pinned statements
+   (src/components/site/pinned-statements.tsx) — dark stage with a moving glow; --a is the active
+   statement, --pt the progress through the current slot. */
+.vc-pin {
+  position: relative;
+  height: calc((var(--n) + 1) * 100svh);
+  padding: 8px;
+  background: #ffffff;
+}
+.vc-pin__stage {
+  position: sticky;
+  top: 8px;
+  height: calc(100svh - 16px);
+  overflow: hidden;
+  border-radius: 20px;
+  background: #0b2a25;
+  color: #ffffff;
+}
+.vc-pin__glow {
+  position: absolute;
+  width: 62vw;
+  height: 62vw;
+  max-width: 900px;
+  max-height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 160, 130, 0.55) 0%, rgba(18, 90, 80, 0.25) 40%, rgba(11, 42, 37, 0) 70%);
+  filter: blur(20px);
+  left: 50%;
+  top: 50%;
+  translate: calc(-50% + (var(--a) - 1) * 18vw) calc(-50% + var(--pt, 0) * 6vh);
+  transition: translate 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vc-pin__title,
+.vc-pin__item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition:
+    opacity 0.8s ease,
+    translate 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s ease;
+}
+:root[data-page] .vc-pin h2 {
+  margin: 0;
+  max-width: 760px;
+  font-size: clamp(26px, 2.6vw, 40px) !important;
+  font-weight: 500;
+  line-height: 1.06 !important;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #ffffff;
+}
+.vc-pin h2 em {
+  font-style: normal;
+  color: #8fd1bc;
+}
+:root[data-page] .vc-pin__title p,
+:root[data-page] .vc-pin__item p {
+  margin: 22px 0 0;
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+.vc-pin.is-past-title .vc-pin__title {
+  opacity: 0;
+  translate: 0 -60px;
+  filter: blur(6px);
+}
+.vc-pin__item {
+  opacity: 0;
+  translate: 0 60px;
+  filter: blur(6px);
+  pointer-events: none;
+}
+.vc-pin__item.is-active {
+  opacity: 1;
+  translate: 0 0;
+  filter: none;
+}
+.vc-pin__item.is-done {
+  translate: 0 -60px;
+}
+.vc-pin__label {
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8fd1bc;
+}
+:root[data-page] .vc-pin__item h3 {
+  margin: 0;
+  max-width: 760px;
+  font-size: clamp(26px, 2.6vw, 40px) !important;
+  font-weight: 500;
+  line-height: 1.06 !important;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #ffffff;
+}
+.vc-pin__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 34px;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  gap: 14px;
+}
+.vc-pin__bar span {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vc-pin__bar i {
+  position: relative;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+.vc-pin__bar i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #8fd1bc;
+  transform-origin: 0 50%;
+  scale: 0 1;
+}
+.vc-pin__bar .is-done i::after {
+  scale: 1 1;
+}
+.vc-pin__bar .is-active i::after {
+  scale: var(--pt, 0) 1;
+}
+.vc-pin__bar b {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.4s ease;
+}
+.vc-pin__bar :is(.is-active, .is-done) b {
+  color: #ffffff;
+}
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  .vc-pin {
+    height: auto;
+  }
+  .vc-pin__stage {
+    position: static;
+    height: auto;
+    padding: 72px 0 48px;
+  }
+  .vc-pin__title,
+  .vc-pin__item {
+    position: relative;
+    inset: auto;
+    opacity: 1;
+    translate: none;
+    filter: none;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  .vc-pin.is-past-title .vc-pin__title {
+    opacity: 1;
+    translate: none;
+    filter: none;
+  }
+  .vc-pin__glow {
+    translate: -50% -50%;
+    top: 30%;
+  }
+  .vc-pin__bar {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vc-rise,
+  .vc-foot > * {
+    clip-path: none;
+    translate: none;
+    top: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- style cards
+   (src/components/site/style-cards.tsx) — six cards in three aligned columns; each tilts upright in 3D as
+   it scrolls into view (--e: 0 → 1). */
+.vc-styles {
+  background: #ffffff;
+}
+.vc-styles__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 48px;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+:root[data-page] .vc-styles__head h2 {
+  margin: 0;
+  max-width: 560px;
+}
+.vc-styles__head h2 em {
+  font-style: normal;
+  color: #125a50;
+}
+:root[data-page] .vc-styles__head p {
+  margin: 0;
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5e636b;
+}
+.vc-styles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 1.6vw, 24px);
+  align-items: stretch;
+  perspective: 1200px;
+}
+.vc-styles__col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 24px);
+}
+/* columns start and end level: the last card of each column takes up the remaining height */
+.vc-styles__col > .vc-styles__card:last-child {
+  flex: 1;
+}
+.vc-styles__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(260px, 22vw, 340px);
+  padding: clamp(22px, 2.2vw, 32px);
+  overflow: hidden;
+  border-radius: 20px;
+  background-position: center;
+  background-size: cover;
+  isolation: isolate;
+}
+/* the middle column's first card (the photo) runs taller, as the centrepiece of the grid */
+.vc-styles__col:nth-child(2) .vc-styles__card:first-child {
+  min-height: clamp(380px, 33vw, 500px);
+}
+.vc-styles.is-live .vc-styles__card {
+  transform-origin: 50% 100%;
+  transform: rotateX(calc((1 - var(--e, 0)) * 22deg)) scale(calc(0.9 + var(--e, 0) * 0.1));
+  opacity: calc(0.45 + var(--e, 0) * 0.55);
+  will-change: transform;
+}
+.vc-styles__card.is-dark {
+  background: radial-gradient(120% 90% at 85% 10%, #2e8f78 0%, #125a50 28%, #0b2a25 62%, #111412 100%);
+  color: #ffffff;
+}
+.vc-styles__card.is-light {
+  background: linear-gradient(150deg, #bfe3d6 0%, #6fb59f 45%, #1a6a5e 100%);
+  color: #ffffff;
+}
+.vc-styles__card.is-plain {
+  background: #ffffff;
+  border: 1px solid #e3e5e9;
+  color: #1d2b44;
+}
+.vc-styles__card.is-photo {
+  color: #ffffff;
+}
+.vc-styles__card.is-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 42, 37, 0.1) 0%,
+    rgba(11, 42, 37, 0.55) 55%,
+    rgba(18, 90, 80, 0.92) 100%
+  );
+}
+.vc-styles__big {
+  font-size: clamp(26px, 2.4vw, 36px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.vc-styles__label {
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+:root[data-page] .vc-styles__card p {
+  margin: 8px 0 0;
+  max-width: 300px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: inherit;
+  opacity: 0.8;
+}
+.vc-styles__card.is-plain .vc-styles__label {
+  color: #125a50;
+}
+@media (max-width: 900px) {
+  .vc-styles__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vc-styles__col {
+    display: contents;
+  }
+}
+@media (max-width: 560px) {
+  .vc-styles__grid {
+    grid-template-columns: 1fr;
+  }
+}

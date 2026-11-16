@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
+import { useTranslate } from "@/lib/i18n/context";
 
 /** Generated from the "NotFound" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function NotFoundContent() {
-  return (
+  const tr = useTranslate();
+  return tr(
     <>
       <SiteHeader variant="solid" />
       <main>
@@ -30,7 +34,7 @@ export function NotFoundContent() {
               >
                 This drawer
                 <br />
-                <em style={{ color: "#1F3D33" }}>is empty.</em>
+                <em style={{ color: "#125A50" }}>is empty.</em>
               </h1>
               <p
                 style={{
@@ -56,7 +60,7 @@ export function NotFoundContent() {
                     minHeight: "52px",
                     padding: "0 28px",
                     borderRadius: "0",
-                    background: "#1F3D33",
+                    background: "#125A50",
                     color: "#FFFFFF",
                     border: "0",
                     fontSize: "15px",
@@ -64,7 +68,7 @@ export function NotFoundContent() {
                     textDecoration: "none",
                     textAlign: "center",
                   }}
-                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #1F3D33; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #125A50; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                 >
                   Back to Home
                 </Link>
@@ -112,13 +116,13 @@ export function NotFoundContent() {
                       minHeight: "44px",
                       padding: "0 16px",
                       borderRadius: "0",
-                      border: "1.5px solid #C9BFB1",
+                      border: "1.5px solid #C9CDD4",
                       background: "#FFFFFF",
                       color: "#1D2B44",
                       fontWeight: "600",
                       textDecoration: "none",
                     }}
-                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
+                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
                   >
                     Kitchens
                   </Link>
@@ -133,13 +137,13 @@ export function NotFoundContent() {
                       minHeight: "44px",
                       padding: "0 16px",
                       borderRadius: "0",
-                      border: "1.5px solid #C9BFB1",
+                      border: "1.5px solid #C9CDD4",
                       background: "#FFFFFF",
                       color: "#1D2B44",
                       fontWeight: "600",
                       textDecoration: "none",
                     }}
-                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
+                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
                   >
                     Bathrooms
                   </Link>
@@ -154,13 +158,13 @@ export function NotFoundContent() {
                       minHeight: "44px",
                       padding: "0 16px",
                       borderRadius: "0",
-                      border: "1.5px solid #C9BFB1",
+                      border: "1.5px solid #C9CDD4",
                       background: "#FFFFFF",
                       color: "#1D2B44",
                       fontWeight: "600",
                       textDecoration: "none",
                     }}
-                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
+                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
                   >
                     Walk-ins
                   </Link>
@@ -175,13 +179,13 @@ export function NotFoundContent() {
                       minHeight: "44px",
                       padding: "0 16px",
                       borderRadius: "0",
-                      border: "1.5px solid #C9BFB1",
+                      border: "1.5px solid #C9CDD4",
                       background: "#FFFFFF",
                       color: "#1D2B44",
                       fontWeight: "600",
                       textDecoration: "none",
                     }}
-                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9BFB1; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
+                    data-s="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 0; border: 1.5px solid #C9CDD4; background: #FFFFFF; color: #1D2B44; font-weight: 600; text-decoration: none"
                   >
                     Gallery
                   </Link>
@@ -206,6 +210,6 @@ export function NotFoundContent() {
           </div>
         </section>
       </main>
-    </>
+    </>,
   );
 }

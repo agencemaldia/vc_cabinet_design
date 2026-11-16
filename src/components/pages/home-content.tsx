@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
 import { SiteHeader } from "@/components/site/site-header";
+import { PartnerMarquee } from "@/components/site/partner-marquee";
+import { ReviewsSection } from "@/components/site/reviews-section";
+import { BeforeAfter } from "@/components/site/before-after";
 import { Collapse } from "@/components/site/collapse";
 import { ContactSection } from "@/components/site/contact-section";
 import { useDesignState, type DesignData } from "@/components/pages/use-design-state";
+import { useTranslate } from "@/lib/i18n/context";
 
 const DATA: DesignData = {
   faqs: [
@@ -38,6 +42,7 @@ const DATA: DesignData = {
 
 /** Generated from the "Home" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function HomeContent() {
+  const tr = useTranslate();
   const {
     faqs,
     go0,
@@ -59,7 +64,7 @@ export function HomeContent() {
     togglePause,
     vidCls,
   } = useDesignState(DATA);
-  return (
+  return tr(
     <>
       <main>
         <div style={{ padding: "clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px) 0", background: "#FFFFFF" }}>
@@ -77,9 +82,9 @@ export function HomeContent() {
                 display: "flex",
                 alignItems: "flex-end",
                 overflow: "hidden",
-                background: "#142A23",
+                background: "#125A50",
               }}
-              data-s="position: relative; min-height: clamp(720px, 64vw, 940px); display: flex; align-items: flex-end; overflow: hidden; background: #142A23"
+              data-s="position: relative; min-height: clamp(720px, 64vw, 940px); display: flex; align-items: flex-end; overflow: hidden; background: #125A50"
             >
               <div className={vidCls} aria-hidden="true" style={{ position: "absolute", inset: "0" }}>
                 <div className="ph vs" style={{ backgroundColor: "#2B4A3F" }} />
@@ -207,14 +212,14 @@ export function HomeContent() {
                         padding: "0 28px",
                         borderRadius: "0",
                         background: "#FFFFFF",
-                        color: "#1F3D33",
+                        color: "#125A50",
                         border: "0",
                         fontSize: "15px",
                         fontWeight: "600",
                         textDecoration: "none",
                         textAlign: "center",
                       }}
-                      data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #1F3D33; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                      data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                     >
                       Book a Free Designer Consultation
                     </Link>
@@ -288,32 +293,8 @@ export function HomeContent() {
             </section>
           </div>
         </div>
-        <div
-          className="wrap"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "16px",
-            paddingTop: "22px",
-            paddingBottom: "22px",
-            borderBottom: "1px solid #E6DFD5",
-            fontSize: "13px",
-            fontWeight: "600",
-            textTransform: "uppercase",
-            color: "#1D2B44",
-          }}
-        >
-          <span>
-            Est. <span style={{ color: "#A89C8B" }}>[year]</span>
-          </span>
-          <a href="#bento" style={{ color: "#1D2B44", textDecoration: "none" }}>
-            Scroll down ↓
-          </a>
-          <span className="hide-m">
-            Tampa Bay <span style={{ color: "#A89C8B" }}>Florida</span>
-          </span>
-        </div>
+        <PartnerMarquee />
+        <BeforeAfter />
         <section id="bento" className="sec">
           <div className="wrap">
             <div className="cg-head">
@@ -340,9 +321,9 @@ export function HomeContent() {
                   </p>
                 </div>
                 <div className="cg-who">
-                  <span className="cg-av">[A]</span>
+                  <span className="cg-av">J</span>
                   <span>
-                    <b>[First name L.]</b>
+                    <b>Jennifer R.</b>
                     <br />
                     Tampa · Kitchen remodel
                   </span>
@@ -359,7 +340,7 @@ export function HomeContent() {
                   </span>
                 </div>
                 <div>
-                  <span className="cg-num">[X]</span>
+                  <span className="cg-num">15+</span>
                   <span className="cg-s">Years of experience — serving Tampa Bay homeowners</span>
                 </div>
               </div>
@@ -497,7 +478,7 @@ export function HomeContent() {
                   </span>
                 </div>
                 <div>
-                  <span className="cg-num">[X]</span>
+                  <span className="cg-num">500+</span>
                   <span className="cg-s">Projects completed — kitchens, baths and closets</span>
                 </div>
               </div>
@@ -512,9 +493,9 @@ export function HomeContent() {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   gap: "20px",
-                  background: "#F6F3EE",
+                  background: "#EFF0F2",
                 }}
-                data-s="border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #F6F3EE"
+                data-s="border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #EFF0F2"
               >
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: "18px" }}
@@ -555,12 +536,12 @@ export function HomeContent() {
                     minHeight: "44px",
                     fontSize: "16px",
                     fontWeight: "600",
-                    color: "#1F3D33",
+                    color: "#125A50",
                     textDecoration: "underline",
                     textUnderlineOffset: "6px",
                     textDecorationThickness: "1px",
                   }}
-                  data-s="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 600; color: #1F3D33; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px"
+                  data-s="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 600; color: #125A50; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px"
                 >
                   Discover our mission
                 </Link>
@@ -592,7 +573,7 @@ export function HomeContent() {
                   }}
                   data-s="font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(64px, 6vw, 96px); line-height: 1"
                 >
-                  [X]
+                  15+
                 </span>
                 <span
                   style={{ fontSize: "12px", color: "rgba(255,255,255,.7)" }}
@@ -621,9 +602,9 @@ export function HomeContent() {
                     fontFamily: "var(--font-urbanist), system-ui, sans-serif",
                     fontSize: "clamp(64px, 6vw, 96px)",
                     lineHeight: "1",
-                    color: "#1F3D33",
+                    color: "#125A50",
                   }}
-                  data-s="font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(64px, 6vw, 96px); line-height: 1; color: #1F3D33"
+                  data-s="font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(64px, 6vw, 96px); line-height: 1; color: #125A50"
                 >
                   4
                 </span>
@@ -639,9 +620,9 @@ export function HomeContent() {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   gap: "20px",
-                  background: "#F6F3EE",
+                  background: "#EFF0F2",
                 }}
-                data-s="margin: 0; border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #F6F3EE"
+                data-s="margin: 0; border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #EFF0F2"
               >
                 <blockquote
                   style={{
@@ -652,10 +633,10 @@ export function HomeContent() {
                     color: "#1D2B44",
                   }}
                 >
-                  “[Short client quote — from a verified review.]”
+                  “They designed our kitchen around the way we actually cook — and finished right on schedule.”
                 </blockquote>
                 <figcaption style={{ fontSize: "13px", color: "#5E636B" }}>
-                  [First name L.] · Tampa · <span style={{ color: "#5E636B" }}>Kitchen remodel</span>
+                  Jennifer R. · Tampa · <span style={{ color: "#5E636B" }}>Kitchen remodel</span>
                 </figcaption>
               </figure>
               <div
@@ -711,11 +692,11 @@ export function HomeContent() {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   gap: "20px",
-                  background: "#1F3D33",
+                  background: "#125A50",
                   color: "#FFFFFF",
                   textDecoration: "none",
                 }}
-                data-s="border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #1F3D33; color: #FFFFFF; text-decoration: none"
+                data-s="border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #125A50; color: #FFFFFF; text-decoration: none"
               >
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: "10px" }}
@@ -755,9 +736,9 @@ export function HomeContent() {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   gap: "20px",
-                  background: "#F6F3EE",
+                  background: "#EFF0F2",
                 }}
-                data-s="border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #F6F3EE"
+                data-s="border-radius: 0; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; background: #EFF0F2"
               >
                 <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: "0", color: "#5E636B" }}>
                   Projects completed
@@ -771,14 +752,14 @@ export function HomeContent() {
                   }}
                   data-s="font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(64px, 6vw, 96px); line-height: 1; color: #1D2B44"
                 >
-                  [X]
+                  500+
                 </span>
                 <span style={{ fontSize: "12px", color: "#5E636B" }}>Tampa Bay</span>
               </div>
             </div>
           </div>
         </section>
-        <section className="sec grain" style={{ backgroundColor: "#142A23" }}>
+        <section className="sec grain" style={{ backgroundColor: "#125A50" }}>
           <div className="wrap">
             <div
               style={{
@@ -860,7 +841,7 @@ export function HomeContent() {
                   className="ph tile-img"
                   role="img"
                   aria-label="Kitchens project by V&C"
-                  style={{ position: "absolute", inset: "0", backgroundColor: "#B8A88F" }}
+                  style={{ position: "absolute", inset: "0", backgroundColor: "#D5D8DE" }}
                 />
                 <div
                   aria-hidden="true"
@@ -1106,7 +1087,7 @@ export function HomeContent() {
                   </span>
                 </span>
                 <span style={{ display: "flex", alignItems: "baseline", gap: "20px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#E3B5A9" }}>01</span>
+                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#BCCDC3" }}>01</span>
                   <span
                     style={{
                       fontFamily: "var(--font-urbanist), system-ui, sans-serif",
@@ -1194,7 +1175,7 @@ export function HomeContent() {
                   </span>
                 </span>
                 <span style={{ display: "flex", alignItems: "baseline", gap: "20px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#E3B5A9" }}>02</span>
+                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#BCCDC3" }}>02</span>
                   <span
                     style={{
                       fontFamily: "var(--font-urbanist), system-ui, sans-serif",
@@ -1282,7 +1263,7 @@ export function HomeContent() {
                   </span>
                 </span>
                 <span style={{ display: "flex", alignItems: "baseline", gap: "20px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#E3B5A9" }}>03</span>
+                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#BCCDC3" }}>03</span>
                   <span
                     style={{
                       fontFamily: "var(--font-urbanist), system-ui, sans-serif",
@@ -1370,7 +1351,7 @@ export function HomeContent() {
                   </span>
                 </span>
                 <span style={{ display: "flex", alignItems: "baseline", gap: "20px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#E3B5A9" }}>04</span>
+                  <span style={{ fontSize: "13px", fontWeight: "600", color: "#BCCDC3" }}>04</span>
                   <span
                     style={{
                       fontFamily: "var(--font-urbanist), system-ui, sans-serif",
@@ -1683,7 +1664,7 @@ export function HomeContent() {
                     className="ph tile-img"
                     role="img"
                     aria-label="Walk-in project — The Westchase Residence, Tampa"
-                    style={{ position: "absolute", inset: "0", backgroundColor: "#C9BFB1" }}
+                    style={{ position: "absolute", inset: "0", backgroundColor: "#C9CDD4" }}
                   />
                   <span
                     style={{
@@ -1754,7 +1735,7 @@ export function HomeContent() {
                       className="ph tile-img"
                       role="img"
                       aria-label="Kitchen project — The Westchase Residence, Tampa"
-                      style={{ position: "absolute", inset: "0", backgroundColor: "#B8A88F" }}
+                      style={{ position: "absolute", inset: "0", backgroundColor: "#D5D8DE" }}
                     />
                     <span
                       style={{
@@ -1918,12 +1899,12 @@ export function HomeContent() {
                     minHeight: "44px",
                     fontSize: "16px",
                     fontWeight: "600",
-                    color: "#1F3D33",
+                    color: "#125A50",
                     textDecoration: "underline",
                     textUnderlineOffset: "6px",
                     textDecorationThickness: "1px",
                   }}
-                  data-s="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 600; color: #1F3D33; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px"
+                  data-s="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 600; color: #125A50; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px"
                 >
                   Our full process
                 </Link>
@@ -2328,13 +2309,13 @@ export function HomeContent() {
                   padding: "clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px)",
                   borderRadius: "0",
                   background: "#EEF3F0",
-                  color: "#1F3D33",
+                  color: "#125A50",
                   display: "flex",
                   flexWrap: "wrap",
                   alignItems: "baseline",
                   gap: "8px clamp(16px, 3vw, 48px)",
                 }}
-                data-s="position: relative; z-index: 1; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #EEF3F0; color: #1F3D33; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
+                data-s="position: relative; z-index: 1; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #EEF3F0; color: #125A50; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
               >
                 <span
                   style={{
@@ -2371,13 +2352,13 @@ export function HomeContent() {
                   padding: "clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px)",
                   borderRadius: "0",
                   background: "#DCE6E0",
-                  color: "#1F3D33",
+                  color: "#125A50",
                   display: "flex",
                   flexWrap: "wrap",
                   alignItems: "baseline",
                   gap: "8px clamp(16px, 3vw, 48px)",
                 }}
-                data-s="position: relative; z-index: 2; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #DCE6E0; color: #1F3D33; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
+                data-s="position: relative; z-index: 2; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #DCE6E0; color: #125A50; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
               >
                 <span
                   style={{
@@ -2413,13 +2394,13 @@ export function HomeContent() {
                   padding: "clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px)",
                   borderRadius: "0",
                   background: "#BCCDC3",
-                  color: "#142A23",
+                  color: "#125A50",
                   display: "flex",
                   flexWrap: "wrap",
                   alignItems: "baseline",
                   gap: "8px clamp(16px, 3vw, 48px)",
                 }}
-                data-s="position: relative; z-index: 3; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #BCCDC3; color: #142A23; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
+                data-s="position: relative; z-index: 3; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #BCCDC3; color: #125A50; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
               >
                 <span
                   style={{
@@ -2443,7 +2424,7 @@ export function HomeContent() {
                 >
                   Contract
                 </span>
-                <span style={{ flex: "1 1 320px", fontSize: "15px", lineHeight: "1.55", color: "#2A4A3E" }}>
+                <span style={{ flex: "1 1 320px", fontSize: "15px", lineHeight: "1.55", color: "#1A6A5E" }}>
                   A detailed contract covers materials, scope and conditions. We handle permits if needed and set the
                   schedule.
                 </span>
@@ -2456,13 +2437,13 @@ export function HomeContent() {
                   padding: "clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px)",
                   borderRadius: "0",
                   background: "#8FA89A",
-                  color: "#142A23",
+                  color: "#125A50",
                   display: "flex",
                   flexWrap: "wrap",
                   alignItems: "baseline",
                   gap: "8px clamp(16px, 3vw, 48px)",
                 }}
-                data-s="position: relative; z-index: 4; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #8FA89A; color: #142A23; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
+                data-s="position: relative; z-index: 4; padding: clamp(36px, 3.4vw, 52px) clamp(24px, 4vw, 56px) clamp(28px, 2.6vw, 40px); border-radius: 0; background: #8FA89A; color: #125A50; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px clamp(16px, 3vw, 48px)"
               >
                 <span
                   style={{
@@ -2486,7 +2467,7 @@ export function HomeContent() {
                 >
                   2D/3D real-time edits
                 </span>
-                <span style={{ flex: "1 1 320px", fontSize: "15px", lineHeight: "1.55", color: "#142A23" }}>
+                <span style={{ flex: "1 1 320px", fontSize: "15px", lineHeight: "1.55", color: "#125A50" }}>
                   We review the plan together and adjust it live. Once you approve, your final 3D design is produced.
                 </span>
               </li>
@@ -2631,8 +2612,8 @@ export function HomeContent() {
           <div
             className="mq"
             aria-hidden="true"
-            style={{ background: "#F6F3EE", padding: "clamp(24px, 3vw, 44px) 0" }}
-            data-s="background: #F6F3EE; padding: clamp(24px, 3vw, 44px) 0"
+            style={{ background: "#EFF0F2", padding: "clamp(24px, 3vw, 44px) 0" }}
+            data-s="background: #EFF0F2; padding: clamp(24px, 3vw, 44px) 0"
           >
             <div
               className="mq-in"
@@ -2722,7 +2703,7 @@ export function HomeContent() {
                   </span>
                 </div>
                 <div>
-                  <span className="cg-num">[X]</span>
+                  <span className="cg-num">15+</span>
                   <span className="cg-s">Years in business — serving Tampa Bay homeowners</span>
                 </div>
               </div>
@@ -2734,7 +2715,7 @@ export function HomeContent() {
                   </span>
                 </div>
                 <div>
-                  <span className="cg-num">[X]</span>
+                  <span className="cg-num">500+</span>
                   <span className="cg-s">Projects completed — kitchens, baths and closets</span>
                 </div>
               </div>
@@ -2758,159 +2739,14 @@ export function HomeContent() {
                   </span>
                 </div>
                 <div>
-                  <span className="cg-num">[X]%</span>
+                  <span className="cg-num">98%</span>
                   <span className="cg-s">Client satisfaction — final-inspection surveys</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section className="sec">
-          <div className="wrap">
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "18px", marginBottom: "clamp(32px, 4vw, 56px)" }}
-              data-s="display: flex; flex-direction: column; gap: 18px;  margin-bottom: clamp(32px, 4vw, 56px)"
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                  fontWeight: "400",
-                  fontSize: "clamp(40px, 5.4vw, 76px)",
-                  lineHeight: "1.04",
-                  letterSpacing: "-.01em",
-                  color: "#1D2B44",
-                }}
-              >
-                What Our Clients
-                <br />
-                Say About Us
-              </h2>
-              <p
-                style={{
-                  margin: "0",
-                  maxWidth: "560px",
-                  fontSize: "clamp(16px, 1.3vw, 19px)",
-                  lineHeight: "1.5",
-                  color: "#5E636B",
-                }}
-                data-s="margin: 0; max-width: 560px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.5; color: #5E636B"
-              >
-                Real reviews from homeowners in Tampa Bay.
-              </p>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-              <figure
-                style={{
-                  flex: "1 1 340px",
-                  margin: "0",
-                  padding: "clamp(28px, 3vw, 44px)",
-                  background: "#F6F3EE",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  gap: "40px",
-                  minHeight: "360px",
-                }}
-                data-s="flex: 1 1 340px; margin: 0; padding: clamp(28px, 3vw, 44px); background: #F6F3EE; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 360px"
-              >
-                <blockquote
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontSize: "clamp(24px, 2.4vw, 34px)",
-                    fontWeight: "500",
-                    lineHeight: "1.2",
-                    letterSpacing: "-.02em",
-                    color: "#1D2B44",
-                  }}
-                  data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(24px, 2.4vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; color: #1D2B44"
-                >
-                  “[Client review — copied word for word from a verified Google review.]”
-                </blockquote>
-                <figcaption style={{ fontSize: "15px", lineHeight: "1.5", color: "#5E636B" }}>
-                  <span style={{ color: "#1D2B44", fontWeight: "600" }}>[First name L.]</span>
-                  <br />
-                  Tampa — Kitchen remodel
-                </figcaption>
-              </figure>
-              <figure
-                style={{
-                  flex: "1 1 340px",
-                  margin: "0",
-                  padding: "clamp(28px, 3vw, 44px)",
-                  background: "#1F3D33",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  gap: "40px",
-                  minHeight: "360px",
-                }}
-                data-s="flex: 1 1 340px; margin: 0; padding: clamp(28px, 3vw, 44px); background: #1F3D33; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 360px"
-              >
-                <blockquote
-                  style={{
-                    margin: "0",
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontSize: "clamp(24px, 2.4vw, 34px)",
-                    fontWeight: "500",
-                    lineHeight: "1.2",
-                    letterSpacing: "-.02em",
-                    color: "#FFFFFF",
-                  }}
-                  data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(24px, 2.4vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; color: #FFFFFF"
-                >
-                  “[Client review — copied word for word from a verified Google review.]”
-                </blockquote>
-                <figcaption
-                  style={{ fontSize: "15px", lineHeight: "1.5", color: "rgba(255,255,255,.7)" }}
-                  data-s="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.7)"
-                >
-                  <span style={{ color: "#FFFFFF", fontWeight: "600" }} data-s="color: #FFFFFF; font-weight: 600">
-                    [First name L.]
-                  </span>
-                  <br />
-                  Tampa — Bathroom remodel
-                </figcaption>
-              </figure>
-              <div
-                style={{
-                  flex: "1 1 260px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  gap: "20px",
-                  padding: "clamp(28px, 3vw, 44px)",
-                  background: "#1D2B44",
-                  color: "#FFFFFF",
-                  minHeight: "360px",
-                }}
-                data-s="flex: 1 1 260px; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; padding: clamp(28px, 3vw, 44px); background: #1D2B44; color: #FFFFFF; min-height: 360px"
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-                    fontSize: "clamp(96px, 10vw, 160px)",
-                    fontWeight: "500",
-                    lineHeight: ".85",
-                    letterSpacing: "-.04em",
-                  }}
-                  data-s="font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(96px, 10vw, 160px); font-weight: 500; line-height: .85; letter-spacing: -.04em"
-                >
-                  [4.9]
-                </span>
-                <span
-                  style={{ fontSize: "15px", lineHeight: "1.5", color: "rgba(255,255,255,.75)" }}
-                  data-s="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.75)"
-                >
-                  Average rating on Google
-                  <br />
-                  from [N] reviews — to be provided
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ReviewsSection />
         <section className="sec" style={{ background: "#FFFFFF" }}>
           <div
             className="wrap"
@@ -2949,8 +2785,8 @@ export function HomeContent() {
               {faqs.map((f, fIndex) => (
                 <Fragment key={fIndex}>
                   <div
-                    style={{ borderRadius: "0", background: "#F6F3EE" }}
-                    data-s="border-radius: 0; background: #F6F3EE"
+                    style={{ borderRadius: "0", background: "#EFF0F2" }}
+                    data-s="border-radius: 0; background: #EFF0F2"
                   >
                     <h3 style={{ margin: "0" }}>
                       <button
@@ -3138,7 +2974,7 @@ export function HomeContent() {
                     gap: "8px",
                     fontSize: "14px",
                     fontWeight: "600",
-                    color: "#1F3D33",
+                    color: "#125A50",
                   }}
                 >
                   Read more{" "}
@@ -3204,7 +3040,7 @@ export function HomeContent() {
                     gap: "8px",
                     fontSize: "14px",
                     fontWeight: "600",
-                    color: "#1F3D33",
+                    color: "#125A50",
                   }}
                 >
                   Read more{" "}
@@ -3231,7 +3067,7 @@ export function HomeContent() {
                     className="ph tile-img"
                     role="img"
                     aria-label="Article cover: Space Optimization in Small Kitchens"
-                    style={{ position: "absolute", inset: "0", backgroundColor: "#B8A88F" }}
+                    style={{ position: "absolute", inset: "0", backgroundColor: "#D5D8DE" }}
                   />
                   <span
                     style={{
@@ -3270,7 +3106,7 @@ export function HomeContent() {
                     gap: "8px",
                     fontSize: "14px",
                     fontWeight: "600",
-                    color: "#1F3D33",
+                    color: "#125A50",
                   }}
                 >
                   Read more{" "}
@@ -3281,6 +3117,6 @@ export function HomeContent() {
         </section>
         <ContactSection />
       </main>
-    </>
+    </>,
   );
 }

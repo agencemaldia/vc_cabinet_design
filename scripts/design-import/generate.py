@@ -22,6 +22,112 @@ PAGE_CLASS = {p: "pg-" + re.sub(r"(?<!^)([A-Z])", r"-\1", p).lower() for p in PA
 CURRENT = {"Home": "home", "Mission": "mission", "Services": "services", "Kitchen": "services",
            "Bathroom": "services", "Walkin": "services", "Gallery": "gallery", "Blog": "blog",
            "Article": "blog", "Contact": "contact", "ThankYou": None, "Privacy": None, "NotFound": None}
+def _text(n):
+    return "".join(c if isinstance(c, str) else _text(c) for c in n.children) if not isinstance(n, str) else n
+
+
+def _section_id(sid):
+    return lambda n: n.tag == "section" and dict(n.attrs).get("id") == sid
+
+
+def _section_titled(prefix):
+    return lambda n: n.tag == "section" and any(
+        h.tag == "h2" and _text(h).strip().startswith(prefix) for h in walk(n))
+
+
+def _hero_strip(n):  # "Est. [year] · Scroll down ↓ · Tampa Bay Florida" under the Home hero
+    return n.tag == "div" and "wrap" in dict(n.attrs).get("class", "") and "Scroll down" in _text(n)
+
+
+def _link_text(text):
+    return lambda n: n.tag == "a" and " ".join(_text(n).split()) == text
+
+
+NATHALIE_ACTIONS = (
+    '<div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>'
+    '<a href="/contact" className="pill pill-d" style={{ display: "inline-flex", alignItems: "center", '
+    'justifyContent: "center", minHeight: "52px", padding: "0 28px", borderRadius: "6px", background: "#1F3D33", '
+    'color: "#FFFFFF", fontSize: "15px", fontWeight: "600", textDecoration: "none" }}>Book a visit with Nathalie</a>'
+    '<a href="tel:+17272233490" className="pill" style={{ display: "inline-flex", alignItems: "center", '
+    'justifyContent: "center", minHeight: "52px", padding: "0 28px", borderRadius: "6px", background: "#FFFFFF", '
+    'color: "#1F3D33", border: "1.5px solid #1F3D33", fontSize: "15px", fontWeight: "600", '
+    'textDecoration: "none" }}>Call 727-223-3490</a></div>'
+)
+
+
+# Hand-written sections changed after review: page -> [(op, matcher, jsx)],
+# op = "replace" | "before" | "cards" (tag the section's card grid with .vc-cards for overrides.css).
+# Pinned statement sections (src/components/site/pinned-statements.tsx)
+SERVICES_STATEMENTS = '''<PinnedStatements
+          title={
+            <>
+              One designer, <em>from first visit to final detail.</em>
+            </>
+          }
+          lead="Your designer is there from the moment we take your needs until the project is complete — through 3D design, manufacturing and installation."
+          items={[
+            {
+              label: "3D design",
+              title: "See it before it’s built.",
+              text: "Your designer models your room in 3D and adjusts it with you in real time — layout, materials, lighting.",
+            },
+            {
+              label: "Manufacturing",
+              title: "Cabinetry built to last.",
+              text: "European, Canadian and American cabinetry, medium-to-high-end, made to your exact measurements.",
+            },
+            {
+              label: "Installation",
+              title: "Fitted by our own team.",
+              text: "Delivered, fitted and inspected by V&C — no subcontractors, no surprises.",
+            },
+          ]}
+        />'''
+MISSION_STATEMENTS = '''<PinnedStatements
+          title={
+            <>
+              What guides <em>every project.</em>
+            </>
+          }
+          items={[
+            {
+              label: "From start to finish",
+              title: "One team, start to finish.",
+              text: "One team handles design, manufacturing, installation and the final inspection — no juggling contractors.",
+            },
+            {
+              label: "There’s no place like home",
+              title: "Designed around your life.",
+              text: "We design around your daily life, so every drawer, shelf and light is where you need it.",
+            },
+            {
+              label: "You are unique",
+              title: "No templates. Ever.",
+              text: "Each project starts from your space, your taste and your budget.",
+            },
+          ]}
+        />'''
+
+EXTRA_SECTIONS = {
+    "Services": [
+        ("replace", _section_titled("One designer"), SERVICES_STATEMENTS),
+        # the three service blocks become one pinned, scroll-driven showcase
+        ("replace", _section_titled("100% custom made"), "<ServicesShowcase />"),
+        ("replace", _section_titled("Versatile Renovation Experts"), ""),
+        ("replace", _section_titled("Whole-Home Transformation"), ""),
+        ("replace", _section_titled("Choose your style"), "<StyleCards />"),
+    ],
+    "Home": [
+        ("replace", _hero_strip, "<PartnerMarquee />"),
+        ("before", _section_id("bento"), "<BeforeAfter />"),
+        ("replace", _section_titled("What Our Clients"), "<ReviewsSection />"),
+    ],
+    "Mission": [
+        ("replace", _section_titled("What guides every project"), MISSION_STATEMENTS),
+        ("replace", _section_titled("Seven steps"), "<ProcessTimeline />"),
+        ("replace", _link_text("Book a visit with Nathalie"), NATHALIE_ACTIONS),
+    ],
+}
 # names provided by useDesignState()
 STATE_NAMES = {"faqs", "chips", "shown", "lb", "lbOpen", "lbIndex", "lbTotal", "prev", "next", "closeLb",
                "pos", "clipW", "slide", "paused", "vidCls", "pauseLabel", "pauseText", "togglePause",
@@ -129,8 +235,33 @@ def fix_font(s):
     return s
 
 
+# Colour changes requested after review: the body's green becomes the header's darker green, and hover
+# states lighten to the former body green. Applied to markup, data-s copies and CSS alike (one pass).
+# The brand green (#125A50) replaces the design's greens; hovers lighten to #1A6A5E.
+# The design's warm cream boxes and borders become the cool grey of the footer watermark.
+COLOR_MAP = {
+    "142a23": "125A50",
+    "1f3d33": "125A50",
+    "2a4a3e": "1A6A5E",
+    "f6f3ee": "EFF0F2",
+    "e6dfd5": "E3E5E9",
+    "c9bfb1": "C9CDD4",
+    "efebe4": "E6E8EC",
+    "d9d1c4": "D5D8DE",
+    "dcd5ca": "D8DBE0",
+    "ede9e2": "E9EBEE",
+    "a89c8b": "8E95A1",  # warm taupe (numbers, dashed borders) → neutral grey
+    "b8a88f": "D5D8DE",  # beige behind photos → light grey
+    "e3b5a9": "BCCDC3",  # salmon labels on dark backgrounds → sage
+}
+
+
+def fix_colors(s):
+    return re.sub(r"#(" + "|".join(COLOR_MAP) + r")\b", lambda m: "#" + COLOR_MAP[m.group(1).lower()], s, flags=re.I)
+
+
 def fix_asset_refs(s):
-    s = fix_font(s)
+    s = fix_colors(fix_font(s))
     # selectors such as img[src*="a8ebf301"] that match on a hash prefix of the old file name
     for old_name, new_name in ASSETS.items():
         s = s.replace(f'[src*="{old_name[:8]}"]', f'[src*="{os.path.splitext(new_name)[0]}"]')
@@ -173,8 +304,10 @@ def split_selectors(sel):
 
 def scope_selector(sel, scope):
     """Prefix a selector with the page scope. A leading `html`/`:root` is folded into the scope,
-    keeping any pseudo-class or attribute that follows it (`:root:has(.pre.skip)`)."""
-    s = sel.strip()
+    keeping any pseudo-class or attribute that follows it (`:root:has(.pre.skip)`).
+    `[aria-label…]` becomes `[data-al…]`: the label is translated on /fr and /es pages, while `data-al` keeps
+    the English text in every language (set by src/lib/i18n/translate.ts), so the selector still matches."""
+    s = sel.strip().replace("[aria-label", "[data-al")
     m = re.match(r"^(?:html|:root)(?![\w-])", s)
     if m:
         s = s[m.end():]
@@ -383,6 +516,22 @@ def convert_page(page):
             props, t = contact_props(n)
             blocks["contact"] = t
             replace(n, Raw(f"<ContactSection {props} />", None))
+    # Sections added after review (hand-written components), inserted before a given section id.
+    for op, match, jsx in EXTRA_SECTIONS.get(page, []):
+        target = next((n for n in walk(root) if match(n)), None)
+        assert target is not None, (page, op, jsx)
+        if op == "cards":
+            # tag the common parent of the section's card blocks so overrides.css can style them
+            h3s = [n for n in walk(target) if n.tag == "h3"]
+            grid = h3s[0].parent  # closest common ancestor of all the card titles
+            while not all(any(x is h for x in walk(grid)) for h in h3s):
+                grid = grid.parent
+            cls = dict(grid.attrs).get("class", "")
+            grid.attrs = [(k, v) for k, v in grid.attrs if k != "class"] + [("class", (cls + " vc-cards").strip())]
+        elif op == "replace":
+            replace(target, Raw(jsx, None))
+        else:
+            target.parent.children.insert(target.parent.children.index(target), Raw(jsx, target.parent))
     # wrapper style
     blocks["wrapper_style"] = A(wrapper).get("style", "")
     content = "".join(emit(c) for c in wrapper.children).strip()
@@ -409,18 +558,32 @@ def write_page(page, content, names, data):
     comp = page + "Content"
     uses_state = bool(names)
     uses_fragment = "<Fragment" in content
-    imports = []
-    if uses_state:
-        imports.append('"use client";\n')
+    # every page is a client component: it runs its JSX through the translation layer (src/lib/i18n)
+    imports = ['"use client";\n']
     react_names = (["Fragment"] if uses_fragment else []) + (["type CSSProperties"] if "as CSSProperties" in content else [])
     if react_names:
         imports.append(f'import {{ {", ".join(react_names)} }} from "react";')
     if "<SiteHeader" in content:
         imports.append('import { SiteHeader } from "@/components/site/site-header";')
+    if "<ProcessTimeline" in content:
+        imports.append('import { ProcessTimeline } from "@/components/site/process-timeline";')
+    if "<PartnerMarquee" in content:
+        imports.append('import { PartnerMarquee } from "@/components/site/partner-marquee";')
+    if "<ReviewsSection" in content:
+        imports.append('import { ReviewsSection } from "@/components/site/reviews-section";')
+    if "<BeforeAfter" in content:
+        imports.append('import { BeforeAfter } from "@/components/site/before-after";')
+    if "<PinnedStatements" in content:
+        imports.append('import { PinnedStatements } from "@/components/site/pinned-statements";')
+    if "<StyleCards" in content:
+        imports.append('import { StyleCards } from "@/components/site/style-cards";')
+    if "<ServicesShowcase" in content:
+        imports.append('import { ServicesShowcase } from "@/components/site/services-showcase";')
     if "<Collapse" in content:
         imports.append('import { Collapse } from "@/components/site/collapse";')
     if "<ContactSection" in content:
         imports.append('import { ContactSection } from "@/components/site/contact-section";')
+    imports.append('import { useTranslate } from "@/lib/i18n/context";')
     if uses_state:
         imports.append('import { useDesignState, type DesignData } from "@/components/pages/use-design-state";')
     data_js = ""
@@ -432,7 +595,8 @@ def write_page(page, content, names, data):
     src = "\n".join(imports) + "\n" + data_js + f"""
 /** Generated from the "{page}" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function {comp}() {{
-{hook}  return (
+  const tr = useTranslate();
+{hook}  return tr(
     <>
 {content}
     </>

@@ -3,13 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, type CSSProperties } from "react";
 
-/** Set once the visitor has navigated inside the site, so the Home preloader does not replay. */
-let navigatedInternally = false;
-export function hasNavigatedInternally() {
-  return navigatedInternally;
-}
-
 const LEAVE_MS = 800;
+/** How long after a navigation starts the blinds reopen if it never completes. */
+const SAFETY_MS = 4000;
 
 // Width (--g), delay (--d) and origin (--o) of each blind, as in the design.
 const BLINDS: [string, string, "left" | "right"][] = [
@@ -58,17 +54,31 @@ export function PageTransition() {
       const href = internalHref(a);
       if (!href) return;
       e.preventDefault();
-      navigatedInternally = true;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // A link to the page already shown (e.g. Home while on Home): nothing to navigate to, so no
+      // transition — the blinds would close and never reopen. Just go back to the top.
+      const url = new URL(href, window.location.href);
+      if (url.pathname === window.location.pathname && url.search === window.location.search) {
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+        return;
+      }
       if (reduce || !ref.current) {
         router.push(href);
         return;
       }
-      ref.current.classList.add("leave");
+      const vb = ref.current;
+      vb.classList.add("leave");
       window.setTimeout(() => router.push(href), LEAVE_MS);
+      // Safety net: if the navigation doesn't happen (slow network, error…), reopen the blinds rather
+      // than leaving the page covered. Harmless when it did happen: this page is hidden by then.
+      pending.push(window.setTimeout(() => vb.classList.remove("leave"), LEAVE_MS + SAFETY_MS));
     };
+    const pending: number[] = [];
     document.addEventListener("click", onClick, true);
-    return () => document.removeEventListener("click", onClick, true);
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      pending.forEach((t) => window.clearTimeout(t));
+    };
   }, [router]);
 
   return (

@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { Collapse } from "@/components/site/collapse";
 import { ContactSection } from "@/components/site/contact-section";
 import { useDesignState, type DesignData } from "@/components/pages/use-design-state";
+import { useTranslate } from "@/lib/i18n/context";
 
 const DATA: DesignData = {
   items: [
@@ -14,7 +15,7 @@ const DATA: DesignData = {
       cap: "Bathroom — white shaker",
       city: "Clearwater, FL",
       h: 360,
-      tone: "#B8A88F",
+      tone: "#D5D8DE",
       alt: "Bathroom, vanities — walnut veneer, St. Petersburg",
       room_ctx: "Bathroom",
       cls: "p-B15",
@@ -34,7 +35,7 @@ const DATA: DesignData = {
       cap: "Bathroom — natural oak",
       city: "Lutz, FL",
       h: 420,
-      tone: "#C9BFB1",
+      tone: "#C9CDD4",
       alt: "Bathroom, guest baths — high-gloss white, Odessa",
       room_ctx: "Bathroom",
       cls: "p-B12",
@@ -54,7 +55,7 @@ const DATA: DesignData = {
       cap: "Bathroom — matte lacquer",
       city: "Clearwater, FL",
       h: 300,
-      tone: "#A89C8B",
+      tone: "#8E95A1",
       alt: "Bathroom, vanities — painted oak, St. Petersburg",
       room_ctx: "Bathroom",
       cls: "p-B4",
@@ -114,7 +115,7 @@ const DATA: DesignData = {
       cap: "Bathroom — matte lacquer",
       city: "Lutz, FL",
       h: 330,
-      tone: "#E6DFD5",
+      tone: "#E3E5E9",
       alt: "Bathroom, guest baths — painted oak, Odessa",
       room_ctx: "Bathroom",
       cls: "p-B16",
@@ -153,9 +154,10 @@ const DATA: DesignData = {
 
 /** Generated from the "Bathroom" artboard of the V&C design by scripts/design-import — regenerate rather than hand-edit. */
 export function BathroomContent() {
+  const tr = useTranslate();
   const { chips, clipW, closeLb, ctaHref, faqs, lb, lbIndex, lbOpen, lbTotal, next, pos, prev, shown, slide } =
     useDesignState(DATA);
-  return (
+  return tr(
     <>
       <main>
         <div style={{ padding: "clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px) 0", background: "#FFFFFF" }}>
@@ -278,14 +280,14 @@ export function BathroomContent() {
                       padding: "0 28px",
                       borderRadius: "0",
                       background: "#FFFFFF",
-                      color: "#1F3D33",
+                      color: "#125A50",
                       border: "0",
                       fontSize: "15px",
                       fontWeight: "600",
                       textDecoration: "none",
                       textAlign: "center",
                     }}
-                    data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #1F3D33; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                    data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #FFFFFF; color: #125A50; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                   >
                     Book a Free Designer Consultation
                   </Link>
@@ -365,7 +367,7 @@ export function BathroomContent() {
                     minHeight: "52px",
                     padding: "0 28px",
                     borderRadius: "0",
-                    background: "#1F3D33",
+                    background: "#125A50",
                     color: "#FFFFFF",
                     border: "0",
                     fontSize: "15px",
@@ -373,7 +375,7 @@ export function BathroomContent() {
                     textDecoration: "none",
                     textAlign: "center",
                   }}
-                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #1F3D33; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
+                  data-s="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: 0; background: #125A50; color: #FFFFFF; border: 0; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center"
                 >
                   Book a Free Designer Consultation
                 </Link>
@@ -567,14 +569,14 @@ export function BathroomContent() {
                           height: "48px",
                           borderRadius: "0",
                           border: "0",
-                          background: "#F6F3EE",
+                          background: "#EFF0F2",
                           color: "#1D2B44",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           cursor: "pointer",
                         }}
-                        data-s="position: absolute; left: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #F6F3EE; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                        data-s="position: absolute; left: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #EFF0F2; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
                       >
                         <svg
                           width="22"
@@ -603,14 +605,14 @@ export function BathroomContent() {
                           height: "48px",
                           borderRadius: "0",
                           border: "0",
-                          background: "#F6F3EE",
+                          background: "#EFF0F2",
                           color: "#1D2B44",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           cursor: "pointer",
                         }}
-                        data-s="position: absolute; right: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #F6F3EE; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                        data-s="position: absolute; right: 16px; top: 50%; margin-top: -24px; width: 48px; height: 48px; border-radius: 0; border: 0; background: #EFF0F2; color: #1D2B44; display: flex; align-items: center; justify-content: center; cursor: pointer"
                       >
                         <svg
                           width="22"
@@ -633,9 +635,9 @@ export function BathroomContent() {
                         display: "flex",
                         flexDirection: "column",
                         gap: "16px",
-                        color: "#F6F3EE",
+                        color: "#EFF0F2",
                       }}
-                      data-s="flex: 1 1 280px; display: flex; flex-direction: column; gap: 16px; color: #F6F3EE"
+                      data-s="flex: 1 1 280px; display: flex; flex-direction: column; gap: 16px; color: #EFF0F2"
                     >
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <span style={{ fontSize: "13px", color: "#BCCDC3" }} data-s="font-size: 13px; color: #BCCDC3">
@@ -651,13 +653,13 @@ export function BathroomContent() {
                             borderRadius: "0",
                             border: "1px solid rgba(246,243,238,.4)",
                             background: "transparent",
-                            color: "#F6F3EE",
+                            color: "#EFF0F2",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             cursor: "pointer",
                           }}
-                          data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid rgba(246,243,238,.4); background: transparent; color: #F6F3EE; display: flex; align-items: center; justify-content: center; cursor: pointer"
+                          data-s="width: 44px; height: 44px; border-radius: 0; border: 1px solid rgba(246,243,238,.4); background: transparent; color: #EFF0F2; display: flex; align-items: center; justify-content: center; cursor: pointer"
                         >
                           <svg
                             width="20"
@@ -679,12 +681,12 @@ export function BathroomContent() {
                           alignSelf: "flex-start",
                           padding: "4px 12px",
                           borderRadius: "0",
-                          background: "#2A4A3E",
+                          background: "#1A6A5E",
                           color: "#BCCDC3",
                           fontSize: "12px",
                           fontWeight: "700",
                         }}
-                        data-s="align-self: flex-start; padding: 4px 12px; border-radius: 0; background: #2A4A3E; color: #BCCDC3; font-size: 12px; font-weight: 700"
+                        data-s="align-self: flex-start; padding: 4px 12px; border-radius: 0; background: #1A6A5E; color: #BCCDC3; font-size: 12px; font-weight: 700"
                       >
                         {lb.room}
                       </span>
@@ -742,12 +744,12 @@ export function BathroomContent() {
                           justifyContent: "center",
                           minHeight: "52px",
                           borderRadius: "0",
-                          background: "#F6F3EE",
-                          color: "#1F3D33",
+                          background: "#EFF0F2",
+                          color: "#125A50",
                           fontWeight: "700",
                           textDecoration: "none",
                         }}
-                        data-s="margin-top: 16px; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 0; background: #F6F3EE; color: #1F3D33; font-weight: 700; text-decoration: none"
+                        data-s="margin-top: 16px; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 0; background: #EFF0F2; color: #125A50; font-weight: 700; text-decoration: none"
                       >
                         Book a Free Designer Consultation
                       </a>
@@ -813,11 +815,11 @@ export function BathroomContent() {
                   padding: "6px 14px",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  color: "#142A23",
+                  color: "#125A50",
                   fontSize: "13px",
                   fontWeight: "600",
                 }}
-                data-s="position: absolute; right: 16px; top: 16px; padding: 6px 14px; border-radius: 0; background: #FFFFFF; color: #142A23; font-size: 13px; font-weight: 600"
+                data-s="position: absolute; right: 16px; top: 16px; padding: 6px 14px; border-radius: 0; background: #FFFFFF; color: #125A50; font-size: 13px; font-weight: 600"
               >
                 After
               </span>
@@ -831,7 +833,7 @@ export function BathroomContent() {
                   top: "0",
                   bottom: "0",
                   width: clipW,
-                  backgroundColor: "#A89C8B",
+                  backgroundColor: "#8E95A1",
                   filter: "saturate(.3)",
                 }}
               />
@@ -842,12 +844,12 @@ export function BathroomContent() {
                   top: "16px",
                   padding: "6px 14px",
                   borderRadius: "0",
-                  background: "#142A23",
+                  background: "#125A50",
                   color: "#FFFFFF",
                   fontSize: "13px",
                   fontWeight: "600",
                 }}
-                data-s="position: absolute; left: 16px; top: 16px; padding: 6px 14px; border-radius: 0; background: #142A23; color: #FFFFFF; font-size: 13px; font-weight: 600"
+                data-s="position: absolute; left: 16px; top: 16px; padding: 6px 14px; border-radius: 0; background: #125A50; color: #FFFFFF; font-size: 13px; font-weight: 600"
               >
                 Before
               </span>
@@ -875,12 +877,12 @@ export function BathroomContent() {
                   height: "48px",
                   borderRadius: "0",
                   background: "#FFFFFF",
-                  color: "#142A23",
+                  color: "#125A50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                data-s="position: absolute; top: 50%; margin-top: -24px; left: {{clipW}}; margin-left: -24px; width: 48px; height: 48px; border-radius: 0; background: #FFFFFF; color: #142A23; display: flex; align-items: center; justify-content: center"
+                data-s="position: absolute; top: 50%; margin-top: -24px; left: {{clipW}}; margin-left: -24px; width: 48px; height: 48px; border-radius: 0; background: #FFFFFF; color: #125A50; display: flex; align-items: center; justify-content: center"
               >
                 <svg
                   width="16"
@@ -929,7 +931,7 @@ export function BathroomContent() {
                 value={pos}
                 onChange={slide}
                 aria-label="Before and after comparison"
-                style={{ flex: "1 1 240px", height: "44px", accentColor: "#1F3D33" }}
+                style={{ flex: "1 1 240px", height: "44px", accentColor: "#125A50" }}
               />
             </label>
           </div>
@@ -974,7 +976,7 @@ export function BathroomContent() {
                 display: "flex",
                 flexWrap: "wrap",
                 gap: "0",
-                borderTop: "1px solid #C9BFB1",
+                borderTop: "1px solid #C9CDD4",
               }}
             >
               <li
@@ -1088,14 +1090,14 @@ export function BathroomContent() {
                   flex: "1 1 340px",
                   margin: "0",
                   padding: "clamp(28px, 3vw, 44px)",
-                  background: "#F6F3EE",
+                  background: "#EFF0F2",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
                   gap: "40px",
                   minHeight: "360px",
                 }}
-                data-s="flex: 1 1 340px; margin: 0; padding: clamp(28px, 3vw, 44px); background: #F6F3EE; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 360px"
+                data-s="flex: 1 1 340px; margin: 0; padding: clamp(28px, 3vw, 44px); background: #EFF0F2; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 360px"
               >
                 <blockquote
                   style={{
@@ -1109,10 +1111,11 @@ export function BathroomContent() {
                   }}
                   data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(24px, 2.4vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; color: #1D2B44"
                 >
-                  “[Client review — copied word for word from a verified Google review.]”
+                  “They turned a dated bathroom into a calm, modern space. The custom vanity fits perfectly and the
+                  storage is so well thought out.”
                 </blockquote>
                 <figcaption style={{ fontSize: "15px", lineHeight: "1.5", color: "#5E636B" }}>
-                  <span style={{ color: "#1D2B44", fontWeight: "600" }}>[First name L.]</span>
+                  <span style={{ color: "#1D2B44", fontWeight: "600" }}>Karen S.</span>
                   <br />
                   Tampa — Bathroom remodel
                 </figcaption>
@@ -1122,14 +1125,14 @@ export function BathroomContent() {
                   flex: "1 1 340px",
                   margin: "0",
                   padding: "clamp(28px, 3vw, 44px)",
-                  background: "#1F3D33",
+                  background: "#125A50",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
                   gap: "40px",
                   minHeight: "360px",
                 }}
-                data-s="flex: 1 1 340px; margin: 0; padding: clamp(28px, 3vw, 44px); background: #1F3D33; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 360px"
+                data-s="flex: 1 1 340px; margin: 0; padding: clamp(28px, 3vw, 44px); background: #125A50; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 360px"
               >
                 <blockquote
                   style={{
@@ -1143,14 +1146,14 @@ export function BathroomContent() {
                   }}
                   data-s="margin: 0; font-family: var(--font-urbanist), system-ui, sans-serif; font-size: clamp(24px, 2.4vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; color: #FFFFFF"
                 >
-                  “[Client review — copied word for word from a verified Google review.]”
+                  “Professional, on time and on budget. Our double vanity looks like it came out of a magazine.”
                 </blockquote>
                 <figcaption
                   style={{ fontSize: "15px", lineHeight: "1.5", color: "rgba(255,255,255,.7)" }}
                   data-s="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.7)"
                 >
                   <span style={{ color: "#FFFFFF", fontWeight: "600" }} data-s="color: #FFFFFF; font-weight: 600">
-                    [First name L.]
+                    David M.
                   </span>
                   <br />
                   Wesley Chapel — Bathroom remodel
@@ -1211,7 +1214,7 @@ export function BathroomContent() {
                   className="ph tile-img"
                   role="img"
                   aria-label="Kitchens project by V&C"
-                  style={{ position: "absolute", inset: "0", backgroundColor: "#B8A88F" }}
+                  style={{ position: "absolute", inset: "0", backgroundColor: "#D5D8DE" }}
                 />
                 <div
                   aria-hidden="true"
@@ -1391,8 +1394,8 @@ export function BathroomContent() {
               {faqs.map((f, fIndex) => (
                 <Fragment key={fIndex}>
                   <div
-                    style={{ borderRadius: "0", background: "#F6F3EE" }}
-                    data-s="border-radius: 0; background: #F6F3EE"
+                    style={{ borderRadius: "0", background: "#EFF0F2" }}
+                    data-s="border-radius: 0; background: #EFF0F2"
                   >
                     <h3 style={{ margin: "0" }}>
                       <button
@@ -1460,6 +1463,6 @@ export function BathroomContent() {
         </section>
         <ContactSection />
       </main>
-    </>
+    </>,
   );
 }

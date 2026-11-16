@@ -16,8 +16,8 @@ import { site } from "@/lib/site";
 
 const COPY = { kitchen: KITCHEN, bathroom: BATHROOM };
 const HERO_IMAGE = {
-  kitchen: "/images/custom-kitchen-renovation-tampa.webp",
-  bathroom: "/images/bathroom-renovation-floating-vanity.webp",
+  kitchen: "/images/custom-kitchen-renovation-tampa.webp?v=2",
+  bathroom: "/images/bathroom-renovation-floating-vanity.webp?v=2",
 };
 
 function Section({ s }: { s: ServiceSection }) {

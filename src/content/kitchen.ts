@@ -21,7 +21,7 @@ export const KITCHEN: Record<Locale, ServiceCopy> = {
       text: "Armoires, îlots, garde-manger et comptoirs conçus autour de votre façon de cuisiner, de recevoir et de vivre — dessinés en 3D, fabriqués selon vos mesures et installés par notre équipe.",
       cta: "Demander une soumission",
       secondary: "Voir nos réalisations",
-      alt: "Cuisine rénovée avec îlot en quartz et armoires sur mesure",
+      alt: "Cuisine rénovée avec armoires blanches sur mesure, îlot en granit et cuisinière professionnelle",
     },
     intro: {
       title: "Une cuisine pensée pour votre quotidien.",
@@ -300,7 +300,7 @@ export const KITCHEN: Record<Locale, ServiceCopy> = {
       text: "Cabinets, islands, pantries and countertops designed around the way you cook, gather and live — drawn in 3D, built to your measurements and installed by our team.",
       cta: "Request a quote",
       secondary: "See our projects",
-      alt: "Renovated kitchen with a quartz island and custom cabinets",
+      alt: "Renovated kitchen with custom white cabinets, a granite island and a professional range",
     },
     intro: {
       title: "A kitchen designed for your everyday life.",
@@ -579,7 +579,7 @@ export const KITCHEN: Record<Locale, ServiceCopy> = {
       text: "Gabinetes, islas, despensas y encimeras diseñados según tu forma de cocinar, reunirte y vivir — dibujados en 3D, fabricados a tus medidas e instalados por nuestro equipo.",
       cta: "Solicitar una cotización",
       secondary: "Ver nuestros proyectos",
-      alt: "Cocina remodelada con isla de cuarzo y gabinetes a medida",
+      alt: "Cocina remodelada con gabinetes blancos a medida, isla de granito y estufa profesional",
     },
     intro: {
       title: "Una cocina pensada para tu día a día.",

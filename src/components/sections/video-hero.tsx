@@ -48,7 +48,11 @@ export function VideoHero({
     // No motion for those who ask their device for less of it; otherwise make sure it starts (some browsers
     // ignore `autoplay` until asked again — if they still refuse, the poster stays and the button offers to play).
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) v.pause();
-    else v.play().catch(() => undefined);
+    // `autoplay` often starts before React listens to the play event: read the state once play() settles.
+    else
+      v.play()
+        .then(() => setPlaying(!v.paused))
+        .catch(() => setPlaying(false));
   }, []);
 
   const toggle = () => {

@@ -28,7 +28,7 @@ type PageDef = {
   image?: string;
 };
 
-const DEFAULT_IMAGE = "/images/kitchen-bathroom-renovation-tampa-bay.webp";
+const DEFAULT_IMAGE = "/images/kitchen-bathroom-renovation-tampa-bay.webp?v=2";
 
 /** Every page of the site, with its title and description in each language. */
 export const PAGES: Record<PageKey, PageDef> = {
@@ -58,13 +58,13 @@ export const PAGES: Record<PageKey, PageDef> = {
     shell: "renovation-kitchen",
     render: (lang) => <ServicePage lang={lang} service="kitchen" />,
     meta: { fr: KITCHEN.fr.meta, en: KITCHEN.en.meta, es: KITCHEN.es.meta },
-    image: "/images/custom-kitchen-renovation-tampa.webp",
+    image: "/images/custom-kitchen-renovation-tampa.webp?v=2",
   },
   bathroom: {
     shell: "renovation-bathroom",
     render: (lang) => <ServicePage lang={lang} service="bathroom" />,
     meta: { fr: BATHROOM.fr.meta, en: BATHROOM.en.meta, es: BATHROOM.es.meta },
-    image: "/images/bathroom-renovation-floating-vanity.webp",
+    image: "/images/bathroom-renovation-floating-vanity.webp?v=2",
   },
   blog: {
     shell: "blog-index",

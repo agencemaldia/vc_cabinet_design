@@ -20,7 +20,7 @@ export const BATHROOM: Record<Locale, ServiceCopy> = {
       text: "Meubles-lavabos, douches, baignoires et rangements conçus pour le confort, la durabilité et l’humidité de la Floride — dessinés en 3D et réalisés par une seule équipe.",
       cta: "Demander une soumission",
       secondary: "Voir nos réalisations",
-      alt: "Salle de bain rénovée avec meuble-lavabo suspendu, miroirs ronds et douche",
+      alt: "Salle de bain rénovée avec double meuble-lavabo suspendu en bois et grand miroir",
     },
     intro: {
       title: "Une salle de bain aussi pratique que belle.",
@@ -290,7 +290,7 @@ export const BATHROOM: Record<Locale, ServiceCopy> = {
       text: "Vanities, showers, bathtubs and storage designed for comfort, durability and Florida humidity — drawn in 3D and built by one team.",
       cta: "Request a quote",
       secondary: "See our projects",
-      alt: "Renovated bathroom with a floating vanity, round mirrors and a shower",
+      alt: "Renovated bathroom with a floating double wood vanity and a large mirror",
     },
     intro: {
       title: "A bathroom that works as well as it looks.",
@@ -557,7 +557,7 @@ export const BATHROOM: Record<Locale, ServiceCopy> = {
       text: "Muebles de baño, duchas, bañeras y almacenamiento pensados para la comodidad, la durabilidad y la humedad de Florida — diseñados en 3D y realizados por un solo equipo.",
       cta: "Solicitar una cotización",
       secondary: "Ver nuestros proyectos",
-      alt: "Baño remodelado con mueble flotante, espejos redondos y ducha",
+      alt: "Baño remodelado con doble mueble flotante de madera y gran espejo",
     },
     intro: {
       title: "Un baño tan práctico como hermoso.",

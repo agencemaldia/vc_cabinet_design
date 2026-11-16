@@ -58,13 +58,13 @@ export const POSTS: RawPost[] = [
     },
     category: "kitchen",
     date: "2026-11-10",
-    cover: "/images/kitchen-renovation-white-island.webp",
+    cover: "/images/kitchen-renovation-white-island.webp?v=2",
     text: {
       fr: {
         title: "Rénovation de cuisine : les étapes à connaître avant de commencer",
         excerpt:
           "De la première visite à l’inspection finale, comment se déroule une rénovation de cuisine et ce que vous devez préparer à chaque étape.",
-        coverAlt: "Cuisine rénovée avec îlot blanc et tabourets en bois",
+        coverAlt: "Cuisine rénovée avec îlot blanc, tabourets en rotin et suspension en verre",
         body: [
           {
             type: "p",
@@ -110,7 +110,7 @@ export const POSTS: RawPost[] = [
         title: "Kitchen renovation: the steps to know before you start",
         excerpt:
           "From the first visit to the final inspection, how a kitchen renovation unfolds and what to prepare at each step.",
-        coverAlt: "Renovated kitchen with a white island and wooden stools",
+        coverAlt: "Renovated kitchen with a white island, rattan stools and a glass pendant",
         body: [
           {
             type: "p",
@@ -156,7 +156,7 @@ export const POSTS: RawPost[] = [
         title: "Remodelación de cocina: los pasos que debes conocer antes de empezar",
         excerpt:
           "Desde la primera visita hasta la inspección final, cómo se desarrolla una remodelación de cocina y qué preparar en cada paso.",
-        coverAlt: "Cocina remodelada con isla blanca y bancos de madera",
+        coverAlt: "Cocina remodelada con isla blanca, bancos de ratán y lámpara colgante de vidrio",
         body: [
           {
             type: "p",
@@ -208,13 +208,13 @@ export const POSTS: RawPost[] = [
     },
     category: "trends",
     date: "2026-10-31",
-    cover: "/images/small-kitchen-smart-storage.webp",
+    cover: "/images/small-kitchen-smart-storage.webp?v=2",
     text: {
       fr: {
         title: "Optimiser l’espace dans une petite cuisine",
         excerpt:
           "Rangements malins, électroménagers compacts et astuces d’éclairage pour tirer le meilleur d’une petite cuisine.",
-        coverAlt: "Petite cuisine avec rangement intelligent et éclairage sous les armoires",
+        coverAlt: "Étagères ouvertes de cuisine avec vaisselle et contenants bien rangés",
         body: [
           {
             type: "p",
@@ -250,7 +250,7 @@ export const POSTS: RawPost[] = [
       en: {
         title: "Space optimization in small kitchens",
         excerpt: "Smart storage, compact appliances and lighting tricks that make a small kitchen work harder.",
-        coverAlt: "Small kitchen with smart storage and under-cabinet lighting",
+        coverAlt: "Open kitchen shelving with neatly stored dishes and containers",
         body: [
           {
             type: "p",
@@ -287,7 +287,7 @@ export const POSTS: RawPost[] = [
         title: "Optimizar el espacio en una cocina pequeña",
         excerpt:
           "Almacenamiento inteligente, electrodomésticos compactos y trucos de iluminación para aprovechar una cocina pequeña.",
-        coverAlt: "Cocina pequeña con almacenamiento inteligente e iluminación bajo los gabinetes",
+        coverAlt: "Repisas abiertas de cocina con vajilla y recipientes bien ordenados",
         body: [
           {
             type: "p",
@@ -330,13 +330,13 @@ export const POSTS: RawPost[] = [
     },
     category: "bathroom",
     date: "2026-10-20",
-    cover: "/images/bathroom-renovation-floating-vanity.webp",
+    cover: "/images/bathroom-renovation-floating-vanity.webp?v=2",
     text: {
       fr: {
         title: "Rénover une salle de bain en Floride : bien gérer l’humidité",
         excerpt:
           "Ventilation, matériaux et étanchéité : les choix qui font durer une salle de bain dans un climat humide.",
-        coverAlt: "Salle de bain moderne avec meuble-lavabo suspendu et miroirs ronds",
+        coverAlt: "Salle de bain moderne avec double meuble-lavabo suspendu en bois et grand miroir",
         body: [
           {
             type: "p",
@@ -376,7 +376,7 @@ export const POSTS: RawPost[] = [
       en: {
         title: "Renovating a bathroom in Florida: managing humidity",
         excerpt: "Ventilation, materials and waterproofing: the choices that make a bathroom last in a humid climate.",
-        coverAlt: "Modern bathroom with a floating vanity and round mirrors",
+        coverAlt: "Modern bathroom with a floating double wood vanity and a large mirror",
         body: [
           {
             type: "p",
@@ -413,7 +413,7 @@ export const POSTS: RawPost[] = [
         title: "Remodelar un baño en Florida: cómo manejar la humedad",
         excerpt:
           "Ventilación, materiales e impermeabilización: las decisiones que hacen durar un baño en un clima húmedo.",
-        coverAlt: "Baño moderno con mueble flotante y espejos redondos",
+        coverAlt: "Baño moderno con doble mueble flotante de madera y gran espejo",
         body: [
           {
             type: "p",
@@ -456,13 +456,13 @@ export const POSTS: RawPost[] = [
     },
     category: "materials",
     date: "2026-10-08",
-    cover: "/images/kitchen-countertop-quartz.webp",
+    cover: "/images/kitchen-countertop-quartz.webp?v=2",
     text: {
       fr: {
         title: "Quartz, granit ou marbre : quel comptoir choisir ?",
         excerpt:
           "Apparence, entretien et usage : comparer les trois matériaux de comptoir les plus demandés pour une cuisine ou une salle de bain.",
-        coverAlt: "Îlot de cuisine avec comptoir en pierre veinée",
+        coverAlt: "Îlot de cuisine avec comptoir en quartz blanc et suspensions en verre",
         body: [
           {
             type: "p",
@@ -503,7 +503,7 @@ export const POSTS: RawPost[] = [
         title: "Quartz, granite or marble: which countertop should you choose?",
         excerpt:
           "Look, upkeep and use: comparing the three most requested countertop materials for a kitchen or bathroom.",
-        coverAlt: "Kitchen island with a veined stone countertop",
+        coverAlt: "Kitchen island with a white quartz countertop and glass pendant lights",
         body: [
           {
             type: "p",
@@ -544,7 +544,7 @@ export const POSTS: RawPost[] = [
         title: "Cuarzo, granito o mármol: ¿qué encimera elegir?",
         excerpt:
           "Aspecto, mantenimiento y uso: comparamos los tres materiales de encimera más solicitados para una cocina o un baño.",
-        coverAlt: "Isla de cocina con encimera de piedra veteada",
+        coverAlt: "Isla de cocina con encimera de cuarzo blanco y lámparas colgantes de vidrio",
         body: [
           {
             type: "p",
@@ -595,13 +595,13 @@ export const POSTS: RawPost[] = [
     },
     category: "bathroom",
     date: "2026-09-26",
-    cover: "/images/bathroom-freestanding-tub.webp",
+    cover: "/images/bathroom-freestanding-tub.webp?v=2",
     text: {
       fr: {
         title: "Baignoire ou douche : que choisir pour votre salle de bain ?",
         excerpt:
           "Espace, usage, accessibilité et entretien : les questions à se poser avant de garder la baignoire ou de passer à la douche.",
-        coverAlt: "Salle de bain avec baignoire autoportante et grande fenêtre",
+        coverAlt: "Salle de bain lumineuse avec baignoire autoportante près d’une fenêtre",
         body: [
           {
             type: "p",
@@ -634,7 +634,7 @@ export const POSTS: RawPost[] = [
         title: "Bathtub or shower: which is right for your bathroom?",
         excerpt:
           "Space, use, accessibility and upkeep: the questions to ask before keeping the tub or switching to a shower.",
-        coverAlt: "Bathroom with a freestanding bathtub and a large window",
+        coverAlt: "Bright bathroom with a freestanding bathtub by a window",
         body: [
           {
             type: "p",
@@ -667,7 +667,7 @@ export const POSTS: RawPost[] = [
         title: "Bañera o ducha: ¿qué elegir para tu baño?",
         excerpt:
           "Espacio, uso, accesibilidad y mantenimiento: las preguntas que conviene hacerse antes de conservar la bañera o cambiarla por una ducha.",
-        coverAlt: "Baño con bañera independiente y una gran ventana",
+        coverAlt: "Baño luminoso con bañera independiente junto a una ventana",
         body: [
           {
             type: "p",
@@ -706,13 +706,13 @@ export const POSTS: RawPost[] = [
     },
     category: "tips",
     date: "2026-09-12",
-    cover: "/images/kitchen-renovation-open-plan.webp",
+    cover: "/images/bathroom-freestanding-bathtub-white-wall.webp",
     text: {
       fr: {
         title: "Comment préparer votre maison pour une rénovation",
         excerpt:
           "Vider la pièce, organiser le quotidien pendant les travaux et bien communiquer avec l’équipe : nos conseils pour une rénovation plus sereine.",
-        coverAlt: "Cuisine ouverte rénovée avec armoires en bois et îlot",
+        coverAlt: "Baignoire autoportante blanche devant un mur à moulures",
         body: [
           {
             type: "p",
@@ -749,7 +749,7 @@ export const POSTS: RawPost[] = [
         title: "How to prepare your home for a renovation",
         excerpt:
           "Emptying the room, organizing daily life during the work and communicating well with the team: our tips for a smoother renovation.",
-        coverAlt: "Renovated open-plan kitchen with wood cabinets and an island",
+        coverAlt: "White freestanding bathtub against a paneled wall",
         body: [
           {
             type: "p",
@@ -786,7 +786,7 @@ export const POSTS: RawPost[] = [
         title: "Cómo preparar tu casa para una remodelación",
         excerpt:
           "Vaciar el espacio, organizar el día a día durante la obra y comunicarte bien con el equipo: nuestros consejos para una remodelación más tranquila.",
-        coverAlt: "Cocina abierta remodelada con gabinetes de madera e isla",
+        coverAlt: "Bañera independiente blanca frente a una pared con molduras",
         body: [
           {
             type: "p",

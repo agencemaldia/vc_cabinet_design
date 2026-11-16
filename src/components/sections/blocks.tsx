@@ -124,8 +124,8 @@ export function ServicesDuo({
   copy: { eyebrow: string; title: string; text: string; kitchen: ServiceCard; bathroom: ServiceCard };
 }) {
   const cards: [ServiceCard, string, string][] = [
-    [copy.kitchen, pagePath(lang, "kitchen"), "/images/kitchen-renovation-island-pendants.webp"],
-    [copy.bathroom, pagePath(lang, "bathroom"), "/images/bathroom-renovation-wood-vanity-glass-shower.webp"],
+    [copy.kitchen, pagePath(lang, "kitchen"), "/images/kitchen-renovation-island-pendants.webp?v=2"],
+    [copy.bathroom, pagePath(lang, "bathroom"), "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2"],
   ];
   return (
     <section className="sec vc-services" id="services" aria-labelledby="services-title">

@@ -16,7 +16,8 @@ const VIDEO_FILES = [
   { src: "/videos/hero.webm", type: "video/webm" },
   { src: "/videos/hero.mp4", type: "video/mp4" },
 ];
-const POSTER = "/images/kitchen-bathroom-renovation-tampa-bay.webp";
+/** First frame of the video: shown while it loads, so playback starts without a jump. */
+const POSTER = "/images/hero-poster-modern-kitchen-island.webp";
 
 function heroSources() {
   return VIDEO_FILES.filter((v) => existsSync(join(process.cwd(), "public", v.src)));

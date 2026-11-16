@@ -1,5 +1,13 @@
 # Médias à télécharger sur Envato Elements
 
+> **État (16 novembre 2026) :** la vidéo et les 9 photos des sections 1 à 3 sont intégrées. La vidéo
+> d'accueil assemble deux plans Envato (fondu d'une seconde, 18 s, MP4 + WebM) ; son image d'attente
+> est `public/images/hero-poster-modern-kitchen-island.webp`. La photo reçue pour l'article
+> « préparer sa maison » montre une baignoire et non une cuisine : elle est en ligne sous
+> `bathroom-freestanding-bathtub-white-wall.webp` (texte alternatif exact) ; une photo de cuisine ouverte
+> irait mieux. Après remplacement d'une photo sous le même nom, augmenter le `?v=` de son adresse dans
+> le code, sinon les navigateurs gardent l'ancienne jusqu'à 7 jours.
+
 Liste des vidéos et des photos de banque à chercher sur Envato Elements pour remplacer les visuels
 provisoires du site. Pour chaque média : où il apparaît, ce qu'il doit montrer, les mots-clés de
 recherche (en anglais, c'est la langue d'Envato) et **le nom de fichier exact** à lui donner.

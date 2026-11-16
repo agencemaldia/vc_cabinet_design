@@ -12,6 +12,8 @@ type ComparatorProps = {
   ratio?: string;
   /** Demo pair (the "before" is a desaturated copy of the "after"), until the real photos arrive. */
   demo?: boolean;
+  /** "design": the labels, line and handle of the original V&C design (square, white and green). */
+  variant?: "design";
 };
 
 const STEP = 5;
@@ -24,7 +26,16 @@ const STEP = 5;
  * a keyboard slider too (← → Home End). No carousel, no control above or below the photos: the
  * interaction happens inside the image.
  */
-export function Comparator({ before, after, beforeAlt, afterAlt, labels, ratio = "3 / 2", demo }: ComparatorProps) {
+export function Comparator({
+  before,
+  after,
+  beforeAlt,
+  afterAlt,
+  labels,
+  ratio = "3 / 2",
+  demo,
+  variant,
+}: ComparatorProps) {
   const frame = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState(50);
   const [dragging, setDragging] = useState(false);
@@ -67,7 +78,7 @@ export function Comparator({ before, after, beforeAlt, afterAlt, labels, ratio =
   return (
     <div
       ref={frame}
-      className={`vc-cmp${dragging ? " is-dragging" : ""}`}
+      className={`vc-cmp${variant ? ` is-${variant}` : ""}${dragging ? " is-dragging" : ""}`}
       style={{ "--pos": `${pos}%`, aspectRatio: ratio } as CSSProperties}
       onPointerDown={onDown}
       onPointerMove={onMove}

@@ -31,3 +31,15 @@ export function sx(raw: string): { style: CSSProperties; "data-s": string } {
   }
   return { style: style as CSSProperties, "data-s": raw };
 }
+
+/**
+ * The reverse of `sx`: a React style object → `style` plus the same `data-s` text the design export wrote
+ * ("display: flex; gap: 4px"), so the design's `[data-s*="…"]` rules apply to hand-written markup too.
+ * Keep the declarations in the design's order and spelling.
+ */
+export function ds(style: CSSProperties): { style: CSSProperties; "data-s": string } {
+  const text = Object.entries(style)
+    .map(([k, v]) => `${k.startsWith("--") ? k : k.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)}: ${v}`)
+    .join("; ");
+  return { style, "data-s": text };
+}

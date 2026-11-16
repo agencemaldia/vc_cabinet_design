@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransiti
 import { QUOTE } from "@/content/quote";
 import type { Locale } from "@/lib/i18n/config";
 import { pagePath } from "@/lib/i18n/routes";
-import { PLANS, PROJECTS, TIMINGS, type QuoteInput } from "./schema";
+import { PLANS, PROJECTS, TIMINGS, type ProjectKey, type QuoteInput } from "./schema";
 import { submitQuote } from "./submit-quote";
 
 type ChoiceKey = "project" | "plans" | "timing";
@@ -59,7 +59,17 @@ function Check({ size = 12 }: { size?: number }) {
  * delivered by the Server Action (honeypot, minimum fill time, rate limit); a failure is shown, never a
  * false success.
  */
-export function QuoteWizard({ lang }: { lang: Locale }) {
+export function QuoteWizard({
+  lang,
+  compact = false,
+  preset: given,
+}: {
+  lang: Locale;
+  /** One column, no step list (inside the design's contact card). */
+  compact?: boolean;
+  /** Project preselected by the page (a `?project=` in the address wins). */
+  preset?: ProjectKey;
+}) {
   const t = QUOTE[lang];
   const [step, setStep] = useState(0);
   const [chosen, setChosen] = useState<Partial<Record<ChoiceKey, string>>>({});
@@ -81,8 +91,8 @@ export function QuoteWizard({ lang }: { lang: Locale }) {
   const search = useSyncExternalStore(subscribeNothing, readSearch, () => "");
   const preset = useMemo(() => {
     const wanted = new URLSearchParams(search).get("project");
-    return wanted && (PROJECTS as readonly string[]).includes(wanted) ? wanted : null;
-  }, [search]);
+    return wanted && (PROJECTS as readonly string[]).includes(wanted) ? wanted : (given ?? null);
+  }, [search, given]);
   const answers = chosen.project || !preset ? chosen : { ...chosen, project: preset };
 
   const current = STEPS[step]!;
@@ -181,30 +191,32 @@ export function QuoteWizard({ lang }: { lang: Locale }) {
   const errorText = error ? (t.errors[error] ?? t.errors.generic) : null;
 
   return (
-    <section ref={root} className="vc-quote" aria-label={t.kicker}>
-      <aside className="vc-quote__aside" aria-hidden={done || undefined}>
-        <span className="vc-quote__aside-label">{t.asideLabel}</span>
-        <ol>
-          {t.steps.map((label, k) => {
-            const isDone = done || k < step;
-            const active = !done && k === step;
-            return (
-              <li key={label}>
-                <button
-                  type="button"
-                  disabled={!isDone || done}
-                  onClick={() => go(k)}
-                  className={active ? "is-active" : isDone ? "is-done" : undefined}
-                  aria-current={active ? "step" : undefined}
-                >
-                  <span className="vc-quote__dot">{isDone ? <Check /> : k + 1}</span>
-                  {label}
-                </button>
-              </li>
-            );
-          })}
-        </ol>
-      </aside>
+    <section ref={root} className={`vc-quote${compact ? " is-compact" : ""}`} aria-label={t.kicker}>
+      {!compact && (
+        <aside className="vc-quote__aside" aria-hidden={done || undefined}>
+          <span className="vc-quote__aside-label">{t.asideLabel}</span>
+          <ol>
+            {t.steps.map((label, k) => {
+              const isDone = done || k < step;
+              const active = !done && k === step;
+              return (
+                <li key={label}>
+                  <button
+                    type="button"
+                    disabled={!isDone || done}
+                    onClick={() => go(k)}
+                    className={active ? "is-active" : isDone ? "is-done" : undefined}
+                    aria-current={active ? "step" : undefined}
+                  >
+                    <span className="vc-quote__dot">{isDone ? <Check /> : k + 1}</span>
+                    {label}
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </aside>
+      )}
 
       <div className="vc-quote__main">
         {!done ? (

@@ -55,19 +55,19 @@ export const PAGES: Record<PageKey, PageDef> = {
     },
   },
   kitchen: {
-    shell: "renovation-kitchen",
+    shell: "kitchen",
     render: (lang) => <ServicePage lang={lang} service="kitchen" />,
     meta: { fr: KITCHEN.fr.meta, en: KITCHEN.en.meta, es: KITCHEN.es.meta },
     image: "/images/custom-kitchen-renovation-tampa.webp?v=2",
   },
   bathroom: {
-    shell: "renovation-bathroom",
+    shell: "bathroom",
     render: (lang) => <ServicePage lang={lang} service="bathroom" />,
     meta: { fr: BATHROOM.fr.meta, en: BATHROOM.en.meta, es: BATHROOM.es.meta },
     image: "/images/bathroom-renovation-floating-vanity.webp?v=2",
   },
   blog: {
-    shell: "blog-index",
+    shell: "blog",
     render: (lang) => <BlogIndexPage lang={lang} />,
     meta: {
       fr: {
@@ -87,7 +87,7 @@ export const PAGES: Record<PageKey, PageDef> = {
     },
   },
   quote: {
-    shell: "quote",
+    shell: "contact",
     render: (lang) => <QuotePage lang={lang} />,
     meta: {
       fr: {
@@ -241,7 +241,7 @@ export async function ArticleRoute({ params }: ArticleParams) {
   // An article opened with the slug of another language goes to its address in this language.
   if (redirectTo) permanentRedirect(`${pagePath(lang, "blog")}/${redirectTo}`);
   return (
-    <PageShell page="blog-post" locale={lang}>
+    <PageShell page="article" locale={lang}>
       <ArticlePage lang={lang} post={post} />
     </PageShell>
   );

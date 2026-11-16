@@ -1,12 +1,16 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
-import { Breadcrumbs, FinalCta, SampleBadge, SectionHead } from "@/components/sections/blocks";
-import { FaqList } from "@/components/sections/faq";
+import { SampleBadge } from "@/components/sections/blocks";
+import { DesignFaq } from "@/components/sections/design-faq";
+import { DesignContact } from "@/components/sections/design-contact";
 import { BUSINESS_ID, JsonLd, breadcrumbLd, faqLd } from "@/components/sections/json-ld";
 import { Comparator } from "@/components/site/comparator";
 import { SiteHeader } from "@/components/site/site-header";
+import { ds } from "@/components/site/sx";
 import { BATHROOM } from "@/content/bathroom";
 import { COMMON } from "@/content/common";
+import { DESIGN } from "@/content/design";
 import { KITCHEN } from "@/content/kitchen";
 import { PROJECTS, PROJECT_LABELS, type Project } from "@/content/projects";
 import type { ServiceSection } from "@/content/service-types";
@@ -19,41 +23,107 @@ const HERO_IMAGE = {
   kitchen: "/images/custom-kitchen-renovation-tampa.webp?v=2",
   bathroom: "/images/bathroom-renovation-floating-vanity.webp?v=2",
 };
+const INTRO_IMAGE = {
+  kitchen: "/images/kitchen-renovation-white-island.webp?v=2",
+  bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
+};
+const TILE_IMAGE = {
+  kitchen: "/images/kitchen-renovation-island-pendants.webp?v=2",
+  bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
+  blog: "/images/kitchen-countertop-quartz.webp?v=2",
+};
 
+/* Styles of the original design (same text as its `data-s`, see src/components/site/sx.ts). */
+const H2: CSSProperties = {
+  margin: "0",
+  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+  fontWeight: "400",
+  fontSize: "clamp(40px, 5.4vw, 76px)",
+  lineHeight: "1.04",
+  letterSpacing: "-.01em",
+  color: "#1D2B44",
+};
+const LEAD: CSSProperties = {
+  margin: "0",
+  maxWidth: "560px",
+  fontSize: "clamp(16px, 1.3vw, 19px)",
+  lineHeight: "1.5",
+  color: "#5E636B",
+};
+const HEAD: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "18px",
+  marginBottom: "clamp(32px, 4vw, 56px)",
+};
+const BTN: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "8px",
+  minHeight: "52px",
+  padding: "0 28px",
+  borderRadius: "0",
+};
+const BTN_TEXT: CSSProperties = { fontSize: "15px", fontWeight: "600", textDecoration: "none", textAlign: "center" };
+const TILE: CSSProperties = {
+  position: "relative",
+  flex: "1 1 300px",
+  display: "flex",
+  minHeight: "clamp(420px, 40vw, 600px)",
+  borderRadius: "0",
+  textDecoration: "none",
+  color: "#FFFFFF",
+};
+
+/** A content section in the design's "Everything, handled." style: title, lead, then columns. */
 function Section({ s }: { s: ServiceSection }) {
   return (
-    <section className={`sec vc-ssec is-${s.layout ?? "grid"}`} id={s.id} aria-labelledby={`${s.id}-title`}>
+    <section className="sec" id={s.id} aria-labelledby={`${s.id}-title`} style={{ scrollMarginTop: "90px" }}>
       <div className="wrap">
-        <SectionHead title={s.title} id={`${s.id}-title`} text={s.intro} />
-        {s.layout === "steps" ? (
-          <ol className="vc-steps">
-            {s.items.map((it, i) => (
-              <li key={it.title}>
-                <span className="vc-steps__n">{String(i + 1).padStart(2, "0")}</span>
-                <h3>{it.title}</h3>
-                <p>{it.text}</p>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <ul className={s.layout === "list" ? "vc-list" : "vc-cards-grid"}>
-            {s.items.map((it, i) => (
-              <li key={it.title}>
-                {s.layout === "list" && <span className="vc-list__n">{String(i + 1).padStart(2, "0")}</span>}
-                <div>
-                  <h3>{it.title}</h3>
-                  <p>{it.text}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div {...ds(HEAD)}>
+          <h2 id={`${s.id}-title`} {...ds(H2)}>
+            {s.title}
+          </h2>
+          <p {...ds(LEAD)}>{s.intro}</p>
+        </div>
+        <ol
+          {...ds({
+            margin: "0",
+            padding: "0",
+            listStyle: "none",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0",
+            borderTop: "1px solid #C9CDD4",
+          })}
+        >
+          {s.items.map((it, i) => (
+            <li
+              key={it.title}
+              {...ds({
+                flex: "1 1 260px",
+                padding: "28px 24px 28px 0",
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              })}
+            >
+              <span {...ds({ fontSize: "13px", fontWeight: "600", color: "#4A6A8A" })}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 {...ds({ margin: "0", fontSize: "18px", fontWeight: "700", color: "#1D2B44" })}>{it.title}</h3>
+              <p {...ds({ margin: "0", fontSize: "15px", lineHeight: "1.55", color: "#5E636B" })}>{it.text}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
 }
 
-function ProjectCard({ project, lang }: { project: Project; lang: Locale }) {
+/** A realized project in the design's "From dated to dream." style: wide before/after, then the facts. */
+function ProjectBlock({ project, lang }: { project: Project; lang: Locale }) {
   const t = project.text[lang];
   const labels = PROJECT_LABELS[lang];
   const c = COMMON[lang];
@@ -67,45 +137,93 @@ function ProjectCard({ project, lang }: { project: Project; lang: Locale }) {
     [labels.result, t.result],
   ];
   return (
-    <article className="vc-project">
-      <div className="vc-project__media">
-        <Comparator
-          before={project.before}
-          after={project.after}
-          beforeAlt={`${t.title} — ${c.comparator.before}`}
-          afterAlt={`${t.title} — ${c.comparator.after}`}
-          labels={c.comparator}
-          demo={project.demo}
-        />
-      </div>
-      <div className="vc-project__body">
-        <header>
+    <article {...ds({ display: "flex", flexDirection: "column", gap: "24px" })}>
+      <div
+        {...ds({
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "baseline",
+          justifyContent: "space-between",
+          gap: "8px 24px",
+        })}
+      >
+        <h3
+          {...ds({
+            margin: "0",
+            fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+            fontWeight: "400",
+            fontSize: "clamp(24px, 2.4vw, 36px)",
+            lineHeight: "1.15",
+            color: "#1D2B44",
+          })}
+        >
+          {t.title}
+        </h3>
+        <span
+          {...ds({
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: "12px",
+            fontSize: "14px",
+            color: "#5E636B",
+          })}
+        >
           {project.draft && <SampleBadge lang={lang} />}
-          <h3>{t.title}</h3>
-          <p className="vc-project__where">{t.location}</p>
-        </header>
-        <dl>
-          {facts.map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
+          {t.location}
+        </span>
       </div>
+      <Comparator
+        before={project.before}
+        after={project.after}
+        beforeAlt={`${t.title} — ${c.comparator.before}`}
+        afterAlt={`${t.title} — ${c.comparator.after}`}
+        labels={c.comparator}
+        demo={project.demo}
+        ratio="16 / 9"
+        variant="design"
+      />
+      <ol
+        {...ds({
+          margin: "0",
+          padding: "0",
+          listStyle: "none",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "0",
+          borderTop: "1px solid #C9CDD4",
+        })}
+      >
+        {facts.map(([k, v]) => (
+          <li
+            key={k}
+            {...ds({
+              flex: "1 1 260px",
+              padding: "20px 24px 20px 0",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            })}
+          >
+            <h4 {...ds({ margin: "0", fontSize: "15px", fontWeight: "700", color: "#1D2B44" })}>{k}</h4>
+            <p {...ds({ margin: "0", fontSize: "15px", lineHeight: "1.55", color: "#5E636B" })}>{v}</p>
+          </li>
+        ))}
+      </ol>
     </article>
   );
 }
 
 /**
- * Service page — kitchen (specification §3) or bathroom (§4) renovation, same architecture, distinct content:
- * hero, detailed introduction, "On this page" index, content sections (types of work, method, materials,
- * layouts, tips…), realized projects with interactive before/after comparators, FAQ, areas served, internal
- * links and a closing call to action. Structured data: Service, FAQPage and BreadcrumbList.
+ * Service page — kitchen (specification §3) or bathroom (§4) renovation, in the original V&C design: photo hero
+ * with breadcrumbs, split introduction, content sections, realized projects with the before/after comparator,
+ * FAQ, areas served and related pages, then "Let's work together" with the quote form.
+ * Structured data: Service, FAQPage and BreadcrumbList.
  */
 export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen" | "bathroom" }) {
   const t = COPY[service][lang];
   const c = COMMON[lang];
+  const d = DESIGN[lang];
   const self = pagePath(lang, service);
   const quote = `${pagePath(lang, "quote")}?project=${service}`;
   const other = service === "kitchen" ? "bathroom" : "kitchen";
@@ -123,23 +241,120 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
 
   return (
     <main>
-      <div className="vc-hero-frame">
-        <div className="vc-hero-wrap">
+      <div {...ds({ padding: "clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px) 0", background: "#FFFFFF" })}>
+        <div {...ds({ position: "relative", borderRadius: "0", overflow: "hidden" })}>
           <SiteHeader variant="overlay" current={service} />
-          <section data-hero="dark" className="vc-shero" aria-labelledby="hero-title">
-            <img className="vc-shero__media" src={HERO_IMAGE[service]} alt={t.hero.alt} fetchPriority="high" />
-            <div className="vc-vhero__shade" aria-hidden="true" />
-            <div className="wrap vc-shero__content">
-              <Breadcrumbs lang={lang} items={crumbs} light />
-              <h1 id="hero-title">
-                {t.hero.title} <em>{t.hero.titleEm}</em>
+          <section
+            data-hero="dark"
+            className="ph"
+            aria-labelledby="hero-title"
+            {...ds({
+              position: "relative",
+              backgroundColor: "#2B4A3F",
+              minHeight: "clamp(560px, 52vw, 760px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+            })}
+          >
+            <img
+              src={HERO_IMAGE[service]}
+              alt={t.hero.alt}
+              fetchPriority="high"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            <div
+              aria-hidden="true"
+              {...ds({
+                position: "absolute",
+                inset: "0",
+                background: "linear-gradient(180deg, rgba(20,42,35,.55) 0%, rgba(20,42,35,.72) 100%)",
+              })}
+            />
+            <div
+              className="wrap"
+              {...ds({
+                position: "relative",
+                paddingTop: "168px",
+                paddingBottom: "clamp(56px, 6vw, 96px)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "22px",
+              })}
+            >
+              <nav aria-label={c.breadcrumb}>
+                <ol
+                  {...ds({
+                    margin: "0",
+                    padding: "0",
+                    listStyle: "none",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    gap: "8px",
+                    fontSize: "13px",
+                    color: "rgba(255,255,255,.6)",
+                  })}
+                >
+                  <li>
+                    <Link href={crumbs[0]![1]} {...ds({ color: "rgba(255,255,255,.85)" })}>
+                      {crumbs[0]![0]}
+                    </Link>
+                  </li>
+                  <li aria-hidden="true">/</li>
+                  <li aria-current="page" {...ds({ color: "#FFFFFF" })}>
+                    {crumbs[1]![0]}
+                  </li>
+                </ol>
+              </nav>
+              <h1
+                id="hero-title"
+                {...ds({
+                  margin: "0",
+                  maxWidth: "1040px",
+                  fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                  fontWeight: "400",
+                  fontSize: "clamp(46px, 7vw, 104px)",
+                  lineHeight: "1",
+                  color: "#FFFFFF",
+                })}
+              >
+                {t.hero.title}
+                <br />
+                <em {...ds({ color: "#BCCDC3" })}>{t.hero.titleEm}</em>
               </h1>
-              <p className="vc-vhero__text">{t.hero.text}</p>
-              <div className="vc-vhero__actions">
-                <Link href={quote} className="pill pill-w vc-btn">
+              <p
+                {...ds({
+                  margin: "0",
+                  maxWidth: "620px",
+                  fontSize: "clamp(16px, 1.3vw, 19px)",
+                  lineHeight: "1.5",
+                  color: "rgba(255,255,255,.88)",
+                })}
+              >
+                {t.hero.text}
+              </p>
+              <div {...ds({ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px" })}>
+                <Link
+                  href={quote}
+                  className="pill pill-w"
+                  {...ds({ ...BTN, background: "#FFFFFF", color: "#125A50", border: "0", ...BTN_TEXT })}
+                >
                   {t.hero.cta}
                 </Link>
-                <a href="#projects" className="pill vc-btn vc-btn--ghost">
+                <a
+                  href="#projects"
+                  className="pill "
+                  {...ds({
+                    ...BTN,
+                    background: "rgba(255,255,255,.08)",
+                    color: "#FFFFFF",
+                    border: "1px solid rgba(255,255,255,.55)",
+                    ...BTN_TEXT,
+                  })}
+                >
                   {t.hero.secondary}
                 </a>
               </div>
@@ -148,31 +363,121 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
         </div>
       </div>
 
-      <section className="sec vc-intro" aria-labelledby="intro-title">
-        <div className="wrap vc-intro__grid">
-          <div>
-            <h2 id="intro-title">{t.intro.title}</h2>
+      {/* Introduction */}
+      <section className="sec" aria-labelledby="intro-title">
+        <div
+          className="wrap"
+          {...ds({ display: "flex", flexWrap: "wrap", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" })}
+        >
+          <div {...ds({ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "20px" })}>
+            <h2 id="intro-title" {...ds(H2)}>
+              {t.intro.title}
+            </h2>
             {t.intro.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
+              <p
+                key={p}
+                {...ds({ margin: "0", maxWidth: "560px", fontSize: "16px", lineHeight: "1.6", color: "#22252A" })}
+              >
+                {p}
+              </p>
             ))}
-          </div>
-          <aside className="vc-intro__aside">
-            <ul className="vc-checks">
+            <ul
+              {...ds({ margin: "0", padding: "0", listStyle: "none", display: "flex", flexWrap: "wrap", gap: "8px" })}
+            >
               {t.intro.highlights.map((h) => (
-                <li key={h}>{h}</li>
+                <li
+                  key={h}
+                  {...ds({
+                    padding: "8px 14px",
+                    borderRadius: "0",
+                    border: "1px solid #C9CDD4",
+                    fontSize: "13px",
+                    color: "#1D2B44",
+                  })}
+                >
+                  {h}
+                </li>
               ))}
             </ul>
-            <Link href={quote} className="pill pill-d vc-btn">
-              {c.cta}
-            </Link>
-          </aside>
+            <div {...ds({ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" })}>
+              <Link
+                href={quote}
+                className="pill pill-d"
+                {...ds({ ...BTN, background: "#125A50", color: "#FFFFFF", border: "0", ...BTN_TEXT })}
+              >
+                {c.cta}
+              </Link>
+              <a
+                href={site.phoneHref}
+                className="lnk"
+                {...ds({
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  minHeight: "44px",
+                  fontWeight: "700",
+                  color: "#1D2B44",
+                  textDecoration: "none",
+                })}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 3h3.5l1.5 4.5-2.2 1.4a11 11 0 0 0 7.3 7.3l1.4-2.2L21 15.5V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z" />
+                </svg>
+                {site.phone}
+              </a>
+            </div>
+          </div>
+          <img
+            className="ph"
+            src={INTRO_IMAGE[service]}
+            alt={t.hero.alt}
+            loading="lazy"
+            decoding="async"
+            {...ds({
+              height: "clamp(360px, 40vw, 600px)",
+              backgroundColor: "#2B4A3F",
+              flex: "1 1 420px",
+              borderRadius: "0",
+              minWidth: "0",
+              objectFit: "cover",
+            })}
+          />
         </div>
-        <nav className="wrap vc-toc" aria-label={c.onThisPage}>
-          <span>{c.onThisPage}</span>
-          <ul>
+        {/* On this page — in the style of the design's filter chips */}
+        <nav className="wrap" aria-label={c.onThisPage} {...ds({ marginTop: "clamp(40px, 5vw, 72px)" })}>
+          <ul {...ds({ margin: "0", padding: "0", listStyle: "none", display: "flex", flexWrap: "wrap", gap: "10px" })}>
             {nav.map(([id, label]) => (
               <li key={id}>
-                <a href={`#${id}`}>{label}</a>
+                <a
+                  href={`#${id}`}
+                  className="vc-chiplink"
+                  {...ds({
+                    display: "inline-flex",
+                    alignItems: "center",
+                    minHeight: "44px",
+                    padding: "0 20px",
+                    borderRadius: "0",
+                    border: "1.5px solid #C9CDD4",
+                    background: "#FFFFFF",
+                    color: "#1D2B44",
+                    fontFamily: "var(--font-urbanist), sans-serif",
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    textDecoration: "none",
+                  })}
+                >
+                  {label}
+                </a>
               </li>
             ))}
           </ul>
@@ -183,50 +488,136 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
         <Section key={s.id} s={s} />
       ))}
 
-      <section className="sec vc-projects" id="projects" aria-labelledby="projects-title">
+      {/* Realized projects */}
+      <section className="sec" id="projects" aria-labelledby="projects-title" style={{ scrollMarginTop: "90px" }}>
         <div className="wrap">
-          <SectionHead title={t.projects.title} id="projects-title" text={t.projects.intro} />
-          <div className="vc-projects__list">
+          <div {...ds(HEAD)}>
+            <h2 id="projects-title" {...ds(H2)}>
+              {t.projects.title}
+            </h2>
+            <p {...ds(LEAD)}>{t.projects.intro}</p>
+          </div>
+          <div {...ds({ display: "flex", flexDirection: "column", gap: "clamp(56px, 7vw, 112px)" })}>
             {projects.map((p) => (
-              <ProjectCard key={p.id} project={p} lang={lang} />
+              <ProjectBlock key={p.id} project={p} lang={lang} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="sec vc-faq-sec" id="faq" aria-labelledby="faq-title">
-        <div className="wrap vc-faq-layout">
-          <SectionHead title={t.faq.title} id="faq-title" />
-          <FaqList items={t.faq.items} />
+      {/* FAQ */}
+      <section className="sec" id="faq" aria-labelledby="faq-title" {...ds({ background: "#FFFFFF" })}>
+        <div className="wrap" {...ds({ display: "flex", flexWrap: "wrap", gap: "clamp(32px, 6vw, 96px)" })}>
+          <div {...ds({ flex: "1 1 320px", display: "flex", flexDirection: "column", gap: "18px" })}>
+            <h2 id="faq-title" {...ds({ ...H2, fontSize: "clamp(40px, 4.6vw, 64px)" })}>
+              {t.faq.title}
+            </h2>
+            <p {...ds({ margin: "0", maxWidth: "360px", fontSize: "16px", lineHeight: "1.6", color: "#5E636B" })}>
+              {d.faqHelp} <a href={site.phoneHref}>{site.phone}</a>.
+            </p>
+          </div>
+          <DesignFaq items={t.faq.items} />
         </div>
       </section>
 
-      <section className="sec vc-areas" id="areas" aria-labelledby="areas-title">
-        <div className="wrap vc-areas__grid">
-          <div>
-            <h2 id="areas-title">{t.areas.title}</h2>
-            <p>{t.areas.text}</p>
-            <ul className="vc-cities">
-              {site.cities.map((city) => (
-                <li key={city}>{city}</li>
-              ))}
-            </ul>
+      {/* Areas served and related pages */}
+      <section className="sec grain" id="areas" aria-labelledby="areas-title" {...ds({ backgroundColor: "#1D2B44" })}>
+        <div className="wrap">
+          <div {...ds(HEAD)}>
+            <h2 id="areas-title" {...ds({ ...H2, color: "#FFFFFF" })}>
+              {t.areas.title}
+            </h2>
+            <p {...ds({ ...LEAD, color: "rgba(255,255,255,.78)" })}>{t.areas.text}</p>
+            <p {...ds({ margin: "0", fontSize: "14px", color: "rgba(255,255,255,.8)" })}>{site.cities.join(" · ")}</p>
           </div>
-          <div className="vc-related">
-            <h2 className="vc-related__title">{t.related.title}</h2>
-            <Link href={pagePath(lang, other)} className="vc-related__card">
-              <strong>{t.related.otherService}</strong>
-              <span>{t.related.otherServiceText}</span>
-            </Link>
-            <Link href={pagePath(lang, "blog")} className="vc-related__card">
-              <strong>{t.related.blog}</strong>
-              <span>{t.related.blogText}</span>
-            </Link>
+          <div {...ds({ display: "flex", flexWrap: "wrap", gap: "24px" })}>
+            {(
+              [
+                [
+                  pagePath(lang, other),
+                  TILE_IMAGE[other],
+                  t.related.otherService,
+                  t.related.otherServiceText,
+                  d.ourWork,
+                ],
+                [pagePath(lang, "blog"), TILE_IMAGE.blog, t.related.blog, t.related.blogText, d.readMore],
+              ] as const
+            ).map(([href, img, title, text, label]) => (
+              <Link key={href} href={href} className="tile" {...ds(TILE)}>
+                <img
+                  className="ph tile-img"
+                  src={img}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  {...ds({
+                    position: "absolute",
+                    inset: "0",
+                    backgroundColor: "#8DA4BC",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  })}
+                />
+                <div
+                  aria-hidden="true"
+                  {...ds({
+                    position: "absolute",
+                    inset: "0",
+                    background: "linear-gradient(180deg, rgba(20,42,35,0) 35%, rgba(20,42,35,.78) 100%)",
+                  })}
+                />
+                <div
+                  {...ds({
+                    position: "relative",
+                    marginTop: "auto",
+                    width: "100%",
+                    padding: "clamp(22px, 2.4vw, 32px)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
+                  })}
+                >
+                  <span
+                    {...ds({
+                      fontFamily: "var(--font-urbanist), system-ui, sans-serif",
+                      fontSize: "clamp(52px, 5.6vw, 88px)",
+                      lineHeight: ".95",
+                    })}
+                  >
+                    {title}
+                  </span>
+                  <span
+                    {...ds({ fontSize: "15px", lineHeight: "1.5", color: "rgba(255,255,255,.85)", maxWidth: "340px" })}
+                  >
+                    {text}
+                  </span>
+                  <span
+                    className="tile-a"
+                    {...ds({
+                      alignSelf: "flex-start",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      minHeight: "44px",
+                      padding: "0 18px",
+                      borderRadius: "0",
+                      border: "1px solid rgba(255,255,255,.6)",
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      transition: "background-color 250ms",
+                    })}
+                  >
+                    {label}
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <FinalCta lang={lang} title={t.cta.title} text={t.cta.text} cta={t.cta.button} project={service} />
+      <DesignContact lang={lang} title={t.cta.title} lede={t.cta.text} project={service} />
 
       <JsonLd
         data={{

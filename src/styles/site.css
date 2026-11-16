@@ -23,7 +23,7 @@
 
 /* ---------------------------------------------------------------- layout */
 /* Every section's content lines up with the header and the footer (same edge as overrides.css §1). */
-:root[data-page][data-page][data-page] main :is(section, article) .wrap:not(.vc-article__narrow),
+:root[data-page][data-page][data-page] main :is(section, article):not([data-hero]) .wrap:not(.vc-article__narrow),
 :root[data-page][data-page][data-page] main nav.wrap {
   max-width: none !important;
   margin: 0 auto;
@@ -34,11 +34,11 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-:root[data-page][data-page][data-page] main .sec {
+:root[data-page][data-page][data-page] main .sec[class*="vc-"] {
   padding-top: clamp(56px, 7vw, 112px) !important;
   padding-bottom: clamp(56px, 7vw, 112px) !important;
 }
-:root[data-page][data-page][data-page] main .sec + .sec:not(.vc-band) {
+:root[data-page][data-page][data-page] main .sec[class*="vc-"] + .sec[class*="vc-"] {
   padding-top: 0 !important;
 }
 .vc-sr {
@@ -67,7 +67,7 @@
   font-style: normal;
   color: var(--vc-green);
 }
-:root[data-page][data-page][data-page] main h3 {
+:root[data-page][data-page][data-page] main [class*="vc-"] h3 {
   margin: 0;
   font-size: clamp(18px, 1.5vw, 22px) !important;
   line-height: 1.25;
@@ -75,7 +75,7 @@
   letter-spacing: -0.01em;
   color: var(--vc-navy);
 }
-main p {
+main [class*="vc-"] p {
   line-height: 1.65;
 }
 .vc-eyebrow {
@@ -1878,4 +1878,110 @@ a:hover .vc-more::after {
 /* The previous home page hid every button placed directly in its hero; the video's pause button must show. */
 :root:not(#vc)[data-page][data-page][data-page][data-page][data-page] main section.vc-vhero > .vc-vhero__toggle {
   display: grid !important;
+}
+
+/* ---------------------------------------------------------------- original design: home additions */
+/* Background video in the place of the design's slideshow. */
+.vc-home-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Pause button of the video, next to the "Scroll" cue, in the design's ghost-button style. */
+.vc-home-pause {
+  position: absolute;
+  right: calc(var(--content-edge) - clamp(8px, 1.2vw, 16px) + 110px);
+  bottom: clamp(24px, 3vw, 40px);
+}
+.vc-home-pause button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.vc-home-pause button:hover,
+.vc-home-pause button:focus-visible {
+  background: rgba(0, 0, 0, 0.45);
+}
+@media (max-width: 760px) {
+  .vc-home-pause {
+    right: 16px;
+    top: 96px;
+    bottom: auto;
+  }
+}
+.vc-dreviews {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 767px) {
+  .vc-dreviews {
+    grid-template-columns: 1fr;
+  }
+}
+/* Quote form inside the "Let's work together" card: one column, no step list. */
+.vc-quote.is-compact {
+  grid-template-columns: 1fr;
+}
+.vc-quote.is-compact .vc-quote__main {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+.vc-quote.is-compact .vc-quote__options.n3 {
+  grid-template-columns: 1fr;
+}
+
+/* Before/after comparator in the original design's look ("From dated to dream."): square labels — "Before"
+   green, "After" white — a plain white line and a white square handle with green chevrons. */
+.vc-cmp.is-design {
+  border-radius: 6px;
+}
+.vc-cmp.is-design .vc-cmp__tag {
+  top: 16px;
+  padding: 6px 14px;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  backdrop-filter: none;
+}
+.vc-cmp.is-design .vc-cmp__tag.is-before {
+  left: 16px;
+  background: #125a50;
+  color: #ffffff;
+}
+.vc-cmp.is-design .vc-cmp__tag.is-after {
+  right: 16px;
+  background: #ffffff;
+  color: #125a50;
+}
+.vc-cmp.is-design .vc-cmp__line {
+  box-shadow: none;
+}
+.vc-cmp.is-design .vc-cmp__handle {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+  color: #125a50;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+.vc-chiplink:hover,
+.vc-chiplink:focus-visible {
+  border-color: #125a50 !important;
+  color: #125a50 !important;
 }

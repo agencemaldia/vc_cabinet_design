@@ -311,8 +311,9 @@ a:hover .vc-more::after {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(8, 18, 15, 0.55) 0%, rgba(8, 18, 15, 0) 28%),
-    linear-gradient(0deg, rgba(8, 18, 15, 0.86) 0%, rgba(8, 18, 15, 0.45) 45%, rgba(8, 18, 15, 0.1) 100%);
+    linear-gradient(180deg, rgba(8, 18, 15, 0.45) 0%, rgba(8, 18, 15, 0) 26%),
+    linear-gradient(90deg, rgba(8, 18, 15, 0.62) 0%, rgba(8, 18, 15, 0.28) 48%, rgba(8, 18, 15, 0) 75%),
+    linear-gradient(0deg, rgba(8, 18, 15, 0.55) 0%, rgba(8, 18, 15, 0) 45%);
 }
 :root[data-page][data-page][data-page] main section:is(.vc-vhero, .vc-shero) > .wrap {
   width: 100%;
@@ -508,7 +509,8 @@ a:hover .vc-more::after {
 }
 .vc-service__body > p {
   margin: 0;
-  color: var(--vc-slate);
+  font-size: 17px;
+  color: var(--vc-ink);
 }
 .vc-service__body ul {
   display: flex;
@@ -1872,4 +1874,8 @@ a:hover .vc-more::after {
   max-width: none !important;
   padding-left: var(--content-edge) !important;
   padding-right: var(--content-edge) !important;
+}
+/* The previous home page hid every button placed directly in its hero; the video's pause button must show. */
+:root:not(#vc)[data-page][data-page][data-page][data-page][data-page] main section.vc-vhero > .vc-vhero__toggle {
+  display: grid !important;
 }

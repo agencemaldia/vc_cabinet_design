@@ -67,7 +67,7 @@ function translateValue(value: unknown, dict: Dictionary, locale: Locale): unkno
  * text props of custom components such as `items`), and internal links (`/contact` → `/fr/contact`).
  * Components render their own markup, so each client component that outputs text runs its JSX through
  * this (see `useTranslate`); server-rendered parts are covered by the page-level <I18nScope>.
- * English has no dictionary (it is the pages' own text) but its links still get the `/en` prefix.
+ * English links get the `/en` prefix too; `en.json` only overrides a few labels (short buttons).
  */
 export function translateNode(node: ReactNode, dict: Dictionary, locale: Locale): ReactNode {
   if (typeof node === "string") return translateString(node, dict);

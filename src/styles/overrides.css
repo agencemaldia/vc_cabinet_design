@@ -1060,3 +1060,22 @@ body > div > [role="dialog"][data-al="Menu"] {
     padding-bottom: 32px !important;
   }
 }
+
+/* 41. Phones: the hero's buttons stack at full width, all the same size. */
+@media (max-width: 760px) {
+  :root[data-page][data-page] section[data-hero] :is(.pill, .btn-p) {
+    flex: 1 1 100%;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 42. The design clips horizontal overflow on <main> (`overflow-x: clip`), which traps the fixed header inside
+   <main> in Chrome: the footer, painted after <main>, then scrolled over the header on phones. Clip on <body>
+   instead (same protection against sideways scrolling) and leave <main> unclipped. */
+:root[data-page] body {
+  overflow-x: clip;
+}
+:root[data-page][data-page] main {
+  overflow-x: visible !important;
+}

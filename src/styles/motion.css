@@ -358,8 +358,11 @@
   background-position: center calc(50% + var(--hp, 0) * 140px) !important;
 }
 /* Footer: the footer stays in place; its content rises and fades in as it appears (--fe: 0 → 1). */
+/* (an offset with `top`, not `translate`: a translated element gets its own layer and was painted over the
+   fixed header on phones; at rest — --fe = 1 — nothing is left on top.) */
 .vc-foot > * {
-  translate: 0 calc((1 - var(--fe, 1)) * 56px);
+  position: relative;
+  top: calc((1 - var(--fe, 1)) * 56px);
   opacity: calc(0.25 + var(--fe, 1) * 0.75);
 }
 /* ---------------------------------------------------------------- pinned statements

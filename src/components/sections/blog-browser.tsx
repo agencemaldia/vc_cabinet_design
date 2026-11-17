@@ -91,7 +91,6 @@ export function BlogBrowser({ posts, featured, categories, labels, cta }: BlogBr
               background: "#FFFFFF",
               borderRadius: "0",
               overflow: "hidden",
-              border: "1px solid #E3E5E9",
               textDecoration: "none",
               color: "#22252A",
             })}

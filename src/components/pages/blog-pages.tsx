@@ -163,7 +163,6 @@ export function BlogIndexPage({ lang }: { lang: Locale }) {
                   background: "#FFFFFF",
                   borderRadius: "0",
                   overflow: "hidden",
-                  border: "1px solid #E3E5E9",
                   textDecoration: "none",
                   color: "#22252A",
                 })}
@@ -587,10 +586,7 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
               {...ds({ flex: "1 1 240px", maxWidth: "320px", display: "flex", flexDirection: "column", gap: "24px" })}
             >
               {sections.length > 0 && (
-                <nav
-                  aria-label={a.toc}
-                  {...ds({ padding: "24px", borderRadius: "0", background: "#FFFFFF", border: "1px solid #E3E5E9" })}
-                >
+                <nav aria-label={a.toc} {...ds({ padding: "24px", borderRadius: "0", background: "#EFF0F2" })}>
                   <p
                     {...ds({
                       margin: "0 0 12px",
@@ -652,7 +648,7 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
                         width: "44px",
                         height: "44px",
                         borderRadius: "0",
-                        border: "1px solid #C9CDD4",
+                        background: "#EFF0F2",
                         color: "#1D2B44",
                         display: "flex",
                         alignItems: "center",
@@ -707,7 +703,6 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
                     background: "#FFFFFF",
                     borderRadius: "0",
                     overflow: "hidden",
-                    border: "1px solid #E3E5E9",
                     textDecoration: "none",
                     color: "#22252A",
                   })}

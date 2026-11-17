@@ -196,7 +196,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
           <SiteHeader variant="overlay" current={service} />
           <section
             data-hero="dark"
-            className={`ph${service === "bathroom" ? " vc-split" : ""}`}
+            className="ph"
             aria-labelledby="hero-title"
             {...ds({
               position: "relative",

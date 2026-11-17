@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 
 import { SiteHeader } from "@/components/site/site-header";
 import { ds } from "@/components/site/sx";
@@ -19,8 +19,6 @@ type HomeHeroProps = {
     cta: { href: string; label: string };
     secondary: { href: string; label: string };
     scroll: string;
-    pause: string;
-    play: string;
   };
 };
 
@@ -41,28 +39,17 @@ const BTN: CSSProperties = {
 /**
  * Home hero of the original V&C design — same frame, services list, two-line title, right-hand column and
  * "Scroll" cue — with the background slideshow replaced by the video required by the specification (§2):
- * autoplay, muted, looped, inline on phones, poster while it loads, and a pause button.
+ * autoplay, muted, looped, inline on phones, poster while it loads (paused for visitors who ask for reduced motion).
  */
 export function HomeHero({ sources, poster, copy }: HomeHeroProps) {
   const video = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const v = video.current;
     if (!v) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) v.pause();
-    else
-      v.play()
-        .then(() => setPlaying(!v.paused))
-        .catch(() => setPlaying(false));
+    else v.play().catch(() => undefined);
   }, []);
-
-  const toggle = () => {
-    const v = video.current;
-    if (!v) return;
-    if (v.paused) v.play().catch(() => undefined);
-    else v.pause();
-  };
 
   return (
     <div {...ds({ padding: "clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 16px) 0", background: "#FFFFFF" })}>
@@ -91,8 +78,6 @@ export function HomeHero({ sources, poster, copy }: HomeHeroProps) {
               playsInline
               preload="metadata"
               aria-hidden="true"
-              onPlay={() => setPlaying(true)}
-              onPause={() => setPlaying(false)}
             >
               {sources.map((s) => (
                 <source key={s.src} src={s.src} type={s.type} />
@@ -219,31 +204,6 @@ export function HomeHero({ sources, poster, copy }: HomeHeroProps) {
               </div>
             </div>
           </div>
-          {sources.length > 0 && (
-            <div className="vc-home-pause">
-              <button type="button" onClick={toggle} aria-label={playing ? copy.pause : copy.play}>
-                {playing ? (
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M9 5v14M15 5v14" />
-                  </svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                )}
-                {playing ? copy.pause : copy.play}
-              </button>
-            </div>
-          )}
           <a href="#reviews" className="scroll-ind">
             {copy.scroll} <i />
           </a>

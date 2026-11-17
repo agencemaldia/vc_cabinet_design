@@ -71,7 +71,7 @@ export const HOME: Record<Locale, HomeCopy> = {
     method: {
       eyebrow: "Notre méthode",
       title: "Cinq étapes, une seule équipe.",
-      text: "Vous savez toujours ce qui vient ensuite — et qui appeler.",
+      text: "Vous savez toujours ce qui vient ensuite, et qui appeler.",
       steps: [
         {
           title: "Premier contact et compréhension des besoins",
@@ -185,7 +185,7 @@ export const HOME: Record<Locale, HomeCopy> = {
     method: {
       eyebrow: "Our method",
       title: "Five steps, one team.",
-      text: "You always know what comes next — and who to call.",
+      text: "You always know what comes next, and who to call.",
       steps: [
         {
           title: "First contact and understanding your needs",
@@ -303,7 +303,7 @@ export const HOME: Record<Locale, HomeCopy> = {
     method: {
       eyebrow: "Nuestro método",
       title: "Cinco pasos, un solo equipo.",
-      text: "Siempre sabes qué sigue — y a quién llamar.",
+      text: "Siempre sabes qué sigue y a quién llamar.",
       steps: [
         {
           title: "Primer contacto y comprensión de tus necesidades",

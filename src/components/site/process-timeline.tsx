@@ -19,7 +19,7 @@ type ProcessTimelineProps = {
  * scrolls. Reused from the earlier Mission page; texts come from the page (src/content/home.ts).
  * Styles live in src/styles/overrides.css (`.vc-tl`).
  */
-export function ProcessTimeline({ eyebrow, title, text, steps, cta }: ProcessTimelineProps) {
+export function ProcessTimeline({ title, text, steps, cta }: ProcessTimelineProps) {
   const markers = useRef<(HTMLSpanElement | null)[]>([]);
   const [active, setActive] = useState(-1);
 
@@ -50,17 +50,15 @@ export function ProcessTimeline({ eyebrow, title, text, steps, cta }: ProcessTim
   return (
     <section className="sec vc-process" id="method" aria-labelledby="process-title">
       <div className="wrap">
+        {/* Title and text on the left, the call to action on the right. */}
         <div className="vc-process__head">
-          <div>
-            {eyebrow && <p className="vc-eyebrow">{eyebrow}</p>}
-            <h2 id="process-title">{title}</h2>
-          </div>
           <div className="vc-process__intro">
+            <h2 id="process-title">{title}</h2>
             <p>{text}</p>
-            <Link href={cta.href} className="pill pill-d vc-btn">
-              {cta.label}
-            </Link>
           </div>
+          <Link href={cta.href} className="pill pill-d vc-btn">
+            {cta.label}
+          </Link>
         </div>
 
         <ol className="vc-tl">

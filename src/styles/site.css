@@ -1866,7 +1866,7 @@ a:hover .vc-more::after {
 /* The generated design keeps any row of buttons on one line; these rows wrap (full-width buttons on phones). */
 :root:not(#vc)[data-page][data-page][data-page][data-page][data-page]
   main
-  :is(.vc-vhero__actions, .vc-final__actions, .vc-head__side, .vc-quote__actions, .vc-process__intro) {
+  :is(.vc-vhero__actions, .vc-final__actions, .vc-head__side, .vc-quote__actions) {
   flex-wrap: wrap !important;
 }
 /* Footer content on the same edge as the header and the sections, on every page. */
@@ -1984,4 +1984,36 @@ a:hover .vc-more::after {
 .vc-chiplink:focus-visible {
   border-color: #125a50 !important;
   color: #125a50 !important;
+}
+
+/* Quote form steps: no frame (the design's old form card rule `div:has(> form)` drew one around the steps
+   holding a form), no separator above the back/next buttons, and those buttons rounded like the others. */
+:root:not(#vc)[data-page][data-page][data-page][data-page][data-page] .vc-quote__step {
+  border: 0 !important;
+}
+:root:not(#vc)[data-page][data-page][data-page][data-page][data-page] .vc-quote__nav {
+  border-top: 0 !important;
+  padding-top: 0;
+}
+:root:not(#vc)[data-page][data-page][data-page][data-page][data-page] .vc-quote__nav button {
+  border-radius: 6px !important;
+}
+
+/* "Five steps, one team": the timeline as a centred block of the content width, so its two columns sit
+   evenly around the middle of the page. */
+:root[data-page] .vc-tl {
+  max-width: 1000px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+:root[data-page] .vc-process__intro {
+  gap: 16px;
+}
+:root[data-page] .vc-process__intro p {
+  margin: 0;
+}
+
+/* Blog cards (list, featured article, "Similar posts"): the photos take the design's 6px rounding too. */
+:root:not(#vc)[data-page][data-page][data-page] main .card > img.ph {
+  border-radius: 6px !important;
 }

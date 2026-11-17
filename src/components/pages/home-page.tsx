@@ -127,8 +127,6 @@ export function HomePage({ lang }: { lang: Locale }) {
           cta: { href: quote, label: t.hero.cta },
           secondary: { href: `${pagePath(lang, "kitchen")}#projects`, label: d.heroSecondary },
           scroll: d.scroll,
-          pause: d.pause,
-          play: d.play,
         }}
       />
 

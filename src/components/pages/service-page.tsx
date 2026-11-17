@@ -6,6 +6,7 @@ import { DesignFaq } from "@/components/sections/design-faq";
 import { DesignContact } from "@/components/sections/design-contact";
 import { BUSINESS_ID, JsonLd, breadcrumbLd, faqLd } from "@/components/sections/json-ld";
 import { Comparator } from "@/components/site/comparator";
+import { PinnedStatements } from "@/components/site/pinned-statements";
 import { SiteHeader } from "@/components/site/site-header";
 import { ds } from "@/components/site/sx";
 import { BATHROOM } from "@/content/bathroom";
@@ -13,7 +14,6 @@ import { COMMON } from "@/content/common";
 import { DESIGN } from "@/content/design";
 import { KITCHEN } from "@/content/kitchen";
 import { PROJECTS, PROJECT_LABELS, type Project } from "@/content/projects";
-import type { ServiceSection } from "@/content/service-types";
 import type { Locale } from "@/lib/i18n/config";
 import { pagePath } from "@/lib/i18n/routes";
 import { site } from "@/lib/site";
@@ -75,52 +75,6 @@ const TILE: CSSProperties = {
   textDecoration: "none",
   color: "#FFFFFF",
 };
-
-/** A content section in the design's "Everything, handled." style: title, lead, then columns. */
-function Section({ s }: { s: ServiceSection }) {
-  return (
-    <section className="sec" id={s.id} aria-labelledby={`${s.id}-title`} style={{ scrollMarginTop: "90px" }}>
-      <div className="wrap">
-        <div {...ds(HEAD)}>
-          <h2 id={`${s.id}-title`} {...ds(H2)}>
-            {s.title}
-          </h2>
-          <p {...ds(LEAD)}>{s.intro}</p>
-        </div>
-        <ol
-          {...ds({
-            margin: "0",
-            padding: "0",
-            listStyle: "none",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "0",
-            borderTop: "1px solid #C9CDD4",
-          })}
-        >
-          {s.items.map((it, i) => (
-            <li
-              key={it.title}
-              {...ds({
-                flex: "1 1 260px",
-                padding: "28px 24px 28px 0",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              })}
-            >
-              <span {...ds({ fontSize: "13px", fontWeight: "600", color: "#4A6A8A" })}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 {...ds({ margin: "0", fontSize: "18px", fontWeight: "700", color: "#1D2B44" })}>{it.title}</h3>
-              <p {...ds({ margin: "0", fontSize: "15px", lineHeight: "1.55", color: "#5E636B" })}>{it.text}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
 
 /** A realized project in the design's "From dated to dream." style: wide before/after, then the facts. */
 function ProjectBlock({ project, lang }: { project: Project; lang: Locale }) {
@@ -382,19 +336,55 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
               </p>
             ))}
             <ul
-              {...ds({ margin: "0", padding: "0", listStyle: "none", display: "flex", flexWrap: "wrap", gap: "8px" })}
+              {...ds({
+                margin: "0",
+                padding: "0",
+                listStyle: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              })}
             >
               {t.intro.highlights.map((h) => (
                 <li
                   key={h}
                   {...ds({
-                    padding: "8px 14px",
-                    borderRadius: "0",
-                    border: "1px solid #C9CDD4",
-                    fontSize: "13px",
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "12px",
+                    fontSize: "16px",
+                    lineHeight: "1.5",
                     color: "#1D2B44",
                   })}
                 >
+                  <span
+                    aria-hidden="true"
+                    {...ds({
+                      flexShrink: "0",
+                      width: "22px",
+                      height: "22px",
+                      marginTop: "1px",
+                      borderRadius: "6px",
+                      background: "#125A50",
+                      color: "#FFFFFF",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    })}
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
                   {h}
                 </li>
               ))}
@@ -484,8 +474,15 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
         </nav>
       </section>
 
-      {t.sections.map((s) => (
-        <Section key={s.id} s={s} />
+      {/* Content sections as the design's green pinned statements: the title, then each point in turn. */}
+      {t.sections.map((sec) => (
+        <PinnedStatements
+          key={sec.id}
+          id={sec.id}
+          title={sec.title}
+          lead={sec.intro}
+          items={sec.items.map((it) => ({ title: it.title, text: it.text }))}
+        />
       ))}
 
       {/* Realized projects */}

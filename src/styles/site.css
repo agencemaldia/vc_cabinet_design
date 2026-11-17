@@ -2757,3 +2757,11 @@ a:hover .vc-more::after {
 :root[data-page="bathroom"] main .vc-intro-row {
   flex-direction: row-reverse;
 }
+
+/* The fixed header must stay above the footer. The design fades <main> in with `animation: vcFade … both`;
+   with "both", the animation's effect stays applied after it ends, which keeps <main> a stacking context: the
+   header (inside <main> on the home and service pages) was then trapped under the footer, painted after <main>,
+   and the footer scrolled over the bar. "backwards" plays the same fade and releases <main> once it is done. */
+:root[data-page][data-page][data-page] main {
+  animation-fill-mode: backwards !important;
+}

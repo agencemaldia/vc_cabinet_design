@@ -573,7 +573,7 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
             />
           </div>
           <div
-            className="wrap"
+            className="wrap vc-article-layout"
             {...ds({
               display: "flex",
               flexWrap: "wrap",

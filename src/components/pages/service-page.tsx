@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 
 import { SampleBadge } from "@/components/sections/blocks";
 import { DesignFaq } from "@/components/sections/design-faq";
+import { GreenBento, GreenPanels } from "@/components/sections/green-blocks";
 import { DesignContact } from "@/components/sections/design-contact";
 import { BUSINESS_ID, JsonLd, breadcrumbLd, faqLd } from "@/components/sections/json-ld";
 import { Comparator } from "@/components/site/comparator";
@@ -26,6 +27,25 @@ const HERO_IMAGE = {
 const INTRO_IMAGE = {
   kitchen: "/images/kitchen-renovation-white-island.webp?v=2",
   bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
+};
+/** Design of each content section, in order (repeats). */
+const DESIGNS = ["bento", "pinned", "panels"] as const;
+/** Photos used by the bento grid and the panels. */
+const GALLERY = {
+  kitchen: [
+    "/images/kitchen-renovation-island-pendants.webp?v=2",
+    "/images/custom-kitchen-renovation-tampa.webp?v=2",
+    "/images/kitchen-countertop-quartz.webp?v=2",
+    "/images/kitchen-renovation-white-island.webp?v=2",
+    "/images/kitchen-bathroom-renovation-tampa-bay.webp?v=2",
+    "/images/small-kitchen-smart-storage.webp?v=2",
+  ],
+  bathroom: [
+    "/images/bathroom-renovation-floating-vanity.webp?v=2",
+    "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
+    "/images/bathroom-freestanding-tub.webp?v=2",
+    "/images/bathroom-freestanding-bathtub-white-wall.webp",
+  ],
 };
 const TILE_IMAGE = {
   kitchen: "/images/kitchen-renovation-island-pendants.webp?v=2",
@@ -474,16 +494,18 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
         </nav>
       </section>
 
-      {/* Content sections as the design's green pinned statements: the title, then each point in turn. */}
-      {t.sections.map((sec) => (
-        <PinnedStatements
-          key={sec.id}
-          id={sec.id}
-          title={sec.title}
-          lead={sec.intro}
-          items={sec.items.map((it) => ({ title: it.title, text: it.text }))}
-        />
-      ))}
+      {/* Content sections in three alternating designs: green bento grid, green pinned statements, and
+          expanding photo panels — flat greens only. */}
+      {t.sections.map((sec, i) => {
+        const items = sec.items.map((it) => ({ title: it.title, text: it.text }));
+        const design = DESIGNS[i % DESIGNS.length];
+        if (design === "pinned")
+          return <PinnedStatements key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} />;
+        const Block = design === "bento" ? GreenBento : GreenPanels;
+        return (
+          <Block key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} images={GALLERY[service]} />
+        );
+      })}
 
       {/* Realized projects */}
       <section className="sec" id="projects" aria-labelledby="projects-title" style={{ scrollMarginTop: "90px" }}>

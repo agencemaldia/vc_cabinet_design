@@ -2017,3 +2017,265 @@ a:hover .vc-more::after {
 :root:not(#vc)[data-page][data-page][data-page] main .card > img.ph {
   border-radius: 6px !important;
 }
+
+/* ---------------------------------------------------------------- service pages: three green designs */
+.vc-gb {
+  scroll-margin-top: 90px;
+}
+.vc-gb__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px 48px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+:root[data-page][data-page][data-page] main .vc-gb__head h2 {
+  margin: 0;
+  max-width: 900px;
+  font-weight: 400;
+  color: #1d2b44;
+}
+.vc-gb__head p {
+  margin: 0;
+  max-width: 460px;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.5;
+  color: #5e636b;
+}
+
+/* Bento: a regular grid, every card of a row the same height (aligned top and bottom). */
+.vc-bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(300px, auto);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.vc-bento__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: clamp(24px, 2.6vw, 40px);
+  border-radius: 6px;
+  background: #125a50;
+  color: #ffffff;
+}
+.vc-bento__card.is-deep {
+  background: #0e4a42;
+}
+.vc-bento__n {
+  margin-bottom: auto;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #bccdc3;
+}
+:root:not(#vc)[data-page][data-page][data-page] main .vc-bento__card h3 {
+  margin: 0;
+  font-size: clamp(20px, 1.7vw, 26px) !important;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #ffffff;
+}
+.vc-bento__card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+.vc-bento__photo {
+  overflow: hidden;
+  border-radius: 6px;
+  background: #125a50;
+}
+.vc-bento__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 960px) {
+  .vc-bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .vc-bento {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .vc-bento__card {
+    min-height: 220px;
+  }
+  .vc-bento__photo {
+    height: 220px;
+  }
+}
+
+/* Expanding panels: photos under a flat green veil; the open panel shows its text, the others a vertical title. */
+.vc-panels {
+  display: flex;
+  gap: 12px;
+  height: clamp(460px, 44vw, 640px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.vc-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #125a50 var(--img) center / cover no-repeat;
+  color: #ffffff;
+  transition: flex-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vc-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 90, 80, 0.78);
+  transition: background-color 0.5s ease;
+}
+.vc-panel.is-open {
+  flex-grow: 5;
+}
+.vc-panel.is-open::before {
+  background: linear-gradient(180deg, rgba(18, 90, 80, 0.35) 0%, rgba(14, 74, 66, 0.92) 100%);
+}
+.vc-panel button {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.vc-panel__n {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #bccdc3;
+}
+.vc-panel__label {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  max-height: calc(100% - 80px);
+  overflow: hidden;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  translate: -50% 0;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: opacity 0.3s ease;
+}
+.vc-panel.is-open .vc-panel__label {
+  opacity: 0;
+}
+.vc-panel__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(24px, 2.6vw, 40px);
+  max-width: 560px;
+  opacity: 0;
+  translate: 0 12px;
+  pointer-events: none;
+  transition:
+    opacity 0.4s ease,
+    translate 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vc-panel.is-open .vc-panel__body {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 0.2s;
+}
+:root:not(#vc)[data-page][data-page][data-page] main .vc-panel__body h3 {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 2vw, 30px) !important;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #ffffff;
+}
+.vc-panel__body p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+@media (max-width: 760px) {
+  .vc-panels {
+    flex-direction: column;
+    height: auto;
+  }
+  .vc-panel,
+  .vc-panel.is-open {
+    flex: none;
+  }
+  .vc-panel button {
+    position: static;
+    height: 0;
+  }
+  .vc-panel__label {
+    display: none;
+  }
+  .vc-panel__body,
+  .vc-panel.is-open .vc-panel__body {
+    position: relative;
+    padding-top: 56px;
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Pinned statements on the service pages: flat brand green, no moving glow, white titles. */
+:root:is([data-page="kitchen"], [data-page="bathroom"]) .vc-pin__stage {
+  background: #125a50;
+  border-radius: 6px;
+}
+:root:is([data-page="kitchen"], [data-page="bathroom"]) .vc-pin__glow {
+  display: none;
+}
+:root:not(#vc)[data-page][data-page][data-page] main .vc-pin__item h3 {
+  color: #ffffff;
+}
+:root:is([data-page="kitchen"], [data-page="bathroom"]) .vc-pin__label {
+  color: #bccdc3;
+}
+
+/* ---------------------------------------------------------------- alignment and small fixes */
+/* Home "made to measure" band: the band is inset by the frame, so its content keeps the page edge. */
+:root:not(#vc)[data-page="home"][data-page][data-page][data-page] main section#services > .wrap {
+  padding-left: calc(var(--content-edge) - clamp(8px, 1.2vw, 16px)) !important;
+  padding-right: calc(var(--content-edge) - clamp(8px, 1.2vw, 16px)) !important;
+}
+/* Quote form: the tick of the chosen answer stays white on the green circle. */
+:root:not(#vc)[data-page][data-page][data-page] .vc-quote .is-on .vc-quote__radio,
+:root:not(#vc)[data-page][data-page][data-page] .vc-quote .is-on .vc-quote__radio * {
+  color: #ffffff !important;
+}
+/* Article: the contents list and the text form one block centred in the page. */
+:root[data-page] main .vc-article-layout {
+  justify-content: center;
+}
+:root[data-page] main .vc-article-layout > div {
+  max-width: 760px !important;
+}

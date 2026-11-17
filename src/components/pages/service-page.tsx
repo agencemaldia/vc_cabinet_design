@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { SampleBadge } from "@/components/sections/blocks";
 import { DesignFaq } from "@/components/sections/design-faq";
+import { ProjectFacts } from "@/components/sections/project-facts";
 import { ReadMore } from "@/components/sections/read-more";
 import {
   GreenBento,
@@ -117,19 +118,25 @@ const TILE: CSSProperties = {
 
 /**
  * A realized project: the before/after comparator on one side and the project's story on the other — title,
- * place, then four facts (needs, work, materials, result) — the sides
+ * place, the four key facts (needs, work, materials, result) and the three others under "See the details" — the sides
  * alternating from one project to the next.
  */
 function ProjectBlock({ project, lang, flip }: { project: Project; lang: Locale; flip: boolean }) {
   const t = project.text[lang];
   const labels = PROJECT_LABELS[lang];
   const c = COMMON[lang];
-  // Four facts are enough to tell the project; the full story stays in the content file.
-  const facts: [string, string][] = [
+  const d = DESIGN[lang];
+  // The four key facts are shown; the other three of the specification unfold under them.
+  const main: [string, string][] = [
     [labels.needs, t.needs],
     [labels.work, t.work],
     [labels.materials, t.materials],
     [labels.result, t.result],
+  ];
+  const more: [string, string][] = [
+    [labels.context, t.context],
+    [labels.initial, t.initial],
+    [labels.methods, t.methods],
   ];
   return (
     <article className={`vc-proj${flip ? " is-flip" : ""}`}>
@@ -151,14 +158,7 @@ function ProjectBlock({ project, lang, flip }: { project: Project; lang: Locale;
           <h3>{t.title}</h3>
           <span>{t.location}</span>
         </header>
-        <dl>
-          {facts.map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
+        <ProjectFacts main={main} more={more} labels={{ more: d.projectMore, less: d.readLess }} />
       </div>
     </article>
   );

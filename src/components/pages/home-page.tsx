@@ -543,8 +543,15 @@ export function HomePage({ lang }: { lang: Locale }) {
                 >
                   {p.title}
                 </h3>
+                <p
+                  className="vc-tile-excerpt"
+                  {...ds({ margin: "0", fontSize: "15px", lineHeight: "1.6", color: "#5E636B" })}
+                >
+                  {p.excerpt}
+                </p>
                 <span
                   {...ds({
+                    marginTop: "auto",
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "8px",

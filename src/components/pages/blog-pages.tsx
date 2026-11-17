@@ -281,18 +281,33 @@ export function BlogIndexPage({ lang }: { lang: Locale }) {
 }
 
 /** Article body in the original design: lead paragraph, numbered h2s, lists, and the green call-to-action box. */
-function Body({ blocks, lang, cta }: { blocks: Block[]; lang: Locale; cta: ReactNode }) {
-  let h2 = 0;
+function Body({
+  blocks,
+  lang,
+  cta,
+  photo,
+}: {
+  blocks: Block[];
+  lang: Locale;
+  cta: ReactNode;
+  photo?: { src: string; alt: string };
+}) {
   const firstP = blocks.findIndex((b) => b.type === "p");
   const h2Indexes = blocks.flatMap((b, i) => (b.type === "h2" ? [i] : []));
-  // The design places its call to action between the second and third sections.
+  // The design places its call to action between the second and third sections, and the photo before the second.
   const ctaAt = h2Indexes[2] ?? blocks.length;
+  const photoAt = photo ? (h2Indexes[1] ?? -1) : -1;
+  const figure = photo && (
+    <figure key="photo" className="vc-article-photo">
+      <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" width={1920} height={1280} />
+    </figure>
+  );
   return (
     <>
       {blocks.map((b, i) => {
         const node = (() => {
           if (b.type === "h2") {
-            h2 += 1;
+            const h2 = h2Indexes.indexOf(i) + 1;
             return (
               <h2
                 key={i}
@@ -362,6 +377,7 @@ function Body({ blocks, lang, cta }: { blocks: Block[]; lang: Locale; cta: React
             </p>
           );
         })();
+        if (i === photoAt) return [figure, node];
         return i === ctaAt ? [<div key={`cta-${i}`}>{cta}</div>, node] : node;
       })}
       {ctaAt >= blocks.length && cta}
@@ -676,7 +692,12 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
               </div>
             </aside>
             <div {...ds({ flex: "3 1 480px", maxWidth: "700px", minWidth: "0" })}>
-              <Body blocks={post.body} lang={lang} cta={cta} />
+              <Body
+                blocks={post.body}
+                lang={lang}
+                cta={cta}
+                photo={post.photo && { src: post.photo.src, alt: post.photo.alt[lang] }}
+              />
             </div>
           </div>
         </article>

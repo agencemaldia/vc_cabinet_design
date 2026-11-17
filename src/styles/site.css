@@ -2765,3 +2765,33 @@ a:hover .vc-more::after {
 :root[data-page][data-page][data-page] main {
   animation-fill-mode: backwards !important;
 }
+
+/* Project story: the three extra facts unfold under the four key ones, continuing the same list. */
+.vc-proj__story dl.vc-proj__more {
+  border-top: 0;
+}
+.vc-proj__story .vc-readmore {
+  margin-top: 16px;
+}
+
+/* Home article tiles: a short excerpt under the title (specification §2, section 6), three lines at most. */
+.vc-tile-excerpt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Article body photo (specification §5): full width of the text column, same 6px rounding as the cards. */
+:root[data-page="article"] main .vc-article-photo {
+  margin: 40px 0 0;
+}
+:root[data-page="article"] main .vc-article-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 6px;
+}

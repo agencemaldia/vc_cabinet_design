@@ -40,6 +40,8 @@ export type RawPost = {
   category: CategoryKey;
   date: string;
   cover: string;
+  /** A second photo shown inside the article, before its second section. */
+  photo?: { src: string; alt: Record<Locale, string> };
   text: Record<Locale, PostText>;
 };
 
@@ -59,6 +61,14 @@ export const POSTS: RawPost[] = [
     category: "kitchen",
     date: "2026-11-10",
     cover: "/images/kitchen-renovation-white-island.webp?v=2",
+    photo: {
+      src: "/images/kitchen-renovation-island-pendants.webp",
+      alt: {
+        fr: "Cuisine blanche avec îlot en granit et électroménagers inox",
+        en: "White kitchen with a granite island and stainless appliances",
+        es: "Cocina blanca con isla de granito y electrodomésticos de acero inoxidable",
+      },
+    },
     text: {
       fr: {
         title: "Rénovation de cuisine : les étapes à connaître avant de commencer",
@@ -209,6 +219,14 @@ export const POSTS: RawPost[] = [
     category: "trends",
     date: "2026-10-31",
     cover: "/images/small-kitchen-smart-storage.webp?v=2",
+    photo: {
+      src: "/images/kitchen-bathroom-renovation-tampa-bay.webp",
+      alt: {
+        fr: "Petite cuisine en L avec armoires blanches jusqu’au plafond",
+        en: "Small L-shaped kitchen with white cabinets up to the ceiling",
+        es: "Cocina pequeña en L con gabinetes blancos hasta el techo",
+      },
+    },
     text: {
       fr: {
         title: "Optimiser l’espace dans une petite cuisine",
@@ -331,6 +349,14 @@ export const POSTS: RawPost[] = [
     category: "bathroom",
     date: "2026-10-20",
     cover: "/images/bathroom-renovation-floating-vanity.webp?v=2",
+    photo: {
+      src: "/images/bathroom-freestanding-bathtub-white-wall.webp",
+      alt: {
+        fr: "Salle de bain claire avec bain autoportant près d’une fenêtre",
+        en: "Bright bathroom with a freestanding tub by a window",
+        es: "Baño luminoso con bañera exenta junto a una ventana",
+      },
+    },
     text: {
       fr: {
         title: "Rénover une salle de bain en Floride : bien gérer l’humidité",
@@ -457,6 +483,14 @@ export const POSTS: RawPost[] = [
     category: "materials",
     date: "2026-10-08",
     cover: "/images/kitchen-countertop-quartz.webp?v=2",
+    photo: {
+      src: "/images/custom-kitchen-renovation-tampa.webp",
+      alt: {
+        fr: "Îlot en pierre veinée et comptoirs foncés dans une cuisine blanche",
+        en: "Veined stone island and dark countertops in a white kitchen",
+        es: "Isla de piedra veteada y encimeras oscuras en una cocina blanca",
+      },
+    },
     text: {
       fr: {
         title: "Quartz, granit ou marbre : quel comptoir choisir ?",
@@ -596,6 +630,14 @@ export const POSTS: RawPost[] = [
     category: "bathroom",
     date: "2026-09-26",
     cover: "/images/bathroom-freestanding-tub.webp?v=2",
+    photo: {
+      src: "/images/bathroom-renovation-wood-vanity-glass-shower.webp",
+      alt: {
+        fr: "Grande douche vitrée à côté d’un meuble-lavabo en bois et marbre",
+        en: "Large glass shower next to a wood and marble vanity",
+        es: "Gran ducha de vidrio junto a un mueble de madera y mármol",
+      },
+    },
     text: {
       fr: {
         title: "Baignoire ou douche : que choisir pour votre salle de bain ?",
@@ -707,6 +749,14 @@ export const POSTS: RawPost[] = [
     category: "tips",
     date: "2026-09-12",
     cover: "/images/bathroom-freestanding-bathtub-white-wall.webp",
+    photo: {
+      src: "/images/kitchen-renovation-white-island.webp?v=2",
+      alt: {
+        fr: "Cuisine rénovée avec armoires blanches et îlot central",
+        en: "Renovated kitchen with white cabinets and a central island",
+        es: "Cocina remodelada con gabinetes blancos e isla central",
+      },
+    },
     text: {
       fr: {
         title: "Comment préparer votre maison pour une rénovation",

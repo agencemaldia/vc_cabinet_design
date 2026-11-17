@@ -1,142 +1,146 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 
 type Item = { title: string; text: string };
-type BlockProps = { id: string; title: string; lead: string; items: Item[]; images: string[] };
+export type BlockProps = { id: string; title: string; lead: string; items: Item[]; images: string[] };
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
-/** Section title and lead, in the design's section-head style. */
-function Head({ id, title, lead }: { id: string; title: string; lead: string }) {
+/** True once the element has entered the screen (then stays true): starts the entrance animations. */
+function useInView<T extends Element>(): [RefObject<T | null>, boolean] {
+  const ref = useRef<T>(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, seen];
+}
+
+/** Section title on the left, its lead on the right. */
+function Head({ id, title, lead, light }: { id: string; title: string; lead: string; light?: boolean }) {
   return (
-    <div className="vc-gb__head">
+    <div className={`vc-gb__head${light ? " is-light" : ""}`}>
       <h2 id={`${id}-title`}>{title}</h2>
       <p>{lead}</p>
     </div>
   );
 }
 
+/* ------------------------------------------------------------------ 1. Bento */
+
 /**
- * Bento modules: each module is a 4 × 2 grid holding four cards and one tall photo — two cards span two
- * columns, two are single — so sizes vary while every module stays a clean rectangle (tops and bottoms
- * aligned). Modules alternate (photo on the right, then on the left). Missing cards become photos.
- * Grid areas: row-start / column-start / row-end / column-end.
+ * Green cards of varied widths on a 4-column grid, three per row — one wide card that switches sides from row to
+ * row — so every row is a clean line. Cards rise in one after the other when the grid enters the screen.
  */
-const MODULES: { photo: string; cards: string[] }[] = [
-  { photo: "1 / 4 / 3 / 5", cards: ["1 / 1 / 2 / 3", "1 / 3 / 2 / 4", "2 / 1 / 3 / 2", "2 / 2 / 3 / 4"] },
-  { photo: "1 / 1 / 3 / 2", cards: ["1 / 2 / 2 / 3", "1 / 3 / 2 / 5", "2 / 2 / 3 / 4", "2 / 4 / 3 / 5"] },
-];
-
-export function GreenBento({ id, title, lead, items, images }: BlockProps) {
-  const groups: Item[][] = [];
-  for (let i = 0; i < items.length; i += 4) groups.push(items.slice(i, i + 4));
-  let photo = 0;
-  const nextPhoto = () => images[photo++ % images.length]!;
-
+export function GreenBento({ id, title, lead, items }: BlockProps) {
+  const [ref, seen] = useInView<HTMLUListElement>();
+  const spans: number[] = [];
+  for (let start = 0; start < items.length; start += 3) {
+    const left = items.length - start;
+    const row = start / 3;
+    if (left === 1) spans.push(4);
+    else if (left === 2) spans.push(2, 2);
+    else spans.push(...(row % 2 === 0 ? [2, 1, 1] : [1, 1, 2]));
+  }
   return (
     <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
       <div className="wrap">
         <Head id={id} title={title} lead={lead} />
-        <div className="vc-bento">
-          {groups.map((group, g) => {
-            const m = MODULES[g % MODULES.length]!;
-            return (
-              <ul key={g} className="vc-bento__module">
-                <li className="vc-bento__photo is-tall" aria-hidden="true" style={{ gridArea: m.photo }}>
-                  <img src={nextPhoto()} alt="" loading="lazy" decoding="async" />
-                </li>
-                {m.cards.map((area, k) => {
-                  const it = group[k];
-                  const index = g * 4 + k;
-                  const [, colStart, , colEnd] = area.split(" / ").map(Number);
-                  const wide = colEnd! - colStart! > 1;
-                  if (!it)
-                    return (
-                      <li key={k} className="vc-bento__photo" aria-hidden="true" style={{ gridArea: area }}>
-                        <img src={nextPhoto()} alt="" loading="lazy" decoding="async" />
-                      </li>
-                    );
-                  return (
-                    <li
-                      key={k}
-                      className={`vc-bento__card${wide ? " is-wide" : ""}${index % 3 === 1 ? " is-deep" : ""}`}
-                      style={{ gridArea: area }}
-                    >
-                      <span className="vc-bento__n">{num(index)}</span>
-                      <h3>{it.title}</h3>
-                      <p>{it.text}</p>
-                    </li>
-                  );
-                })}
-              </ul>
-            );
-          })}
-        </div>
+        <ul ref={ref} className={`vc-bento${seen ? " is-in" : ""}`}>
+          {items.map((it, i) => (
+            <li
+              key={it.title}
+              className={`vc-bento__card${spans[i]! >= 2 ? " is-wide" : ""}${i % 3 === 1 ? " is-deep" : ""}`}
+              style={{ gridColumn: `span ${spans[i]}`, "--i": i } as CSSProperties}
+            >
+              <span className="vc-bento__n">{num(i)}</span>
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
 }
 
-/** How long a point stays shown before the next one (when nobody is interacting). */
-const ROTATE_MS = 7000;
+/* ------------------------------------------------------------------ 2. Scroll-driven list + preview */
 
 /**
- * Numbered list + preview: on the left the points as large numbered lines (the current one in full colour, with
- * a green bar that fills while it is shown); on the right a photo with a "01 / 06" counter, then the point's
- * title and text. Points move on by themselves, stop while the visitor hovers or picks one, and never move for
- * those who ask their device for reduced motion. Stacked on phones.
+ * The list stays on screen while the page scrolls: each step of scrolling moves to the next point (01 → 06),
+ * the photo, counter and text following; after the last point the page goes on. Clicking a point scrolls to
+ * it. On phones and with reduced motion, every point is simply listed with its text.
  */
-export function GreenTabs({ id, title, lead, items, images }: BlockProps) {
+export function ScrollTabs({ id, title, lead, items, images }: BlockProps) {
+  const track = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [held, setHeld] = useState(false);
-  const [still, setStill] = useState(true);
 
   useEffect(() => {
-    const q = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setStill(q.matches);
-    sync();
-    q.addEventListener("change", sync);
-    return () => q.removeEventListener("change", sync);
-  }, []);
+    const el = track.current;
+    if (!el) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const r = el.getBoundingClientRect();
+      const run = el.offsetHeight - window.innerHeight;
+      const p = run > 0 ? Math.min(0.9999, Math.max(0, -r.top / run)) : 0;
+      setActive(Math.floor(p * items.length));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [items.length]);
+
+  const goTo = (i: number) => {
+    const el = track.current;
+    if (!el) return;
+    const run = el.offsetHeight - window.innerHeight;
+    const top = el.getBoundingClientRect().top + window.scrollY + ((i + 0.5) / items.length) * run;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
   const it = items[active]!;
-  const playing = !still && !held;
-
   return (
     <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
       <div className="wrap">
         <Head id={id} title={title} lead={lead} />
-        <div className="vc-tabs" onMouseEnter={() => setHeld(true)} onMouseLeave={() => setHeld(false)}>
-          <ol className="vc-tabs__list">
+      </div>
+      <div ref={track} className="vc-stabs" style={{ "--n": items.length } as CSSProperties}>
+        <div className="vc-stabs__stage wrap">
+          <ol className="vc-stabs__list">
             {items.map((x, i) => (
-              <li key={x.title} className={i === active ? "is-active" : undefined}>
-                <button
-                  type="button"
-                  aria-current={i === active ? "true" : undefined}
-                  onClick={() => {
-                    setActive(i);
-                    setHeld(true);
-                  }}
-                  onFocus={() => setActive(i)}
-                >
-                  <span className="vc-tabs__n">{num(i)}</span>
-                  <span className="vc-tabs__t">{x.title}</span>
+              <li key={x.title} className={`${i === active ? "is-active" : ""}${i < active ? " is-done" : ""}`}>
+                <button type="button" onClick={() => goTo(i)} aria-current={i === active ? "true" : undefined}>
+                  <span className="vc-stabs__n">{num(i)}</span>
+                  <span className="vc-stabs__t">{x.title}</span>
                 </button>
-                {i === active && (
-                  <span
-                    key={`${active}-${playing}`}
-                    className={`vc-tabs__bar${playing ? " is-running" : ""}`}
-                    style={{ "--d": `${ROTATE_MS}ms` } as CSSProperties}
-                    onAnimationEnd={() => setActive((a) => (a + 1) % items.length)}
-                    aria-hidden="true"
-                  />
-                )}
+                <p className="vc-stabs__mobile">{x.text}</p>
               </li>
             ))}
           </ol>
-          <div className="vc-tabs__view" aria-live="polite">
-            <div className="vc-tabs__media">
+          <div className="vc-stabs__view" aria-live="polite">
+            <div className="vc-stabs__media">
               {items.map((x, i) => (
                 <img
                   key={x.title}
@@ -147,15 +151,128 @@ export function GreenTabs({ id, title, lead, items, images }: BlockProps) {
                   className={i === active ? "is-active" : undefined}
                 />
               ))}
-              <span className="vc-tabs__count">
+              <span className="vc-stabs__count">
                 {num(active)} / {num(items.length - 1)}
               </span>
             </div>
-            <div key={active} className="vc-tabs__text">
+            <div key={active} className="vc-stabs__text">
               <h3>{it.title}</h3>
               <p>{it.text}</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ 3. Rows */
+
+/**
+ * Large numbered rows (number, title, text, arrow) that slide in one after the other; hovering a row fills it
+ * with green from the left.
+ */
+export function GreenRows({ id, title, lead, items }: BlockProps) {
+  const [ref, seen] = useInView<HTMLOListElement>();
+  return (
+    <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
+      <div className="wrap">
+        <Head id={id} title={title} lead={lead} />
+        <ol ref={ref} className={`vc-rows${seen ? " is-in" : ""}`}>
+          {items.map((it, i) => (
+            <li key={it.title} style={{ "--i": i } as CSSProperties}>
+              <span className="vc-rows__n">{num(i)}</span>
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+              <span className="vc-rows__arrow" aria-hidden="true">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ 4. Sticky head + stacked tips */
+
+/**
+ * The title and lead stay pinned on the left while the tips scroll past on the right, each a card with a large
+ * outlined number that appears as it reaches the screen.
+ */
+export function GreenTips({ id, title, lead, items }: BlockProps) {
+  return (
+    <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
+      <div className="wrap vc-tips">
+        <div className="vc-tips__head">
+          <h2 id={`${id}-title`}>{title}</h2>
+          <p>{lead}</p>
+        </div>
+        <ol className="vc-tips__list">
+          {items.map((it, i) => (
+            <Tip key={it.title} item={it} i={i} />
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function Tip({ item, i }: { item: Item; i: number }) {
+  const [ref, seen] = useInView<HTMLLIElement>();
+  return (
+    <li ref={ref} className={`vc-tip${seen ? " is-in" : ""}`}>
+      <span className="vc-tip__n" aria-hidden="true">
+        {num(i)}
+      </span>
+      <div>
+        <h3>{item.title}</h3>
+        <p>{item.text}</p>
+      </div>
+    </li>
+  );
+}
+
+/* ------------------------------------------------------------------ 5. Track */
+
+/**
+ * The steps on a deep-green band: a line runs through numbered dots and fills from left to right when the band
+ * enters the screen, each step appearing as the line reaches it. Vertical on phones.
+ */
+export function GreenTrack({ id, title, lead, items }: BlockProps) {
+  const [ref, seen] = useInView<HTMLDivElement>();
+  return (
+    <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
+      <div className="wrap">
+        <Head id={id} title={title} lead={lead} />
+        <div ref={ref} className={`vc-track${seen ? " is-in" : ""}`} style={{ "--n": items.length } as CSSProperties}>
+          <span className="vc-track__line" aria-hidden="true">
+            <i />
+          </span>
+          <ol>
+            {items.map((it, i) => (
+              <li key={it.title} style={{ "--i": i } as CSSProperties}>
+                <span className="vc-track__dot" aria-hidden="true" />
+                <span className="vc-track__n">
+                  {num(i)} / {num(items.length - 1)}
+                </span>
+                <h3>{it.title}</h3>
+                <p>{it.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

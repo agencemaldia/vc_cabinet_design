@@ -1,9 +1,16 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { SampleBadge } from "@/components/sections/blocks";
 import { DesignFaq } from "@/components/sections/design-faq";
-import { GreenBento, GreenTabs } from "@/components/sections/green-blocks";
+import {
+  GreenBento,
+  GreenRows,
+  GreenTips,
+  GreenTrack,
+  ScrollTabs,
+  type BlockProps,
+} from "@/components/sections/green-blocks";
 import { DesignContact } from "@/components/sections/design-contact";
 import { BUSINESS_ID, JsonLd, breadcrumbLd, faqLd } from "@/components/sections/json-ld";
 import { Comparator } from "@/components/site/comparator";
@@ -28,8 +35,15 @@ const INTRO_IMAGE = {
   kitchen: "/images/kitchen-renovation-white-island.webp?v=2",
   bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
 };
-/** Design of each content section, in order (repeats). */
-const DESIGNS = ["bento", "pinned", "tabs"] as const;
+/** Design of each content section, in order: a different one for each (cycles if a page has more). */
+const DESIGNS = ["bento", "pinned", "scroll", "rows", "tips", "track"] as const;
+const BLOCKS = {
+  bento: GreenBento,
+  scroll: ScrollTabs,
+  rows: GreenRows,
+  tips: GreenTips,
+  track: GreenTrack,
+} as const satisfies Record<string, (props: BlockProps) => ReactNode>;
 /** Photos used by the bento grid and the panels. */
 const GALLERY = {
   kitchen: [
@@ -96,8 +110,12 @@ const TILE: CSSProperties = {
   color: "#FFFFFF",
 };
 
-/** A realized project in the design's "From dated to dream." style: wide before/after, then the facts. */
-function ProjectBlock({ project, lang }: { project: Project; lang: Locale }) {
+/**
+ * A realized project: the before/after comparator on one side and the project's story on the other — title,
+ * place, then each fact (presentation, needs, initial state, work, materials, methods, result) — the sides
+ * alternating from one project to the next.
+ */
+function ProjectBlock({ project, lang, flip }: { project: Project; lang: Locale; flip: boolean }) {
   const t = project.text[lang];
   const labels = PROJECT_LABELS[lang];
   const c = COMMON[lang];
@@ -111,79 +129,34 @@ function ProjectBlock({ project, lang }: { project: Project; lang: Locale }) {
     [labels.result, t.result],
   ];
   return (
-    <article {...ds({ display: "flex", flexDirection: "column", gap: "24px" })}>
-      <div
-        {...ds({
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "baseline",
-          justifyContent: "space-between",
-          gap: "8px 24px",
-        })}
-      >
-        <h3
-          {...ds({
-            margin: "0",
-            fontFamily: "var(--font-urbanist), system-ui, sans-serif",
-            fontWeight: "400",
-            fontSize: "clamp(24px, 2.4vw, 36px)",
-            lineHeight: "1.15",
-            color: "#1D2B44",
-          })}
-        >
-          {t.title}
-        </h3>
-        <span
-          {...ds({
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            gap: "12px",
-            fontSize: "14px",
-            color: "#5E636B",
-          })}
-        >
-          {project.draft && <SampleBadge lang={lang} />}
-          {t.location}
-        </span>
+    <article className={`vc-proj${flip ? " is-flip" : ""}`}>
+      <div className="vc-proj__media">
+        <Comparator
+          before={project.before}
+          after={project.after}
+          beforeAlt={`${t.title} — ${c.comparator.before}`}
+          afterAlt={`${t.title} — ${c.comparator.after}`}
+          labels={c.comparator}
+          demo={project.demo}
+          ratio="4 / 3"
+          variant="design"
+        />
       </div>
-      <Comparator
-        before={project.before}
-        after={project.after}
-        beforeAlt={`${t.title} — ${c.comparator.before}`}
-        afterAlt={`${t.title} — ${c.comparator.after}`}
-        labels={c.comparator}
-        demo={project.demo}
-        ratio="16 / 9"
-        variant="design"
-      />
-      <ol
-        {...ds({
-          margin: "0",
-          padding: "0",
-          listStyle: "none",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0",
-          borderTop: "1px solid #C9CDD4",
-        })}
-      >
-        {facts.map(([k, v]) => (
-          <li
-            key={k}
-            {...ds({
-              flex: "1 1 260px",
-              padding: "20px 24px 20px 0",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-            })}
-          >
-            <h4 {...ds({ margin: "0", fontSize: "15px", fontWeight: "700", color: "#1D2B44" })}>{k}</h4>
-            <p {...ds({ margin: "0", fontSize: "15px", lineHeight: "1.55", color: "#5E636B" })}>{v}</p>
-          </li>
-        ))}
-      </ol>
+      <div className="vc-proj__story">
+        <header>
+          {project.draft && <SampleBadge lang={lang} />}
+          <h3>{t.title}</h3>
+          <span>{t.location}</span>
+        </header>
+        <dl>
+          {facts.map(([k, v]) => (
+            <div key={k}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </article>
   );
 }
@@ -494,14 +467,14 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
         </nav>
       </section>
 
-      {/* Content sections in three alternating designs: green bento grid, green pinned statements, and
-          numbered list with a photo preview — flat greens only. */}
+      {/* Content sections, each in its own design: green bento, pinned statements, scroll-driven list,
+          numbered rows, sticky tips and a step track — flat greens only. */}
       {t.sections.map((sec, i) => {
         const items = sec.items.map((it) => ({ title: it.title, text: it.text }));
         const design = DESIGNS[i % DESIGNS.length];
         if (design === "pinned")
           return <PinnedStatements key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} />;
-        const Block = design === "bento" ? GreenBento : GreenTabs;
+        const Block = BLOCKS[design];
         return (
           <Block key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} images={GALLERY[service]} />
         );
@@ -517,8 +490,8 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
             <p {...ds(LEAD)}>{t.projects.intro}</p>
           </div>
           <div {...ds({ display: "flex", flexDirection: "column", gap: "clamp(56px, 7vw, 112px)" })}>
-            {projects.map((p) => (
-              <ProjectBlock key={p.id} project={p} lang={lang} />
+            {projects.map((p, i) => (
+              <ProjectBlock key={p.id} project={p} lang={lang} flip={i % 2 === 1} />
             ))}
           </div>
         </div>

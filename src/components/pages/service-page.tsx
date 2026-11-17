@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 
 import { SampleBadge } from "@/components/sections/blocks";
 import { DesignFaq } from "@/components/sections/design-faq";
-import { GreenBento, GreenPanels } from "@/components/sections/green-blocks";
+import { GreenBento, GreenTabs } from "@/components/sections/green-blocks";
 import { DesignContact } from "@/components/sections/design-contact";
 import { BUSINESS_ID, JsonLd, breadcrumbLd, faqLd } from "@/components/sections/json-ld";
 import { Comparator } from "@/components/site/comparator";
@@ -29,7 +29,7 @@ const INTRO_IMAGE = {
   bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
 };
 /** Design of each content section, in order (repeats). */
-const DESIGNS = ["bento", "pinned", "panels"] as const;
+const DESIGNS = ["bento", "pinned", "tabs"] as const;
 /** Photos used by the bento grid and the panels. */
 const GALLERY = {
   kitchen: [
@@ -495,13 +495,13 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
       </section>
 
       {/* Content sections in three alternating designs: green bento grid, green pinned statements, and
-          expanding photo panels — flat greens only. */}
+          numbered list with a photo preview — flat greens only. */}
       {t.sections.map((sec, i) => {
         const items = sec.items.map((it) => ({ title: it.title, text: it.text }));
         const design = DESIGNS[i % DESIGNS.length];
         if (design === "pinned")
           return <PinnedStatements key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} />;
-        const Block = design === "bento" ? GreenBento : GreenPanels;
+        const Block = design === "bento" ? GreenBento : GreenTabs;
         return (
           <Block key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} images={GALLERY[service]} />
         );

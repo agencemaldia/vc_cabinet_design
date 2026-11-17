@@ -2044,11 +2044,16 @@ a:hover .vc-more::after {
   color: #5e636b;
 }
 
-/* Bento: a regular grid, every card of a row the same height (aligned top and bottom). */
+/* Bento modules (4 columns x 2 rows each): cards of two widths and a tall photo; rows aligned. */
 .vc-bento {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.vc-bento__module {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: minmax(300px, auto);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(280px, auto));
   gap: 16px;
   margin: 0;
   padding: 0;
@@ -2067,6 +2072,9 @@ a:hover .vc-more::after {
 .vc-bento__card.is-deep {
   background: #0e4a42;
 }
+.vc-bento__card.is-wide p {
+  max-width: 520px;
+}
 .vc-bento__n {
   margin-bottom: auto;
   font-size: 13px;
@@ -2080,6 +2088,9 @@ a:hover .vc-more::after {
   font-weight: 500;
   line-height: 1.2;
   color: #ffffff;
+}
+:root:not(#vc)[data-page][data-page][data-page] main .vc-bento__card.is-wide h3 {
+  font-size: clamp(24px, 2.2vw, 34px) !important;
 }
 .vc-bento__card p {
   margin: 0;
@@ -2099,150 +2110,167 @@ a:hover .vc-more::after {
   object-fit: cover;
 }
 @media (max-width: 960px) {
-  .vc-bento {
+  .vc-bento__module {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-rows: minmax(240px, auto);
+  }
+  .vc-bento__module > li {
+    grid-area: auto !important;
+  }
+  .vc-bento__module > .is-wide,
+  .vc-bento__module > .is-tall {
+    grid-column: span 2 !important;
   }
 }
 @media (max-width: 600px) {
-  .vc-bento {
+  .vc-bento__module {
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
   }
-  .vc-bento__card {
-    min-height: 220px;
+  .vc-bento__module > .is-wide,
+  .vc-bento__module > .is-tall {
+    grid-column: auto !important;
   }
   .vc-bento__photo {
-    height: 220px;
+    min-height: 220px;
   }
 }
 
-/* Expanding panels: photos under a flat green veil; the open panel shows its text, the others a vertical title. */
-.vc-panels {
-  display: flex;
-  gap: 12px;
-  height: clamp(460px, 44vw, 640px);
+/* Numbered list + photo preview. */
+.vc-tabs {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.vc-tabs__list {
   margin: 0;
   padding: 0;
   list-style: none;
+  border-top: 1px solid #d5d8de;
 }
-.vc-panel {
+.vc-tabs__list li {
   position: relative;
-  flex: 1 1 0;
-  min-width: 0;
-  overflow: hidden;
-  border-radius: 6px;
-  background: #125a50 var(--img) center / cover no-repeat;
-  color: #ffffff;
-  transition: flex-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid #d5d8de;
 }
-.vc-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(18, 90, 80, 0.78);
-  transition: background-color 0.5s ease;
-}
-.vc-panel.is-open {
-  flex-grow: 5;
-}
-.vc-panel.is-open::before {
-  background: linear-gradient(180deg, rgba(18, 90, 80, 0.35) 0%, rgba(14, 74, 66, 0.92) 100%);
-}
-.vc-panel button {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: block;
+.vc-tabs__list button {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(16px, 2vw, 32px);
   width: 100%;
-  padding: 0;
+  padding: clamp(16px, 1.6vw, 24px) 0;
   border: 0;
   background: none;
-  color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
 }
-.vc-panel__n {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+.vc-tabs__n {
+  flex: none;
+  width: 28px;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  color: #bccdc3;
+  color: #125a50;
 }
-.vc-panel__label {
-  position: absolute;
-  left: 50%;
-  bottom: 24px;
-  max-height: calc(100% - 80px);
-  overflow: hidden;
-  writing-mode: vertical-rl;
-  rotate: 180deg;
-  translate: -50% 0;
-  font-size: 18px;
-  font-weight: 500;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  transition: opacity 0.3s ease;
+.vc-tabs__t {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #a7adb5;
+  transition: color 0.3s ease;
 }
-.vc-panel.is-open .vc-panel__label {
-  opacity: 0;
+.vc-tabs__list li.is-active .vc-tabs__t,
+.vc-tabs__list button:hover .vc-tabs__t {
+  color: #1d2b44;
 }
-.vc-panel__body {
+.vc-tabs__bar {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
-  padding: clamp(24px, 2.6vw, 40px);
-  max-width: 560px;
+  top: -1px;
+  height: 2px;
+  background: #125a50;
+  transform-origin: left;
+}
+.vc-tabs__bar.is-running {
+  animation: vc-tab-fill var(--d) linear both;
+}
+@keyframes vc-tab-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+.vc-tabs__view {
+  position: sticky;
+  top: 110px;
+}
+.vc-tabs__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #125a50;
+}
+.vc-tabs__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
-  translate: 0 12px;
-  pointer-events: none;
-  transition:
-    opacity 0.4s ease,
-    translate 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s ease;
 }
-.vc-panel.is-open .vc-panel__body {
+.vc-tabs__media img.is-active {
   opacity: 1;
-  translate: 0 0;
-  transition-delay: 0.2s;
 }
-:root:not(#vc)[data-page][data-page][data-page] main .vc-panel__body h3 {
-  margin: 0 0 12px;
-  font-size: clamp(22px, 2vw, 30px) !important;
-  font-weight: 500;
-  line-height: 1.2;
+.vc-tabs__count {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: #125a50;
   color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
-.vc-panel__body p {
+.vc-tabs__text {
+  padding-top: 24px;
+  animation: vc-tab-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes vc-tab-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+:root:not(#vc)[data-page][data-page][data-page] main .vc-tabs__text h3 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 2.2vw, 34px) !important;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #1d2b44;
+}
+.vc-tabs__text p {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
+  max-width: 620px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #5e636b;
 }
-@media (max-width: 760px) {
-  .vc-panels {
-    flex-direction: column;
-    height: auto;
+@media (max-width: 900px) {
+  .vc-tabs {
+    grid-template-columns: 1fr;
   }
-  .vc-panel,
-  .vc-panel.is-open {
-    flex: none;
-  }
-  .vc-panel button {
+  .vc-tabs__view {
     position: static;
-    height: 0;
+    order: -1;
   }
-  .vc-panel__label {
-    display: none;
-  }
-  .vc-panel__body,
-  .vc-panel.is-open .vc-panel__body {
-    position: relative;
-    padding-top: 56px;
-    opacity: 1;
-    translate: 0 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vc-tabs__text {
+    animation: none;
   }
 }
 
@@ -2278,4 +2306,14 @@ a:hover .vc-more::after {
 }
 :root[data-page] main .vc-article-layout > div {
   max-width: 760px !important;
+}
+
+/* Service pages: the content sections keep the design's section spacing; right after the "On this page"
+   links the first one starts close, so no empty band opens between them. */
+:root:not(#vc)[data-page][data-page][data-page] main .sec.vc-gb {
+  padding-top: clamp(36px, 4vw, 64px) !important;
+  padding-bottom: clamp(36px, 4vw, 64px) !important;
+}
+:root:not(#vc)[data-page][data-page][data-page] main section:has(.vc-chiplink) + .sec.vc-gb {
+  padding-top: 8px !important;
 }

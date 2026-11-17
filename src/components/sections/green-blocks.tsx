@@ -91,122 +91,218 @@ const RAIL_ICONS = [
 ];
 
 /**
- * Light cards in a row that slides from left to right (drag, swipe, trackpad or the arrows): a photo on top,
- * then the title, a short line, the text and a small icon. The row starts at
- * the content edge and runs to the edge of the screen; a three-part bar shows where you are.
+ * Light cards in an endless row that drifts slowly from left to right: a photo on top, then the title, a short
+ * line, the text and a small icon. The row pauses while hovered, can be dragged (mouse or finger) and moved
+ * card by card with the arrows; a three-part bar shows where you are. The first card lines up with the section
+ * title. The cards are repeated three times so the loop never shows a seam (the copies are hidden from assistive
+ * tech). With reduced motion, the row does not drift.
  */
 export function CardRail({ id, title, lead, items, images }: BlockProps) {
-  const rail = useRef<HTMLUListElement>(null);
-  const [pos, setPos] = useState(0); // 0 → 1 along the row
+  const track = useRef<HTMLUListElement>(null);
   const [ref, seen] = useInView<HTMLDivElement>();
+  const [active, setActive] = useState(0);
   const { t } = useT();
+  // shared with the animation loop
+  const st = useRef<RailState>({ x: 0, set: 0, step: 0, paused: false, drag: null, tween: null });
+  const segments = 3;
 
   useEffect(() => {
-    const el = rail.current;
+    const el = track.current;
     if (!el) return;
-    const update = () => {
-      const max = el.scrollWidth - el.clientWidth;
-      setPos(max > 0 ? el.scrollLeft / max : 0);
-    };
-    // the first card lines up with the section title (the content column edge)
-    const align = () => {
+    const s = st.current;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const SPEED = 28; // px per second, to the right
+
+    const measure = () => {
       const h2 = el.closest("section")?.querySelector("h2");
       if (h2) el.style.setProperty("--rail-edge", `${h2.getBoundingClientRect().left}px`);
-      update();
+      const cards = el.children;
+      const a = cards[0] as HTMLElement | undefined;
+      const b = cards[items.length] as HTMLElement | undefined;
+      const c = cards[1] as HTMLElement | undefined;
+      if (!a || !b || !c) return;
+      const old = s.set;
+      s.set = b.offsetLeft - a.offsetLeft; // width of one set of cards
+      s.step = c.offsetLeft - a.offsetLeft; // one card and its gap
+      s.x = old ? (s.x / old) * s.set : -s.set; // start on the middle set
     };
-    align();
-    el.scrollLeft = 0; // start on the first card
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", align);
-    return () => {
-      el.removeEventListener("scroll", update);
-      window.removeEventListener("resize", align);
+    const wrap = () => {
+      if (!s.set) return;
+      while (s.x > 0) s.x -= s.set;
+      while (s.x <= -2 * s.set) s.x += s.set;
     };
-  }, []);
+    const paint = () => {
+      el.style.transform = `translate3d(${s.x}px, 0, 0)`;
+      if (!s.set) return;
+      const p = ((((-s.x - s.set) % s.set) + s.set) % s.set) / s.set; // 0 → 1 within one set
+      const seg = Math.min(segments - 1, Math.floor(p * segments));
+      setActive((cur) => (cur === seg ? cur : seg));
+    };
 
-  // drag with the mouse (touch and trackpads scroll natively)
-  const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
-  const onDown = (e: PointerEvent) => {
-    if (e.pointerType !== "mouse" || !rail.current) return;
-    drag.current = { x: e.clientX, left: rail.current.scrollLeft, moved: false };
-    rail.current.classList.add("is-drag");
+    let frame = 0;
+    let last = 0;
+    let visible = false;
+    const tick = (now: number) => {
+      const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+      last = now;
+      if (s.tween) {
+        const k = Math.min(1, (now - s.tween.t0) / 650);
+        const e = 1 - Math.pow(1 - k, 3);
+        s.x = s.tween.from + (s.tween.to - s.tween.from) * e;
+        if (k >= 1) s.tween = null;
+      } else if (!still && !s.paused && !s.drag) {
+        s.x += SPEED * dt;
+      }
+      if (!s.tween) wrap();
+      paint();
+      frame = visible ? requestAnimationFrame(tick) : 0;
+    };
+    const start = () => {
+      if (!frame) {
+        last = 0;
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    measure();
+    paint();
+    const io = new IntersectionObserver(([en]) => {
+      visible = !!en?.isIntersecting;
+      if (visible) start();
+    });
+    io.observe(el);
+    const onResize = () => {
+      measure();
+      wrap();
+      paint();
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      io.disconnect();
+      window.removeEventListener("resize", onResize);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [items.length]);
+
+  const onDown = (e: PointerEvent<HTMLUListElement>) => {
+    const s = st.current;
+    s.tween = null;
+    s.drag = { px: e.clientX, x: s.x };
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // pointer already released
+    }
+    e.currentTarget.classList.add("is-drag");
   };
-  const onMove = (e: PointerEvent) => {
-    const d = drag.current;
-    if (!d || !rail.current) return;
-    const dx = e.clientX - d.x;
-    if (Math.abs(dx) > 4) d.moved = true;
-    rail.current.scrollLeft = d.left - dx;
+  const onMove = (e: PointerEvent<HTMLUListElement>) => {
+    const s = st.current;
+    if (s.drag) s.x = s.drag.x + (e.clientX - s.drag.px);
   };
-  const onUp = () => {
-    drag.current = null;
-    rail.current?.classList.remove("is-drag");
+  const onUp = (e: PointerEvent<HTMLUListElement>) => {
+    st.current.drag = null;
+    e.currentTarget.classList.remove("is-drag");
   };
 
   const go = (dir: 1 | -1) => {
-    const el = rail.current;
-    const card = el?.firstElementChild as HTMLElement | null;
-    if (!el || !card) return;
-    el.scrollBy({ left: dir * (card.offsetWidth + 16), behavior: "smooth" });
+    const s = st.current;
+    if (!s.step) return;
+    // "next" brings in the card on the right, so the row moves left
+    s.tween = { from: s.x, to: s.x - dir * s.step, t0: performance.now() };
   };
 
-  const segments = 3;
-  const active = Math.min(segments - 1, Math.round(pos * (segments - 1)));
+  const copies = [0, 1, 2];
   return (
     <section className="sec vc-gb vc-railsec" id={id} aria-labelledby={`${id}-title`}>
       <div className="wrap">
         <Head id={id} title={title} lead={lead} />
       </div>
-      <div ref={ref} className={`vc-rail${seen ? " is-in" : ""}`}>
+      <div
+        ref={ref}
+        className={`vc-rail${seen ? " is-in" : ""}`}
+        onPointerEnter={(e) => {
+          if (e.pointerType === "mouse") st.current.paused = true;
+        }}
+        onPointerLeave={() => {
+          st.current.paused = false;
+        }}
+      >
         <ul
-          ref={rail}
+          ref={track}
           className="vc-rail__track"
           onPointerDown={onDown}
           onPointerMove={onMove}
           onPointerUp={onUp}
-          onPointerLeave={onUp}
+          onPointerCancel={onUp}
         >
-          {items.map((it, i) => (
-            <li key={it.title} className="vc-rail__card" style={{ "--i": i } as CSSProperties}>
-              <img src={images[i % images.length]} alt="" loading="lazy" decoding="async" draggable={false} />
-              <div className="vc-rail__body">
-                <h3>{it.title}</h3>
-                <span className="vc-rail__dash" aria-hidden="true" />
-                <p>{it.text}</p>
-                <span className="vc-rail__icon" aria-hidden="true">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d={RAIL_ICONS[i % RAIL_ICONS.length]} />
-                  </svg>
-                </span>
-              </div>
-            </li>
-          ))}
+          {copies.flatMap((copy) =>
+            items.map((it, i) => (
+              <li
+                key={`${copy}-${it.title}`}
+                className="vc-rail__card"
+                aria-hidden={copy === 1 ? undefined : true}
+                style={{ "--i": i } as CSSProperties}
+              >
+                <img src={images[i % images.length]} alt="" loading="lazy" decoding="async" draggable={false} />
+                <div className="vc-rail__body">
+                  <h3>{it.title}</h3>
+                  <span className="vc-rail__dash" aria-hidden="true" />
+                  <p>{it.text}</p>
+                  <span className="vc-rail__icon" aria-hidden="true">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d={RAIL_ICONS[i % RAIL_ICONS.length]} />
+                    </svg>
+                  </span>
+                </div>
+              </li>
+            )),
+          )}
         </ul>
         <div className="vc-rail__nav wrap">
           <div className="vc-rail__arrows">
-            <button type="button" onClick={() => go(-1)} disabled={pos <= 0.001} aria-label={t("Previous")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <button type="button" onClick={() => go(-1)} aria-label={t("Previous")}>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M19 12H5M11 6l-6 6 6 6" />
               </svg>
             </button>
-            <button type="button" onClick={() => go(1)} disabled={pos >= 0.999} aria-label={t("Next")}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <button type="button" onClick={() => go(1)} aria-label={t("Next")}>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </button>
           </div>
           <div className="vc-rail__bar" aria-hidden="true">
-            {Array.from({ length: segments }, (_, s) => (
-              <span key={s} className={s === active ? "is-on" : undefined} />
+            {Array.from({ length: segments }, (_, n) => (
+              <span key={n} className={n === active ? "is-on" : undefined} />
             ))}
           </div>
         </div>
@@ -214,6 +310,15 @@ export function CardRail({ id, title, lead, items, images }: BlockProps) {
     </section>
   );
 }
+
+type RailState = {
+  x: number;
+  set: number;
+  step: number;
+  paused: boolean;
+  drag: { px: number; x: number } | null;
+  tween: { from: number; to: number; t0: number } | null;
+};
 
 /* ------------------------------------------------------------------ 2. Scroll-driven list + preview */
 

@@ -2798,24 +2798,22 @@ a:hover .vc-more::after {
 
 /* ---------------------------------------------------------------- card rail (kitchen: work we do) */
 /* Light cards in a row sliding left ↔ right, starting at the content edge and running to the screen edge. */
+.vc-rail {
+  overflow: hidden;
+}
 .vc-rail__track {
   display: flex;
   gap: 16px;
+  width: max-content;
   margin: 0;
-  padding: 0 var(--rail-edge, var(--content-edge)) 4px;
+  padding: 0 0 4px var(--rail-edge, var(--content-edge));
   list-style: none;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--rail-edge, var(--content-edge));
-  scrollbar-width: none;
+  will-change: transform;
+  touch-action: pan-y;
   cursor: grab;
   user-select: none;
 }
-.vc-rail__track::-webkit-scrollbar {
-  display: none;
-}
 .vc-rail__track.is-drag {
-  scroll-snap-type: none;
   cursor: grabbing;
 }
 .vc-rail__card {
@@ -2826,7 +2824,6 @@ a:hover .vc-more::after {
   padding: 22px;
   border-radius: 6px;
   background: #eff0f2;
-  scroll-snap-align: start;
   opacity: 0;
   transition:
     opacity 0.7s ease calc(var(--i, 0) * 90ms),

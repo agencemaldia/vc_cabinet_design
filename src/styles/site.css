@@ -2487,121 +2487,84 @@ a:hover .vc-more::after {
   }
 }
 
-/* 5. Track: a deep-green band, a line filling through numbered dots, steps appearing as it passes. */
-.vc-track {
-  position: relative;
-  padding: clamp(32px, 4vw, 56px);
-  border-radius: 6px;
-  background: #0e4a42;
-  color: #ffffff;
-}
-.vc-track__line {
-  position: absolute;
-  left: clamp(32px, 4vw, 56px);
-  right: clamp(32px, 4vw, 56px);
-  top: calc(clamp(32px, 4vw, 56px) + 7px);
-  height: 2px;
-  background: rgba(255, 255, 255, 0.18);
-}
-.vc-track__line i {
-  position: absolute;
-  inset: 0;
-  background: #bccdc3;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 2.2s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.vc-track.is-in .vc-track__line i {
-  transform: scaleX(1);
-}
-.vc-track ol {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 32px);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.vc-track li {
+/* 5. Stacking cards: each step sticks at the top, the next slides over it a little lower. */
+.vc-stack {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  opacity: 0;
-  translate: 0 16px;
-  transition:
-    opacity 0.6s ease calc(var(--i) * 2.2s / var(--n)),
-    translate 0.8s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 2.2s / var(--n));
+  gap: 24px;
+  margin: 0;
+  padding: 0 0 40px;
+  list-style: none;
 }
-.vc-track.is-in li {
-  opacity: 1;
-  translate: 0 0;
+.vc-stack li {
+  position: sticky;
+  top: calc(110px + var(--i) * 22px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 72px);
+  min-height: clamp(260px, 30vw, 380px);
+  padding: clamp(28px, 4vw, 64px);
+  border-radius: 6px;
+  background: #125a50;
+  color: #ffffff;
+  box-shadow: 0 -18px 40px -24px rgba(8, 30, 26, 0.55);
 }
-.vc-track__dot {
-  width: 16px;
-  height: 16px;
-  margin-bottom: 14px;
-  border: 2px solid #bccdc3;
-  border-radius: 50%;
+.vc-stack li.is-deep {
   background: #0e4a42;
-  box-shadow: 0 0 0 6px rgba(188, 205, 195, 0.14);
 }
-.vc-track__n {
+.vc-stack__n {
+  font-size: clamp(96px, 12vw, 180px);
+  font-weight: 600;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: rgba(188, 205, 195, 0.35);
+}
+.vc-stack__step {
+  display: block;
+  margin-bottom: 14px;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: #bccdc3;
 }
-:root:not(#vc)[data-page][data-page][data-page] main .vc-track h3 {
-  margin: 0;
-  font-size: clamp(18px, 1.5vw, 22px) !important;
-  font-weight: 500;
-  line-height: 1.25;
+:root:not(#vc)[data-page][data-page][data-page] main .vc-stack h3 {
+  margin: 0 0 14px;
+  font-size: clamp(26px, 2.8vw, 42px) !important;
+  font-weight: 400;
+  line-height: 1.1;
   color: #ffffff;
 }
-.vc-track p {
+.vc-stack p {
   margin: 0;
-  font-size: 14px;
+  max-width: 560px;
+  font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
 }
-@media (max-width: 1180px) {
-  .vc-track ol {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: 40px;
-  }
-  .vc-track__line {
-    display: none;
-  }
-}
-@media (max-width: 700px) {
-  .vc-track ol {
+@media (max-width: 760px) {
+  .vc-stack li {
     grid-template-columns: 1fr;
-    row-gap: 28px;
-    padding-left: 28px;
-    border-left: 2px solid rgba(255, 255, 255, 0.18);
+    top: calc(90px + var(--i) * 14px);
+    min-height: 0;
   }
-  .vc-track li {
-    position: relative;
-  }
-  .vc-track__dot {
-    position: absolute;
-    left: -38px;
-    top: 2px;
-    margin: 0;
+  .vc-stack__n {
+    font-size: 72px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .vc-stack li {
+    position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
   .vc-bento__card,
   .vc-rows li,
-  .vc-tip,
-  .vc-track li {
+  .vc-tip {
     opacity: 1 !important;
     translate: none !important;
     transition: none !important;
-  }
-  .vc-track__line i {
-    transform: none;
   }
 }
 
@@ -2725,4 +2688,59 @@ a:hover .vc-more::after {
 }
 :root:not(#vc)[data-page][data-page][data-page] main section:has(.vc-chiplink) + .sec.vc-gb {
   padding-top: 8px !important;
+}
+
+/* ---------------------------------------------------------------- feedback pass 4 */
+/* Before/after: labels, handle and the "sample" badge rounded like the rest of the design. */
+:root:not(#vc)[data-page][data-page][data-page] .vc-cmp.is-design .vc-cmp__tag,
+:root:not(#vc)[data-page][data-page][data-page] .vc-cmp.is-design .vc-cmp__handle {
+  border-radius: 6px !important;
+}
+:root:not(#vc)[data-page][data-page][data-page] .vc-sample {
+  border-radius: 6px !important;
+}
+/* Practical tips: plain green numbers. */
+.vc-tip__n {
+  color: #125a50 !important;
+  -webkit-text-stroke: 0 !important;
+}
+/* Method (pinned statements): the point titles larger. */
+:root:not(#vc)[data-page][data-page][data-page][data-page] main .vc-pin__item h3 {
+  font-size: clamp(32px, 4.2vw, 64px) !important;
+  line-height: 1.05 !important;
+  max-width: 900px;
+}
+:root:not(#vc)[data-page][data-page][data-page][data-page] main .vc-pin__item p {
+  font-size: clamp(16px, 1.3vw, 19px) !important;
+  max-width: 640px;
+}
+/* Scroll-driven list: photos change with a slow cross-fade and a gentle zoom. */
+.vc-stabs__media img {
+  transition:
+    opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+    scale 1.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.vc-stabs__text {
+  animation-duration: 0.8s !important;
+}
+/* "Read more" under a folded introduction. */
+.vc-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: #125a50;
+  cursor: pointer;
+}
+.vc-readmore svg {
+  transition: rotate 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vc-readmore[aria-expanded="true"] svg {
+  rotate: 180deg;
 }

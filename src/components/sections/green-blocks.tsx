@@ -245,35 +245,33 @@ function Tip({ item, i }: { item: Item; i: number }) {
   );
 }
 
-/* ------------------------------------------------------------------ 5. Track */
+/* ------------------------------------------------------------------ 5. Stacking cards */
 
 /**
- * The steps on a deep-green band: a line runs through numbered dots and fills from left to right when the band
- * enters the screen, each step appearing as the line reaches it. Vertical on phones.
+ * The steps as large cards that stay pinned at the top while the next one slides up over them (each a little
+ * lower than the previous), so the process piles up as the visitor scrolls. Big number, title and text.
  */
-export function GreenTrack({ id, title, lead, items }: BlockProps) {
-  const [ref, seen] = useInView<HTMLDivElement>();
+export function GreenStack({ id, title, lead, items }: BlockProps) {
   return (
     <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
       <div className="wrap">
         <Head id={id} title={title} lead={lead} />
-        <div ref={ref} className={`vc-track${seen ? " is-in" : ""}`} style={{ "--n": items.length } as CSSProperties}>
-          <span className="vc-track__line" aria-hidden="true">
-            <i />
-          </span>
-          <ol>
-            {items.map((it, i) => (
-              <li key={it.title} style={{ "--i": i } as CSSProperties}>
-                <span className="vc-track__dot" aria-hidden="true" />
-                <span className="vc-track__n">
+        <ol className="vc-stack">
+          {items.map((it, i) => (
+            <li key={it.title} className={i % 2 === 1 ? "is-deep" : undefined} style={{ "--i": i } as CSSProperties}>
+              <span className="vc-stack__n" aria-hidden="true">
+                {num(i)}
+              </span>
+              <div>
+                <span className="vc-stack__step">
                   {num(i)} / {num(items.length - 1)}
                 </span>
                 <h3>{it.title}</h3>
                 <p>{it.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

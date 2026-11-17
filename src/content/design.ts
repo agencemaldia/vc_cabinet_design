@@ -24,6 +24,7 @@ export const DESIGN: Record<
     blogTitle: string;
     allArticles: string;
     readMore: string;
+    readLess: string;
     contactTitle: string;
     contactLede: string;
     phone: string;
@@ -57,6 +58,7 @@ export const DESIGN: Record<
     blogTitle: "Des idées pour votre maison.",
     allArticles: "Tous les articles",
     readMore: "Lire la suite",
+    readLess: "Réduire",
     contactTitle: "Travaillons ensemble !",
     contactLede:
       "Parlez-nous de votre projet. Un designer vous appellera sous 24 heures ouvrables pour planifier une visite et des mesures gratuites à domicile.",
@@ -91,6 +93,7 @@ export const DESIGN: Record<
     blogTitle: "Ideas for your home.",
     allArticles: "All articles",
     readMore: "Read more",
+    readLess: "Show less",
     contactTitle: "Let’s work together!",
     contactLede:
       "Tell us about your project. A designer will call you within 24 business hours to plan a free in-home visit and measurement.",
@@ -124,6 +127,7 @@ export const DESIGN: Record<
     blogTitle: "Ideas para tu hogar.",
     allArticles: "Todos los artículos",
     readMore: "Leer más",
+    readLess: "Ver menos",
     contactTitle: "¡Trabajemos juntos!",
     contactLede:
       "Cuéntanos sobre tu proyecto. Un diseñador te llamará en 24 horas hábiles para planear una visita y medición gratuitas a domicilio.",

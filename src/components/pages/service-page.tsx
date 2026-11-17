@@ -3,11 +3,12 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { SampleBadge } from "@/components/sections/blocks";
 import { DesignFaq } from "@/components/sections/design-faq";
+import { ReadMore } from "@/components/sections/read-more";
 import {
   GreenBento,
   GreenRows,
   GreenTips,
-  GreenTrack,
+  GreenStack,
   ScrollTabs,
   type BlockProps,
 } from "@/components/sections/green-blocks";
@@ -36,13 +37,13 @@ const INTRO_IMAGE = {
   bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
 };
 /** Design of each content section, in order: a different one for each (cycles if a page has more). */
-const DESIGNS = ["bento", "pinned", "scroll", "rows", "tips", "track"] as const;
+const DESIGNS = ["bento", "pinned", "scroll", "rows", "tips", "stack"] as const;
 const BLOCKS = {
   bento: GreenBento,
   scroll: ScrollTabs,
   rows: GreenRows,
   tips: GreenTips,
-  track: GreenTrack,
+  stack: GreenStack,
 } as const satisfies Record<string, (props: BlockProps) => ReactNode>;
 /** Photos used by the bento grid and the panels. */
 const GALLERY = {
@@ -112,20 +113,18 @@ const TILE: CSSProperties = {
 
 /**
  * A realized project: the before/after comparator on one side and the project's story on the other — title,
- * place, then each fact (presentation, needs, initial state, work, materials, methods, result) — the sides
+ * place, then four facts (needs, work, materials, result) — the sides
  * alternating from one project to the next.
  */
 function ProjectBlock({ project, lang, flip }: { project: Project; lang: Locale; flip: boolean }) {
   const t = project.text[lang];
   const labels = PROJECT_LABELS[lang];
   const c = COMMON[lang];
+  // Four facts are enough to tell the project; the full story stays in the content file.
   const facts: [string, string][] = [
-    [labels.context, t.context],
     [labels.needs, t.needs],
-    [labels.initial, t.initial],
     [labels.work, t.work],
     [labels.materials, t.materials],
-    [labels.methods, t.methods],
     [labels.result, t.result],
   ];
   return (
@@ -320,14 +319,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
             <h2 id="intro-title" {...ds(H2)}>
               {t.intro.title}
             </h2>
-            {t.intro.paragraphs.map((p) => (
-              <p
-                key={p}
-                {...ds({ margin: "0", maxWidth: "560px", fontSize: "16px", lineHeight: "1.6", color: "#22252A" })}
-              >
-                {p}
-              </p>
-            ))}
+            <ReadMore paragraphs={t.intro.paragraphs} labels={{ more: d.readMore, less: d.readLess }} />
             <ul
               {...ds({
                 margin: "0",
@@ -468,7 +460,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
       </section>
 
       {/* Content sections, each in its own design: green bento, pinned statements, scroll-driven list,
-          numbered rows, sticky tips and a step track — flat greens only. */}
+          numbered rows, sticky tips and stacking cards — flat greens only. */}
       {t.sections.map((sec, i) => {
         const items = sec.items.map((it) => ({ title: it.title, text: it.text }));
         const design = DESIGNS[i % DESIGNS.length];

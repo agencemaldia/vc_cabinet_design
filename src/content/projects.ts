@@ -29,7 +29,10 @@ export type Project = {
  * Realized projects (specification §3 and §4). The specification forbids inventing projects: each entry below
  * is a STRUCTURE to fill with a real project of the client — its photos (a before/after pair of the same
  * space, taken from the same angle), and the facts of the job. Replace the bracketed text, the photos, then set
- * `draft: false` and `demo: false`.
+ * `draft: false`.
+ *
+ * The four pairs below are AI-generated illustrations (same room before/after, generated for the layout): they
+ * stay marked "Sample content" (`draft: true`) and must be replaced by the client's real projects.
  */
 const tpl = (n: number): Record<Locale, ProjectText> => ({
   fr: {
@@ -72,36 +75,36 @@ export const PROJECTS: Project[] = [
     id: "kitchen-1",
     service: "kitchen",
     draft: true,
-    demo: true,
-    before: "/images/project-kitchen-1.webp",
-    after: "/images/project-kitchen-1.webp",
+    demo: false,
+    before: "/images/project-kitchen-1-before.webp",
+    after: "/images/project-kitchen-1-after.webp",
     text: tpl(1),
   },
   {
     id: "kitchen-2",
     service: "kitchen",
     draft: true,
-    demo: true,
-    before: "/images/project-kitchen-2.webp",
-    after: "/images/project-kitchen-2.webp",
+    demo: false,
+    before: "/images/project-kitchen-2-before.webp",
+    after: "/images/project-kitchen-2-after.webp",
     text: tpl(2),
   },
   {
     id: "bathroom-1",
     service: "bathroom",
     draft: true,
-    demo: true,
-    before: "/images/project-bathroom-1.webp",
-    after: "/images/project-bathroom-1.webp",
+    demo: false,
+    before: "/images/project-bathroom-1-before.webp",
+    after: "/images/project-bathroom-1-after.webp",
     text: tpl(1),
   },
   {
     id: "bathroom-2",
     service: "bathroom",
     draft: true,
-    demo: true,
-    before: "/images/project-bathroom-2.webp",
-    after: "/images/project-bathroom-2.webp",
+    demo: false,
+    before: "/images/project-bathroom-2-before.webp",
+    after: "/images/project-bathroom-2-after.webp",
     text: tpl(2),
   },
 ];

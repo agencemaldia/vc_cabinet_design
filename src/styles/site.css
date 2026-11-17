@@ -2518,7 +2518,7 @@ a:hover .vc-more::after {
   font-weight: 600;
   line-height: 0.85;
   letter-spacing: -0.04em;
-  color: rgba(188, 205, 195, 0.35);
+  color: #ffffff;
 }
 .vc-stack__step {
   display: block;

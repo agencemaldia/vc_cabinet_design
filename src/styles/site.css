@@ -2795,3 +2795,159 @@ a:hover .vc-more::after {
   object-fit: cover;
   border-radius: 6px;
 }
+
+/* ---------------------------------------------------------------- card rail (kitchen: work we do) */
+/* Light cards in a row sliding left ↔ right, starting at the content edge and running to the screen edge. */
+.vc-rail__track {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0 var(--rail-edge, var(--content-edge)) 4px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rail-edge, var(--content-edge));
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+}
+.vc-rail__track::-webkit-scrollbar {
+  display: none;
+}
+.vc-rail__track.is-drag {
+  scroll-snap-type: none;
+  cursor: grabbing;
+}
+.vc-rail__card {
+  flex: 0 0 clamp(268px, 22vw, 330px);
+  min-height: clamp(360px, 30vw, 420px);
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border-radius: 6px;
+  background: #eff0f2;
+  scroll-snap-align: start;
+  opacity: 0;
+  transition:
+    opacity 0.7s ease calc(var(--i, 0) * 90ms),
+    background-color 0.3s ease;
+}
+/* the content slides in, not the card itself: a moved card would shift the scroll snap points */
+.vc-rail__card > * {
+  translate: 40px 0;
+  transition: translate 0.9s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 90ms);
+}
+.vc-rail.is-in .vc-rail__card {
+  opacity: 1;
+}
+.vc-rail.is-in .vc-rail__card > * {
+  translate: 0 0;
+}
+.vc-rail__card:hover {
+  background: #e6e8eb;
+}
+.vc-rail__card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 6px;
+  pointer-events: none;
+}
+:root:not(#vc)[data-page][data-page][data-page] main .vc-rail__card h3 {
+  margin: 0;
+  max-width: 240px;
+  font-size: clamp(18px, 1.4vw, 21px) !important;
+  font-weight: 450;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #1d2b44;
+}
+.vc-rail__body {
+  flex: 1;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.vc-rail__dash {
+  width: 18px;
+  height: 1.5px;
+  background: #1d2b44;
+}
+.vc-rail__body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #3c4148;
+}
+.vc-rail__icon {
+  margin-top: auto !important;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-top: 6px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #125a50;
+}
+.vc-rail__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+.vc-rail__arrows {
+  display: flex;
+  gap: 6px;
+  margin-left: -13px; /* the first arrow's icon sits on the content edge */
+}
+.vc-rail__arrows button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #1d2b44;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.vc-rail__arrows button:hover:not(:disabled) {
+  background: #125a50;
+  color: #ffffff;
+}
+.vc-rail__arrows button:disabled {
+  color: #b4b8bf;
+  cursor: default;
+}
+.vc-rail__bar {
+  display: flex;
+  gap: 10px;
+}
+.vc-rail__bar span {
+  width: 36px;
+  height: 2px;
+  background: #d5d8de;
+  transition:
+    width 0.4s ease,
+    background-color 0.4s ease;
+}
+.vc-rail__bar span.is-on {
+  width: 64px;
+  background: #1d2b44;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vc-rail__card,
+  .vc-rail__card > * {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
+}

@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type RefObject } from "react";
+
+import { useT } from "@/lib/i18n/context";
 
 type Item = { title: string; text: string };
 export type BlockProps = { id: string; title: string; lead: string; items: Item[]; images: string[] };
@@ -72,6 +74,142 @@ export function GreenBento({ id, title, lead, items }: BlockProps) {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ 1b. Card rail */
+
+const RAIL_ICONS = [
+  "M4 7h16M4 12h16M4 17h10", // lines
+  "M5 5h6v6H5zM13 13h6v6h-6zM13 5h6v6h-6zM5 13h6v6H5z", // grid
+  "M12 3v18M3 12h18", // plus
+  "M4 18l6-6 4 4 6-8", // chart
+  "M6 4h12v16H6zM9 8h6M9 12h6M9 16h3", // sheet
+  "M12 4l8 4-8 4-8-4zM4 12l8 4 8-4M4 16l8 4 8-4", // layers
+];
+
+/**
+ * Light cards in a row that slides from left to right (drag, swipe, trackpad or the arrows): a photo on top,
+ * then the title, a short line, the text and a small icon. The row starts at
+ * the content edge and runs to the edge of the screen; a three-part bar shows where you are.
+ */
+export function CardRail({ id, title, lead, items, images }: BlockProps) {
+  const rail = useRef<HTMLUListElement>(null);
+  const [pos, setPos] = useState(0); // 0 → 1 along the row
+  const [ref, seen] = useInView<HTMLDivElement>();
+  const { t } = useT();
+
+  useEffect(() => {
+    const el = rail.current;
+    if (!el) return;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      setPos(max > 0 ? el.scrollLeft / max : 0);
+    };
+    // the first card lines up with the section title (the content column edge)
+    const align = () => {
+      const h2 = el.closest("section")?.querySelector("h2");
+      if (h2) el.style.setProperty("--rail-edge", `${h2.getBoundingClientRect().left}px`);
+      update();
+    };
+    align();
+    el.scrollLeft = 0; // start on the first card
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", align);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", align);
+    };
+  }, []);
+
+  // drag with the mouse (touch and trackpads scroll natively)
+  const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
+  const onDown = (e: PointerEvent) => {
+    if (e.pointerType !== "mouse" || !rail.current) return;
+    drag.current = { x: e.clientX, left: rail.current.scrollLeft, moved: false };
+    rail.current.classList.add("is-drag");
+  };
+  const onMove = (e: PointerEvent) => {
+    const d = drag.current;
+    if (!d || !rail.current) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 4) d.moved = true;
+    rail.current.scrollLeft = d.left - dx;
+  };
+  const onUp = () => {
+    drag.current = null;
+    rail.current?.classList.remove("is-drag");
+  };
+
+  const go = (dir: 1 | -1) => {
+    const el = rail.current;
+    const card = el?.firstElementChild as HTMLElement | null;
+    if (!el || !card) return;
+    el.scrollBy({ left: dir * (card.offsetWidth + 16), behavior: "smooth" });
+  };
+
+  const segments = 3;
+  const active = Math.min(segments - 1, Math.round(pos * (segments - 1)));
+  return (
+    <section className="sec vc-gb vc-railsec" id={id} aria-labelledby={`${id}-title`}>
+      <div className="wrap">
+        <Head id={id} title={title} lead={lead} />
+      </div>
+      <div ref={ref} className={`vc-rail${seen ? " is-in" : ""}`}>
+        <ul
+          ref={rail}
+          className="vc-rail__track"
+          onPointerDown={onDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerLeave={onUp}
+        >
+          {items.map((it, i) => (
+            <li key={it.title} className="vc-rail__card" style={{ "--i": i } as CSSProperties}>
+              <img src={images[i % images.length]} alt="" loading="lazy" decoding="async" draggable={false} />
+              <div className="vc-rail__body">
+                <h3>{it.title}</h3>
+                <span className="vc-rail__dash" aria-hidden="true" />
+                <p>{it.text}</p>
+                <span className="vc-rail__icon" aria-hidden="true">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d={RAIL_ICONS[i % RAIL_ICONS.length]} />
+                  </svg>
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="vc-rail__nav wrap">
+          <div className="vc-rail__arrows">
+            <button type="button" onClick={() => go(-1)} disabled={pos <= 0.001} aria-label={t("Previous")}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M19 12H5M11 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <button type="button" onClick={() => go(1)} disabled={pos >= 0.999} aria-label={t("Next")}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+          <div className="vc-rail__bar" aria-hidden="true">
+            {Array.from({ length: segments }, (_, s) => (
+              <span key={s} className={s === active ? "is-on" : undefined} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

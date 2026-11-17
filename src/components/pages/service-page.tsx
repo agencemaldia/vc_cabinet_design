@@ -6,6 +6,7 @@ import { DesignFaq } from "@/components/sections/design-faq";
 import { ProjectFacts } from "@/components/sections/project-facts";
 import { ReadMore } from "@/components/sections/read-more";
 import {
+  CardRail,
   GreenBento,
   GreenRows,
   GreenTips,
@@ -39,12 +40,13 @@ const INTRO_IMAGE = {
 };
 /** Design of each content section, in order: a different one for each (cycles if a page has more). */
 const DESIGNS = {
-  kitchen: ["bento", "pinned", "scroll", "rows", "tips", "stack"],
+  kitchen: ["rail", "pinned", "scroll", "rows", "tips", "stack"],
   // the bathroom page has its own look: the same building blocks in another order
   bathroom: ["scroll", "stack", "bento", "tips", "pinned", "rows"],
 } as const;
 const BLOCKS = {
   bento: GreenBento,
+  rail: CardRail,
   scroll: ScrollTabs,
   rows: GreenRows,
   tips: GreenTips,

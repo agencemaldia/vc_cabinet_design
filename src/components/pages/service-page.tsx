@@ -42,7 +42,7 @@ const INTRO_IMAGE = {
 const DESIGNS = {
   kitchen: ["rail", "pinned", "scroll", "rows", "tips", "stack"],
   // the bathroom page has its own look: the same building blocks in another order
-  bathroom: ["scroll", "stack", "bento", "tips", "pinned", "rows"],
+  bathroom: ["scroll", "stack", "rail", "tips", "pinned", "rows"],
 } as const;
 const BLOCKS = {
   bento: GreenBento,
@@ -67,6 +67,8 @@ const GALLERY = {
     "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
     "/images/bathroom-freestanding-tub.webp?v=2",
     "/images/bathroom-freestanding-bathtub-white-wall.webp",
+    "/images/project-bathroom-1-after.webp",
+    "/images/project-bathroom-2-after.webp",
   ],
 };
 const TILE_IMAGE = {

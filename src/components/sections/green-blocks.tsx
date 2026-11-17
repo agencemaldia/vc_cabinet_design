@@ -249,14 +249,50 @@ function Tip({ item, i }: { item: Item; i: number }) {
 
 /**
  * The steps as large cards that stay pinned at the top while the next one slides up over them (each a little
- * lower than the previous), so the process piles up as the visitor scrolls. Big number, title and text.
+ * lower than the previous). As the next card covers it, a card shrinks and fades away, so the steps follow one
+ * another 01 → 02 → 03. Big number, title and text. No movement for those who ask for reduced motion.
  */
 export function GreenStack({ id, title, lead, items }: BlockProps) {
+  const list = useRef<HTMLOListElement>(null);
+
+  useEffect(() => {
+    const ol = list.current;
+    if (!ol || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cards = Array.from(ol.children) as HTMLElement[];
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+        let p = 0;
+        if (next) {
+          const a = card.getBoundingClientRect();
+          const b = next.getBoundingClientRect();
+          // 0 when the next card starts to overlap this one, 1 when it has reached its own pinned place
+          // (the next card stops a little lower, so it never covers the very top: count 90 % as fully covered)
+          p = Math.min(1, Math.max(0, (a.bottom - b.top) / (a.height * 0.9)));
+        }
+        card.style.setProperty("--cover", p.toFixed(3));
+      });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [items.length]);
+
   return (
     <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
       <div className="wrap">
         <Head id={id} title={title} lead={lead} />
-        <ol className="vc-stack">
+        <ol ref={list} className="vc-stack">
           {items.map((it, i) => (
             <li key={it.title} className={i % 2 === 1 ? "is-deep" : undefined} style={{ "--i": i } as CSSProperties}>
               <span className="vc-stack__n" aria-hidden="true">

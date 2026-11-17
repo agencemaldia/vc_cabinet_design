@@ -2510,6 +2510,13 @@ a:hover .vc-more::after {
   color: #ffffff;
   box-shadow: 0 -18px 40px -24px rgba(8, 30, 26, 0.55);
 }
+/* Covered by the next card: shrink and fade away (--cover goes 0 → 1 while it slides over). */
+.vc-stack li {
+  transform-origin: 50% 0;
+  scale: calc(1 - var(--cover, 0) * 0.12);
+  opacity: calc(1 - var(--cover, 0));
+  will-change: scale, opacity;
+}
 .vc-stack li.is-deep {
   background: #0e4a42;
 }

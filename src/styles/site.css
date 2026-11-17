@@ -2704,14 +2704,14 @@ a:hover .vc-more::after {
   color: #125a50 !important;
   -webkit-text-stroke: 0 !important;
 }
-/* Method (pinned statements): the point titles larger. */
+/* Method (pinned statements): point titles and texts at the size of the process cards. */
 :root:not(#vc)[data-page][data-page][data-page][data-page] main .vc-pin__item h3 {
-  font-size: clamp(32px, 4.2vw, 64px) !important;
-  line-height: 1.05 !important;
+  font-size: clamp(26px, 2.8vw, 42px) !important;
+  line-height: 1.1 !important;
   max-width: 900px;
 }
 :root:not(#vc)[data-page][data-page][data-page][data-page] main .vc-pin__item p {
-  font-size: clamp(16px, 1.3vw, 19px) !important;
+  font-size: clamp(15px, 1.2vw, 18px) !important;
   max-width: 640px;
 }
 /* Scroll-driven list: photos change with a slow cross-fade and a gentle zoom. */

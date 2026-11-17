@@ -2751,3 +2751,32 @@ a:hover .vc-more::after {
 .vc-readmore[aria-expanded="true"] svg {
   rotate: 180deg;
 }
+
+/* ---------------------------------------------------------------- bathroom page: its own look */
+/* Split hero: the text on a deep-green panel on the left, the photo on the right. */
+@media (min-width: 901px) {
+  :root:not(#vc)[data-page="bathroom"] main section.vc-split {
+    justify-content: flex-start !important;
+  }
+  :root:not(#vc)[data-page="bathroom"] main section.vc-split > img {
+    left: 50% !important;
+    width: 50% !important;
+  }
+  :root:not(#vc)[data-page="bathroom"] main section.vc-split > div[aria-hidden="true"] {
+    right: 50% !important;
+    background: #0e4a42 !important;
+  }
+  :root:not(#vc)[data-page][data-page="bathroom"][data-page][data-page] main section.vc-split > .wrap {
+    width: 50% !important;
+    margin: 0 !important;
+    padding-right: clamp(32px, 4vw, 72px) !important;
+  }
+}
+/* Introduction mirrored: photo on the left, text on the right. */
+:root[data-page="bathroom"] main .vc-intro-row {
+  flex-direction: row-reverse;
+}
+/* Alternating soft bands behind the content sections. */
+:root:not(#vc)[data-page="bathroom"][data-page][data-page] main section.vc-gb:nth-of-type(even) {
+  background: #f1f5f3 !important;
+}

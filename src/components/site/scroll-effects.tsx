@@ -55,8 +55,10 @@ export function ScrollEffects({ page }: { page: string }) {
       { rootMargin: "0px 0px -8% 0px" },
     );
     cleanups.push(() => io.disconnect());
-    // the page hero: the first section of the page (dark photo heroes and light title heroes alike)
-    const hero = root.querySelector<HTMLElement>("section");
+    // the page hero: the first section of the page (dark photo heroes and light title heroes alike) — on an
+    // article page, the article's own header, which comes before any section (otherwise "Similar posts", the
+    // first <section> there, would be taken for the hero and fade out as the visitor scrolls down to it)
+    const hero = root.querySelector<HTMLElement>("section, article > header");
     const titles = [...root.querySelectorAll<HTMLElement>("section h2")].filter(
       (el) => free(el) && !hero?.contains(el) && below(el),
     );

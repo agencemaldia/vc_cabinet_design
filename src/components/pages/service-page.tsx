@@ -37,7 +37,11 @@ const INTRO_IMAGE = {
   bathroom: "/images/bathroom-renovation-wood-vanity-glass-shower.webp?v=2",
 };
 /** Design of each content section, in order: a different one for each (cycles if a page has more). */
-const DESIGNS = ["bento", "pinned", "scroll", "rows", "tips", "stack"] as const;
+const DESIGNS = {
+  kitchen: ["bento", "pinned", "scroll", "rows", "tips", "stack"],
+  // the bathroom page has its own look: the same building blocks in another order
+  bathroom: ["scroll", "stack", "bento", "tips", "pinned", "rows"],
+} as const;
 const BLOCKS = {
   bento: GreenBento,
   scroll: ScrollTabs,
@@ -192,7 +196,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
           <SiteHeader variant="overlay" current={service} />
           <section
             data-hero="dark"
-            className="ph"
+            className={`ph${service === "bathroom" ? " vc-split" : ""}`}
             aria-labelledby="hero-title"
             {...ds({
               position: "relative",
@@ -312,7 +316,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
       {/* Introduction */}
       <section className="sec" aria-labelledby="intro-title">
         <div
-          className="wrap"
+          className="wrap vc-intro-row"
           {...ds({ display: "flex", flexWrap: "wrap", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" })}
         >
           <div {...ds({ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "20px" })}>
@@ -463,7 +467,8 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
           numbered rows, sticky tips and stacking cards — flat greens only. */}
       {t.sections.map((sec, i) => {
         const items = sec.items.map((it) => ({ title: it.title, text: it.text }));
-        const design = DESIGNS[i % DESIGNS.length];
+        const order = DESIGNS[service];
+        const design = order[i % order.length]!;
         if (design === "pinned")
           return <PinnedStatements key={sec.id} id={sec.id} title={sec.title} lead={sec.intro} items={items} />;
         const Block = BLOCKS[design];

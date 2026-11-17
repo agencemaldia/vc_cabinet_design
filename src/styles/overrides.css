@@ -79,10 +79,6 @@
 }
 
 /* 7. "Enjoy your home to its fullest": sit the intro block against the right edge. */
-:root[data-page] .cg-head > .cg-intro,
-:root[data-page] .cg-head > div:has(> .cg-intro) {
-  justify-self: end;
-}
 
 /* 8. Forms: labels flush with the left edge of their fields. */
 :root[data-page] form label:not(:has(input)),
@@ -179,74 +175,10 @@
   padding-bottom: 22px;
   border-bottom: 1px solid #e3e5e9;
 }
-.vc-partners__label {
-  flex-shrink: 0;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #1d2b44;
-}
-.vc-partners__viewport {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.vc-partners__track {
-  display: flex;
-  width: max-content;
-  animation: vc-partners 40s linear infinite;
-}
-.vc-partners:hover .vc-partners__track {
-  animation-play-state: paused;
-}
-.vc-partners__track ul {
-  display: flex;
-  align-items: center;
-  gap: clamp(40px, 5vw, 80px);
-  margin: 0;
-  padding: 0 clamp(20px, 2.5vw, 40px);
-  list-style: none;
-}
-.vc-partners__item {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  white-space: nowrap;
-}
-.vc-partners__name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #8e95a1;
-}
-.vc-partners__logo {
-  display: block;
-  height: 32px;
-  width: auto;
-  filter: grayscale(1);
-  opacity: 0.7;
-  transition:
-    filter 0.3s,
-    opacity 0.3s;
-}
-.vc-partners__item:hover .vc-partners__logo {
-  filter: none;
-  opacity: 1;
-}
+
 @keyframes vc-partners {
   to {
     transform: translateX(-50%);
-  }
-}
-@media (max-width: 640px) {
-  .vc-partners__label {
-    display: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .vc-partners__track {
-    animation: none;
   }
 }
 
@@ -270,7 +202,7 @@
   border-color: #125a50 !important;
   box-shadow: 0 0 0 3px rgba(18, 90, 80, 0.14) !important;
 }
-:root[data-page] form.tried :is(input, textarea):invalid,
+
 :root[data-page] form :is(input, textarea):user-invalid {
   border-color: #a23b2c !important;
 }
@@ -335,17 +267,6 @@
 
 /* 18. Services dropdown: a little space below the nav bar. The invisible bridge keeps the menu open
    while the pointer crosses the gap (it opens on :hover). */
-:root[data-page] .dd-menu {
-  top: 52px !important;
-}
-:root[data-page] .dd-menu::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -16px;
-  height: 16px;
-}
 
 /* 19. Light hero sections (Gallery, Contact…): same space below the hero's content as above its title
    (header → title = the section's top padding). The design stacked the hero's bottom padding and the
@@ -620,9 +541,6 @@ body > div > [role="dialog"][data-al="Menu"] {
 }
 
 /* 27. Home "Every single day": no logo above the intro text. */
-:root[data-page] .cg-intro > .cg-mark {
-  display: none !important;
-}
 
 /* 28. "Let's work together": the text paragraphs wrap at the same width as the contact-details list
    (460px) instead of running past it. */
@@ -714,13 +632,7 @@ body > div > [role="dialog"][data-al="Menu"] {
   background: #125a50 !important;
   color: #ffffff !important;
 }
-.vc-blog-empty {
-  flex: 1 1 100%;
-  margin: 0;
-  padding: 48px 0;
-  font-size: 16px;
-  color: #5e636b;
-}
+
 :root[data-page="blog"] main > section:nth-of-type(2) {
   padding-bottom: clamp(36px, 4vw, 64px) !important;
 }
@@ -898,29 +810,6 @@ body > div > [role="dialog"][data-al="Menu"] {
   mask: var(--vc-arrow) center / contain no-repeat;
   translate: 0 -1px; /* puts the arrow's foot on the text baseline */
 }
-:root[data-page][data-page] .dd-menu a {
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-:root[data-page][data-page] .dd-menu a::after {
-  content: "";
-  flex: none;
-  width: 13px;
-  height: 13px;
-  background: currentColor;
-  -webkit-mask: var(--vc-arrow) center / contain no-repeat;
-  mask: var(--vc-arrow) center / contain no-repeat;
-  opacity: 0.45;
-  transition:
-    opacity 0.25s ease,
-    translate 0.25s ease;
-}
-:root[data-page][data-page] .dd-menu a:is(:hover, :focus-visible)::after {
-  opacity: 1;
-  translate: 2px -2px;
-}
 
 /* 34. Photo heroes on Mission, Services and the three service pages (the design left them as flat colour
    blocks). The design's own gradient layer stays on top of the photo, so the white text keeps its contrast. */
@@ -930,19 +819,19 @@ body > div > [role="dialog"][data-al="Menu"] {
   background-repeat: no-repeat !important;
 }
 :root[data-page="mission"] header + section[data-hero="dark"] {
-  background-image: url(/images/kitchen-18.webp) !important;
+  background-image: none !important;
 }
 :root[data-page="services"] header + section[data-hero="dark"] {
-  background-image: url(/images/kitchen-06.webp) !important;
+  background-image: none !important;
 }
 :root[data-page="kitchen"] header + section[data-hero="dark"] {
-  background-image: url(/images/kitchen-10.webp) !important;
+  background-image: none !important;
 }
 :root[data-page="bathroom"] header + section[data-hero="dark"] {
-  background-image: url(/images/hero-02.webp) !important;
+  background-image: none !important;
 }
 :root[data-page="walkin"] header + section[data-hero="dark"] {
-  background-image: url(/images/hero-03.webp) !important;
+  background-image: none !important;
 }
 
 /* 37. Breathing room under the Contact and Blog heroes, matched to the Gallery (the reference): there, the

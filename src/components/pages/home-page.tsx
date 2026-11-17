@@ -17,10 +17,18 @@ import { HOME } from "@/content/home";
 import { REVIEWS } from "@/content/reviews";
 import { localeHtmlLang, type Locale } from "@/lib/i18n/config";
 import { pagePath } from "@/lib/i18n/routes";
+import { responsive } from "@/lib/images";
 import { site } from "@/lib/site";
 
-/** Hero video files, in order of preference; only those present in /public are offered to the browser. */
+/**
+ * Hero video files, in order of preference; only those present in /public are offered to the browser. Phones held
+ * upright only ever see the middle of the frame (the video covers a tall hero), so they get a portrait crop of it:
+ * same sharpness, a third of the weight.
+ */
+const PHONE = "(max-width: 767px) and (orientation: portrait)";
 const VIDEO_FILES = [
+  { src: "/videos/hero-portrait.webm", type: "video/webm", media: PHONE },
+  { src: "/videos/hero-portrait.mp4", type: "video/mp4", media: PHONE },
   { src: "/videos/hero.webm", type: "video/webm" },
   { src: "/videos/hero.mp4", type: "video/mp4" },
 ];
@@ -308,6 +316,7 @@ export function HomePage({ lang }: { lang: Locale }) {
                 <img
                   className="ph tile-img"
                   src={SERVICE_IMAGES[s.key]}
+                  {...responsive(SERVICE_IMAGES[s.key], "(max-width: 860px) 100vw, 50vw")}
                   alt={s.copy.alt}
                   loading="lazy"
                   decoding="async"
@@ -498,6 +507,7 @@ export function HomePage({ lang }: { lang: Locale }) {
                   <img
                     className="ph tile-img"
                     src={p.cover}
+                    {...responsive(p.cover, "(max-width: 700px) 100vw, 33vw")}
                     alt={p.coverAlt}
                     // the design styles the article cards through this attribute (src/styles/overrides.css)
                     data-al={`Article cover: ${p.title}`}

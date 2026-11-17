@@ -153,12 +153,16 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
                 className="hx-logo-t"
                 src={logo.wordmark}
                 alt="V&C Cabinet Design"
+                width={1017}
+                height={261}
                 style={{ display: "block", height: "34px", width: "auto" }}
               />
               <img
                 className="hx-sym"
                 src={logo.symbol}
                 alt="V&C Cabinet Design"
+                width={432}
+                height={432}
                 style={{ height: "30px", width: "30px" }}
               />
             </Link>
@@ -257,6 +261,8 @@ export function SiteHeader({ variant = "solid", current, logoTone = "gold" }: Si
                   <img
                     src={logo.menu}
                     alt="V&C Cabinet Design"
+                    width={1017}
+                    height={261}
                     style={{ display: "block", height: "48px", width: "auto" }}
                   />
                   <button

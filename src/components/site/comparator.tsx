@@ -2,6 +2,8 @@
 
 import { useCallback, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 
+import { responsive } from "@/lib/images";
+
 type ComparatorProps = {
   before: string;
   after: string;
@@ -88,6 +90,7 @@ export function Comparator({
       <img
         className={`vc-cmp__img${demo ? " is-demo-before" : ""}`}
         src={before}
+        {...responsive(before, "(max-width: 960px) 100vw, 55vw")}
         alt={beforeAlt}
         loading="lazy"
         decoding="async"
@@ -96,6 +99,7 @@ export function Comparator({
       <img
         className="vc-cmp__img vc-cmp__after"
         src={after}
+        {...responsive(after, "(max-width: 960px) 100vw, 55vw")}
         alt={afterAlt}
         loading="lazy"
         decoding="async"

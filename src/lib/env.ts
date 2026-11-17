@@ -36,5 +36,3 @@ export const env = {
     email("QUOTE_FROM_EMAIL", process.env.QUOTE_FROM_EMAIL) ?? "V&C Cabinet Design <onboarding@resend.dev>",
 } as const;
 
-/** Whether a submission can actually be delivered with the current configuration. */
-export const canSendQuotes = env.RESEND_API_KEY !== undefined && env.QUOTE_NOTIFICATION_EMAIL !== undefined;

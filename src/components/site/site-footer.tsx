@@ -41,6 +41,8 @@ export function SiteFooter({ logoTone = "gold" }: SiteFooterProps) {
             <img
               src={logoTone === "sage" ? "/images/logo-sage-on-dark.png" : "/images/logo-gold-on-dark.png"}
               alt="V&C Cabinet Design"
+              width={1017}
+              height={261}
               style={{ display: "block", height: "48px", width: "auto" }}
             />
             <p

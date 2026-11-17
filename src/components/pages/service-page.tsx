@@ -7,7 +7,6 @@ import { ProjectFacts } from "@/components/sections/project-facts";
 import { ReadMore } from "@/components/sections/read-more";
 import {
   CardRail,
-  GreenBento,
   GreenRows,
   GreenTips,
   GreenStack,
@@ -28,6 +27,7 @@ import { PROJECTS, PROJECT_LABELS, type Project } from "@/content/projects";
 import type { Locale } from "@/lib/i18n/config";
 import { pagePath } from "@/lib/i18n/routes";
 import { site } from "@/lib/site";
+import { responsive } from "@/lib/images";
 
 const COPY = { kitchen: KITCHEN, bathroom: BATHROOM };
 const HERO_IMAGE = {
@@ -45,14 +45,13 @@ const DESIGNS = {
   bathroom: ["scroll", "stack", "rail", "tips", "pinned", "rows"],
 } as const;
 const BLOCKS = {
-  bento: GreenBento,
   rail: CardRail,
   scroll: ScrollTabs,
   rows: GreenRows,
   tips: GreenTips,
   stack: GreenStack,
 } as const satisfies Record<string, (props: BlockProps) => ReactNode>;
-/** Photos used by the bento grid and the panels. */
+/** Photos used by the card rail and the scroll-driven list. */
 const GALLERY = {
   kitchen: [
     "/images/kitchen-renovation-island-pendants.webp?v=2",
@@ -214,6 +213,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
           >
             <img
               src={HERO_IMAGE[service]}
+              {...responsive(HERO_IMAGE[service], "100vw")}
               alt={t.hero.alt}
               fetchPriority="high"
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
@@ -423,6 +423,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
           <img
             className="ph"
             src={INTRO_IMAGE[service]}
+            {...responsive(INTRO_IMAGE[service], "(max-width: 860px) 100vw, 45vw")}
             alt={t.hero.alt}
             loading="lazy"
             decoding="async"
@@ -467,7 +468,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
         </nav>
       </section>
 
-      {/* Content sections, each in its own design: green bento, pinned statements, scroll-driven list,
+      {/* Content sections, each in its own design: card rail, pinned statements, scroll-driven list,
           numbered rows, sticky tips and stacking cards — flat greens only. */}
       {t.sections.map((sec, i) => {
         const items = sec.items.map((it) => ({ title: it.title, text: it.text }));
@@ -540,6 +541,7 @@ export function ServicePage({ lang, service }: { lang: Locale; service: "kitchen
                 <img
                   className="ph tile-img"
                   src={img}
+                  {...responsive(img, "(max-width: 860px) 100vw, 50vw")}
                   alt=""
                   loading="lazy"
                   decoding="async"

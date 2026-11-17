@@ -11,6 +11,7 @@ import { DESIGN } from "@/content/design";
 import { localeHtmlLang, localizePath, type Locale } from "@/lib/i18n/config";
 import { pagePath } from "@/lib/i18n/routes";
 import { site } from "@/lib/site";
+import { responsive } from "@/lib/images";
 
 const ARTICLE: Record<
   Locale,
@@ -170,6 +171,7 @@ export function BlogIndexPage({ lang }: { lang: Locale }) {
                 <img
                   className="ph"
                   src={featured.cover}
+                  {...responsive(featured.cover, "(max-width: 860px) 100vw, 60vw")}
                   alt={featured.coverAlt}
                   fetchPriority="high"
                   {...ds({
@@ -299,7 +301,15 @@ function Body({
   const photoAt = photo ? (h2Indexes[1] ?? -1) : -1;
   const figure = photo && (
     <figure key="photo" className="vc-article-photo">
-      <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" width={1920} height={1280} />
+      <img
+        src={photo.src}
+        {...responsive(photo.src, "(max-width: 800px) 100vw, 760px")}
+        alt={photo.alt}
+        loading="lazy"
+        decoding="async"
+        width={1920}
+        height={1280}
+      />
     </figure>
   );
   return (
@@ -575,6 +585,7 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
             <img
               className="ph"
               src={post.cover}
+              {...responsive(post.cover, "(max-width: 1440px) 100vw, 1440px")}
               alt={post.coverAlt}
               fetchPriority="high"
               {...ds({
@@ -731,6 +742,7 @@ export function ArticlePage({ lang, post }: { lang: Locale; post: Post }) {
                   <img
                     className="ph"
                     src={p.cover}
+                    {...responsive(p.cover, "(max-width: 700px) 100vw, 33vw")}
                     alt={p.coverAlt}
                     loading="lazy"
                     decoding="async"

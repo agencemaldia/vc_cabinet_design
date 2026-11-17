@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type RefObject } from "react";
 
 import { useT } from "@/lib/i18n/context";
+import { responsive } from "@/lib/images";
 
 type Item = { title: string; text: string };
 export type BlockProps = { id: string; title: string; lead: string; items: Item[]; images: string[] };
@@ -41,45 +42,7 @@ function Head({ id, title, lead, light }: { id: string; title: string; lead: str
   );
 }
 
-/* ------------------------------------------------------------------ 1. Bento */
-
-/**
- * Green cards of varied widths on a 4-column grid, three per row — one wide card that switches sides from row to
- * row — so every row is a clean line. Cards rise in one after the other when the grid enters the screen.
- */
-export function GreenBento({ id, title, lead, items }: BlockProps) {
-  const [ref, seen] = useInView<HTMLUListElement>();
-  const spans: number[] = [];
-  for (let start = 0; start < items.length; start += 3) {
-    const left = items.length - start;
-    const row = start / 3;
-    if (left === 1) spans.push(4);
-    else if (left === 2) spans.push(2, 2);
-    else spans.push(...(row % 2 === 0 ? [2, 1, 1] : [1, 1, 2]));
-  }
-  return (
-    <section className="sec vc-gb" id={id} aria-labelledby={`${id}-title`}>
-      <div className="wrap">
-        <Head id={id} title={title} lead={lead} />
-        <ul ref={ref} className={`vc-bento${seen ? " is-in" : ""}`}>
-          {items.map((it, i) => (
-            <li
-              key={it.title}
-              className={`vc-bento__card${spans[i]! >= 2 ? " is-wide" : ""}${i % 3 === 1 ? " is-deep" : ""}`}
-              style={{ gridColumn: `span ${spans[i]}`, "--i": i } as CSSProperties}
-            >
-              <span className="vc-bento__n">{num(i)}</span>
-              <h3>{it.title}</h3>
-              <p>{it.text}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ 1b. Card rail */
+/* ------------------------------------------------------------------ 1. Card rail */
 
 const RAIL_ICONS = [
   "M4 7h16M4 12h16M4 17h10", // lines
@@ -243,7 +206,14 @@ export function CardRail({ id, title, lead, items, images }: BlockProps) {
                 aria-hidden={copy === 1 ? undefined : true}
                 style={{ "--i": i } as CSSProperties}
               >
-                <img src={images[i % images.length]} alt="" loading="lazy" decoding="async" draggable={false} />
+                <img
+                  src={images[i % images.length]}
+                  {...responsive(images[i % images.length], "(max-width: 700px) 80vw, 330px")}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                />
                 <div className="vc-rail__body">
                   <h3>{it.title}</h3>
                   <span className="vc-rail__dash" aria-hidden="true" />
@@ -388,6 +358,7 @@ export function ScrollTabs({ id, title, lead, items, images }: BlockProps) {
                 <img
                   key={x.title}
                   src={images[i % images.length]}
+                  {...responsive(images[i % images.length], "(max-width: 860px) 100vw, 50vw")}
                   alt=""
                   loading="lazy"
                   decoding="async"

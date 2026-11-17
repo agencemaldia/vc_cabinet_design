@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, type CSSProperties } from "react";
+import { preload } from "react-dom";
 
 import { SiteHeader } from "@/components/site/site-header";
 import { ds } from "@/components/site/sx";
 
 type HomeHeroProps = {
-  sources: { src: string; type: string }[];
+  sources: { src: string; type: string; media?: string }[];
   poster: string;
   copy: {
     aria: string;
@@ -42,6 +43,8 @@ const BTN: CSSProperties = {
  * autoplay, muted, looped, inline on phones, poster while it loads (paused for visitors who ask for reduced motion).
  */
 export function HomeHero({ sources, poster, copy }: HomeHeroProps) {
+  // the poster is the first thing seen (the largest paint): fetch it right away, before the video
+  preload(poster, { as: "image", fetchPriority: "high" });
   const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -80,7 +83,7 @@ export function HomeHero({ sources, poster, copy }: HomeHeroProps) {
               aria-hidden="true"
             >
               {sources.map((s) => (
-                <source key={s.src} src={s.src} type={s.type} />
+                <source key={s.src} src={s.src} type={s.type} media={s.media} />
               ))}
             </video>
           ) : (

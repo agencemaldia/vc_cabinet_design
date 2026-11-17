@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 
 import { ds } from "@/components/site/sx";
+import { responsive } from "@/lib/images";
 
 type Card = {
   slug: string;
@@ -98,6 +99,7 @@ export function BlogBrowser({ posts, featured, categories, labels, cta }: BlogBr
             <img
               className="ph"
               src={p.cover}
+              {...responsive(p.cover, "(max-width: 700px) 100vw, 33vw")}
               alt={p.coverAlt}
               loading="lazy"
               decoding="async"

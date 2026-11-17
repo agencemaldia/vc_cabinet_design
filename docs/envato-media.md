@@ -22,8 +22,9 @@ recherche (en anglais, c'est la langue d'Envato) et **le nom de fichier exact** 
 1. Télécharger le média dans la meilleure résolution proposée.
 2. Le renommer exactement comme indiqué (minuscules, tirets, sans accents).
 3. **Photos :** les déposer en `.jpg` dans `public/images/`, puis lancer
-   `node scripts/optimize-images.mjs`. Le script les convertit en WebP (1920 px, qualité 72) et
-   remplace les fichiers provisoires du même nom.
+   `node scripts/optimize-images.mjs`. Le script les convertit en WebP (1920 px, qualité 72),
+   remplace les fichiers provisoires du même nom et crée les copies 640 et 1280 px que le site
+   sert aux téléphones et aux petites cartes (à committer avec la photo).
 4. **Vidéo :** la déposer dans `public/videos/` (créer le dossier). La page d'accueil la détecte
    d'elle-même : sans vidéo, la photo de remplacement (poster) s'affiche.
 
@@ -39,6 +40,7 @@ Tons neutres (blanc, bois clair, gris, vert sauge) qui vont avec le vert de la m
 | --- | --- | --- |
 | `public/videos/hero.mp4` | Accueil, plein écran derrière le titre | H.264, 1920×1080, 10 à 20 s, **sans son**, boucle propre, **moins de 8 Mo** |
 | `public/videos/hero.webm` *(facultatif)* | Même vidéo, format plus léger | VP9, 1920×1080, moins de 6 Mo |
+| `public/videos/hero-portrait.webm` / `.mp4` | Téléphones tenus à la verticale | Recadrage central 608×1080 de la même vidéo (`ffmpeg -vf "crop=608:1080:(in_w-608)/2:0"`), environ un tiers du poids |
 
 **À montrer :** une cuisine et/ou une salle de bain haut de gamme, des mouvements de caméra lents
 (travelling, glissement le long d'un îlot, lumière qui entre par la fenêtre). L'image doit rester
